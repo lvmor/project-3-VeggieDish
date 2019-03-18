@@ -29,3 +29,5 @@ def initialize():
     DATABASE.connect()
     DATABASE.create_tables([User, Recipe], safe=True)
     DATABASE.close()
+
+    
