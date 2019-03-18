@@ -1,6 +1,4 @@
-pip3 install flask flask_cors flask-marshmallow flask-sqlalchemy marshmallow-sqlalchemy flask-login flask-bcrypt peewee flask-wtf
-
-appnope
+pip3 install flask flask_cors flask-marshmallow flask-sqlalchemy marshmallow-sqlalchemy flask-login flask-bcrypt peewee flask-wtf appnope
 astroid
 autopep8
 backcall
@@ -29,7 +27,6 @@ lazy-object-proxy
 MarkupSafe
 mccabe
 parso
-peewee
 pexpect
 pickleshare
 Pillow
