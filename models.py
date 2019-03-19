@@ -6,6 +6,7 @@ DATABASE = SqliteDatabase('veggiedish.db')
 
 class User(Model):
     full_name = CharField()
+    avatar = CharField()
     email = CharField()
     password = CharField()
     date_joined = DateTimeField(default=datetime.datetime.now)
