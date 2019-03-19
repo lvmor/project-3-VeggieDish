@@ -19,7 +19,7 @@ def index():
 @app.route('/recipes/<recipe_id>')
 def recipes(recipe_id = None):
     with open('recipes.json') as json_data:
-        recipes_data = json.load(json_data):
+        recipes_data = json.load(json_data)
         if recipe_id == None:
             return render_template('recipes.html', recipes_template = recipes_data)
         else:
