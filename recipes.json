@@ -1,27 +1,29 @@
-
-[{
-    "name": "Black Bean Enchiladas",
-    "image": "Wow this sub is so cool!",
-    "description": "beeeeans",
-    "ingredients": "beans, tortillas, etc.",
-    "instructions": "assemble it. bake it. eat it. bon appetit!",
-    "average_rating": "5",
-    "id": 1
-}, {
-    "name": "Eggplant Parmesan",
-    "image": "I dig it.",
-    "description": "110% amazing.",
-    "ingredients": "eggplant, parmesan",
-    "instructions": "assemble it. bake it. eat it. bon appetit!",
-    "average_rating": "4",
-    "id": 2
-},
-{
-    "name": "Falafels",
-    "image": "I dig it.",
-    "description": "for all gyro needs",
-    "ingredients": "chickpeas. oil to fry. can also dip in chickpea sauce (hummus).",
-    "instructions": "assemble it. bake it. eat it. bon appetit!",
-    "average_rating": "4.5",
-    "id": 3
-}]
+[
+    {
+        "name": "Black Bean Enchiladas",
+        "image": "Wow this sub is so cool!",
+        "description": "beeeeans",
+        "ingredients": "beans, tortillas, etc.",
+        "instructions": "assemble it. bake it. eat it. bon appetit!",
+        "average_rating": "5",
+        "id": 0
+    },
+    {
+        "name": "Eggplant Parmesan",
+        "image": "I dig it.",
+        "description": "110% amazing.",
+        "ingredients": "eggplant, parmesan",
+        "instructions": "assemble it. bake it. eat it. bon appetit!",
+        "average_rating": "4",
+        "id": 1
+    },
+    {
+        "name": "Falafels",
+        "image": "I dig it.",
+        "description": "for all gyro needs",
+        "ingredients": "chickpeas. oil to fry. can also dip in chickpea sauce (hummus).",
+        "instructions": "assemble it. bake it. eat it. bon appetit!",
+        "average_rating": "4.5",
+        "id": 2
+    }
+]
