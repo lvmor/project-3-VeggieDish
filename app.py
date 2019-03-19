@@ -19,12 +19,12 @@ def index():
 @app.route('/recipes/<recipe_id>')
 def recipes(recipe_id = None):
     with open('recipes.json') as json_data:
-        recipes_data = json.load(json_data):
+        recipes_data = json.load(json_data)
         if recipe_id == None:
             return render_template('recipes.html', recipes_template = recipes_data)
         else:
             recipe_ID = int(recipe_id)
-            return render_template('recipe.html', recipe_template = recipes_data[recipe_ID])
+            return render_template('recipe.html', recipe = recipes_data[recipe_ID])
 
 if __name__ == '__main__':
     app.run(debug=DEBUG, port=PORT)
