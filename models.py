@@ -12,7 +12,7 @@ class User(Model):
 
     class Meta:
         database = DATABASE
-        order_by = ('-datejoined',)
+        order_by = ('-date_joined',)
 
 class Recipe(Model):
     name = CharField()
@@ -25,9 +25,20 @@ class Recipe(Model):
     class Meta:
     database = DATABASE
 
+class Reviews(Model):
+    rating = IntegerField(default=0)
+    date_reviewed = DateTimeField(default=datetime.datetime.now)
+    comment = TextField()
+    user_id = ForeignKeyField(User, backref="users") 
+    recipe_id = ForeignKeyField(Recipe, backref="recipes") 
+    
+    class Meta:
+        database = DATABASE
+        order_by = ('-date_reviewed',)
+
 def initialize():
     DATABASE.connect()
-    DATABASE.create_tables([User, Recipe], safe=True)
+    DATABASE.create_tables([User, Recipe, Reviews], safe=True)
     DATABASE.close()
 
     
