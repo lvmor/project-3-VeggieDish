@@ -44,18 +44,6 @@ def index():
 def about():
     return render_template('about.html')
 
-# @app.route('/users')
-# @app.route('/users/')
-# @app.route('/users/<user_id>')
-# def users(user_id = None):
-#     with open('users.json') as json_data:
-#         users_data = json.load(json_data)
-#         if user_id == None:
-#             return render_template('users.html', user_template = users_data)
-#         else:
-#             user_ID = int(user_id)
-#             return render_template('user.html', user = users_data[user_ID])
-
 @app.route('/users')
 @app.route('/users/')
 @app.route('/users/<user_id>', methods = ['GET', 'POST'])
@@ -71,18 +59,6 @@ def users(user_id = None):
         return redirect('/users')
 
     return render_template("new_user.html", title="New User", form=form)
-
-# @app.route('/reviews')
-# @app.route('/reviews/')
-# @app.route('/reviews/<review_id>')
-# def reviews(review_id = None):
-#     with open('reviews.json') as json_data:
-#         reviews_data = json.load(json_data)
-#         if review_id == None:
-#             return render_template('reviews.html', reviews_template = reviews_data)
-#         else:
-#             review_ID = int(review_id)
-#             return render_template('review.html', review = reviews_data[review_ID])
 
 @app.route('/reviews')
 @app.route('/reviews/')
@@ -103,22 +79,23 @@ def reviews(review_id = None):
 def recipes(recipe_id = None):
     if recipe_id == None:
         recipes = models.Recipe.select().limit(10)
-        return render_template("recipes.html", recipes_template = recipes)
+        return render_template("recipes.html", recipes_template=recipes)
     else:
         recipe_id = int(recipe_id)
         recipe = models.Recipe.get(models.Recipe.id == recipe_id)
-
+        reviews_template = models.Review.select().where(models.Review.recipe_id == recipe_id)
+        
         form = ReviewForm()
         if form.validate_on_submit():
             ratingInt = int(form.rating.data)
             models.Review.create(
                 rating=ratingInt, 
                 comment=form.comment.data.strip(),
-                recipe_id = recipe
+                recipe_id = recipe_id
             )
-            return redirect('/reviews')
+            return redirect('/recipes/{}'.format(recipe_id))
         else:
-            return render_template("review_form.html", recipe=recipe, form=form)
+            return render_template("review_form.html", recipe=recipe, form=form, reviews_template=reviews_template)
 
 @app.route('/create-recipe', methods=['GET', 'POST'])
 #function name needs to match the link
@@ -137,24 +114,6 @@ def recipe_form():
         return redirect('/recipes')
     else:
         return render_template('recipe_form.html', form=form)
-
-
-# @app.route('/create-review', methods=['GET', 'POST'])
-# def createReview():
-#     reviewform = ReviewForm()
-#     if form.validate_on_submit():
-#         ratingInt = int(form.rating.data)
-#         models.Review.create(
-#             rating=ratingInt, 
-#             comment=form.comment.data.strip()
-#         )
-#         return redirect('/reviews')
-#     else:
-#         return render_template('review_form.html', form=reviewform)
-
-
-
-
 
 if __name__ == '__main__':
     models.initialize()
