@@ -1,4 +1,5 @@
 from flask_wtf import FlaskForm as Form
+
 from wtforms import TextField, TextAreaField, SubmitField, PasswordField, FileField, StringField, IntegerField
 
 
@@ -22,6 +23,7 @@ class RecipeForm(Form):
     #     FileAllowed(images, 'Images only!')
     # ])
     image = StringField("url for image")
+
     description = TextAreaField("Recipe Description")
     ingredients = TextAreaField("Recipe Ingredients")
     instructions = TextField("Recipe Instructions")
@@ -30,6 +32,7 @@ class RecipeForm(Form):
 class ReviewForm(Form):
     rating = IntegerField("Recipe Rating on a scale of 1-5")
     comment = TextAreaField("Review of Recipe")
+
 
 
 
@@ -87,4 +90,3 @@ class LoginForm(Form):
     email = StringField('Email', validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired()])
     submit = SubmitField('Submit')
-    

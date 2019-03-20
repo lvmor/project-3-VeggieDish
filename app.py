@@ -12,6 +12,9 @@ from flask import (
 )
 from werkzeug.security import check_password_hash, generate_password_hash
 
+from forms import UserForm, RecipeForm, ReviewForm
+
+import functools
 import models
 
 DEBUG = True
@@ -20,47 +23,54 @@ PORT = 8000
 app = Flask(__name__)
 app.secret_key = 'adkjfalj.adflja.dfnasdf.asd'
 
-# login_manager = LoginManager()
-# ## sets up our login for the app
-# login_manager.init_app(app)
-# login_manager.login_view = 'login'
 
-# @login_manager.user_loader
-# def load_user(userid):
-#     try:
-#         # get the user if the user exists in the system
-#         return models.User.get(models.User.id == userid)
-#     except models.DoesNotExist:
-#         return None
+@app.before_request
+def before_request():
+    g.db = models.DATABASE
+    g.db.connect()
 
-
-# @app.before_request
-# def before_request():
-#     g.db = models.DATABASE
-#     g.db.connect()
-
-# @app.after_request
-# def after_request():
-#     g.db.close()
-#     return response
+@app.after_request
+def after_request(response):
+    g.db.close()
+    return response
 
 @app.route('/')
 def index():
-    with open('recipes.json') as json_data:
-        recipes_data = json.load(json_data)
-        return render_template('recipes.html', recipes_template = recipes_data)
+    recipe_data = models.Recipe.select().limit(100)
+    return render_template("recipes.html", recipes_template=recipe_data)
+
+@app.route('/about')
+@app.route('/about/')
+def about():
+    return render_template('about.html')
+
+# @app.route('/users')
+# @app.route('/users/')
+# @app.route('/users/<user_id>')
+# def users(user_id = None):
+#     with open('users.json') as json_data:
+#         users_data = json.load(json_data)
+#         if user_id == None:
+#             return render_template('users.html', user_template = users_data)
+#         else:
+#             user_ID = int(user_id)
+#             return render_template('user.html', user = users_data[user_ID])
 
 @app.route('/users')
 @app.route('/users/')
-@app.route('/users/<user_id>')
+@app.route('/users/<user_id>', methods = ['GET', 'POST'])
 def users(user_id = None):
-    with open('users.json') as json_data:
-        users_data = json.load(json_data)
-        if user_id == None:
-            return render_template('users.html', user_template = users_data)
-        else:
-            user_ID = int(user_id)
-            return render_template('user.html', user = users_data[user_ID])
+    form = UserForm()
+    if form.validate_on_submit():
+        models.User.create( 
+            avatar = form.avatar.strip(), 
+            full_name = form.full_name.strip(),
+            city = form.city.strip(),)
+
+        flash("Name changed to: {}".format(form.full_name))
+        return redirect('/users')
+
+    return render_template("new_user.html", title="New User", form=form)
 
 @app.route('/reviews')
 @app.route('/reviews/')
@@ -73,6 +83,7 @@ def reviews(review_id = None):
         else:
             review_ID = int(review_id)
             return render_template('review.html', review = reviews_data[review_ID])
+
 
 @app.route('/recipes')
 @app.route('/recipes/')
@@ -102,6 +113,7 @@ def recipe_form():
         return redirect('/recipes')
     else:
         return render_template('recipe_form.html', form=form)
+
 
 if __name__ == '__main__':
     models.initialize()

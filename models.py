@@ -4,10 +4,11 @@ from peewee import *
 DATABASE = SqliteDatabase('veggiedish.db')
 
 class User(Model):
-    full_name = CharField()
-    avatar = CharField()
-    email = CharField()
-    password = CharField()
+    full_name = TextField()
+    avatar = TextField()
+    email = TextField()
+    password = TextField()
+    city = TextField()
     date_joined = DateTimeField(default=datetime.datetime.now)
 
     class Meta:
@@ -16,7 +17,7 @@ class User(Model):
 
 class Recipe(Model):
     name = CharField()
-    image = CharField()
+    # image = CharField()
     description = TextField()
     ingredients = TextField()
     instructions = TextField()

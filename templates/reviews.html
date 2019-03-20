@@ -1,19 +1,16 @@
 {% extends "layout.html" %}
+
 {% block content %}
-<h1>Recipes</h1>
-{% for recipe in recipes_template %}
-<article class="message is-primary">
+<h1>Reviews</h1>
+{% for review in reviews_template %}
+<article class="message is-secondary">
+    <div class="message-header">
+        <a>{{review.user_id}}</a>
+        {{review.date_reviewed}}
+    </div>
     <div class="message-body">
-            <a href={{url_for('recipes', recipe_id=recipe.id)}}>{{recipe.name}}</a>
-        <div>{{recipe.name}}</div>
-        <img src={{recipe.image}} alt="">
-        <h4>Description</h4>
-        <div>{{recipe.description}}</div>
-        <h4>Ingredients</h4>
-        <div>{{recipe.ingredients}}</div>
-        <h4>Directions</h4>
-        <div>{{recipe.instructions}}</div>
-        <div>{{recipe.average_rating}}</div>
+        {{review.rating}}
+        {{review.comment}}
     </div>
 </article>
 {% endfor %}

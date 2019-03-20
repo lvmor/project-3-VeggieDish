@@ -2,13 +2,27 @@
 
 {% block content %}
 
-<form method="POST" action="" nonvalidate>
-    {{form.hidden_tag()}}
-    <div>
-        {{form.full_name.label}}
-        {{form.full_name()}}
+<div class="columns">
+    <div class="column">
+        <h2>Edit your Profile</h2>
+        <form method="POST" action="" nonvalidate>
+            {{form.hidden_tag()}}
+            <div>
+                {{form.avatar.label}}
+                {{form.avatar(class_="input")}}
+            </div>
+            <div>
+                {{form.full_name.label}}
+                {{form.full_name(class_="input")}}
+            </div>
+            <div>
+                {{form.city.label}}
+                {{form.city(class_="input")}}
+            </div>
+            {{ form.submit(class_="button") }}
+        </form>
     </div>
 
-</form>
+</div>
 
 {% endblock %}
