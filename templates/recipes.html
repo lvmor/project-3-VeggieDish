@@ -3,12 +3,10 @@
 {% block content %}
 <h1>Recipes</h1>
 {% for recipe in recipes_template %}
-<article class="message is-primary">
-    <div class="message-body">
+<article class="message tile is-3 is-vertical is-parent is-primary">
+        <div class="message-body tile is-child box">
+        <div>{{recipe.image}}</div>
         <div>{{recipe.name}}</div>
-        <div>{{recipe.description}}</div>
-        <div>{{recipe.ingredients}}</div>
-        <div>{{recipe.instructions}}</div>
         <div>{{recipe.average_rating}}</div>
     </div>
 </article>
