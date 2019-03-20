@@ -59,18 +59,24 @@ def recipes(recipe_id = None):
             return render_template('recipe.html', recipe = recipes_data[recipe_ID])
 
 
-@app.route("/register", methods=['GET', 'POST'])
-def register():
+@app.route("/signup", methods=['GET', 'POST'])
+def signup():
     form = RegistrationForm()
     if form.validate_on_submit():
         flash(f'Account created for {form.username.data}!', 'success')
         return redirect(url_for('index'))
-    return render_template('register.html', title='Register', form=form)
+    return render_template('signup.html', title='Signup', form=form)
 
 
-@app.route("/login")
+@app.route("/login", methods=['GET', 'POST'])
 def login():
     form = LoginForm()
+    if form.validate_on_submit():
+        if form.email.data == 'user@site.com' and form.password.data == 'password':
+            flash('You have been logged in!', 'success')
+            return redirect(url_for('index'))
+        else:
+            flash('Login unsuccessful. Please check username and password', 'danger')
     return render_template('login.html', title='Login', form=form)
 
 
