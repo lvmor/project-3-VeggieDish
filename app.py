@@ -3,8 +3,8 @@ from flask import render_template, flash, redirect, url_for
 import json
 
 
-# , RecipeForm, UserForm to be included into app later
-from forms import ReviewForm
+# ReviewForm, RecipeForm, UserForm to be included into app later
+from forms import RegistrationForm, LoginForm
 import models
 
 DEBUG = True
@@ -12,6 +12,9 @@ PORT = 8000
 
 app = Flask(__name__)
 app.secret_key = 'adkjfalj.adflja.dfnasdf.asd'
+
+#Config for secret key
+app.config['SECRET_KEY'] = '8c1577e01307f04f3d91a2a6c6450f31'
 
 @app.route('/')
 def index():
@@ -54,6 +57,19 @@ def recipes(recipe_id = None):
         else:
             recipe_ID = int(recipe_id)
             return render_template('recipe.html', recipe = recipes_data[recipe_ID])
+
+
+@app.route("/register")
+def register():
+    form = RegistrationForm()
+    return render_template('register.html', title='Register', form=form)
+
+
+@app.route("/login")
+def login():
+    form = LoginForm()
+    return render_template('login.html', title='Login', form=form)
+
 
 if __name__ == '__main__':
     app.run(debug=DEBUG, port=PORT)
