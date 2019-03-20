@@ -10,15 +10,15 @@ PORT = 8000
 app = Flask(__name__)
 app.secret_key = 'adkjfalj.adflja.dfnasdf.asd'
 
-@app.before_request
-def before_request():
-    g.db = models.DATABASE
-    g.db.connect()
+# @app.before_request
+# def before_request():
+#     g.db = models.DATABASE
+#     g.db.connect()
 
-@app.after_request():
-def after_request():
-    g.db.close()
-    return response
+# @app.after_request
+# def after_request():
+#     g.db.close()
+#     return response
 
 @app.route('/')
 def index():
