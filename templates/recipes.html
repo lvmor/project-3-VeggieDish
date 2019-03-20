@@ -5,15 +5,10 @@
 {% for recipe in recipes_template %}
 <article class="message is-primary">
     <div class="message-body">
-            <a href={{url_for('recipes', recipe_id=recipe.id)}}>{{recipe.name}}</a>
-        <div>{{recipe.name}}</div>
+        <a href={{url_for('recipes', recipe_id=recipe.id)}}>{{recipe.name}}</a>
         <img src={{recipe.image}} alt="">
         <h4>Description</h4>
         <div>{{recipe.description}}</div>
-        <h4>Ingredients</h4>
-        <div>{{recipe.ingredients}}</div>
-        <h4>Directions</h4>
-        <div>{{recipe.instructions}}</div>
         <div>{{recipe.average_rating}}</div>
     </div>
 </article>
