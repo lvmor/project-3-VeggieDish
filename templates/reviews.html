@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<h1>Reviews</h1>
+{% for review in reviews_template %}
+<article class="message is-primary">
+    <div class="message-body">
+        {{review.comment}}
+    </div>
+</article>
+{% endfor %}
+{% endblock %}
