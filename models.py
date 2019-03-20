@@ -30,7 +30,7 @@ class Review(Model):
     rating = IntegerField(default=0)
     date_reviewed = DateTimeField(default=datetime.datetime.now)
     comment = TextField()
-    user_id = ForeignKeyField(model=User, backref="users") 
+    # user_id = ForeignKeyField(model=User, backref="users") 
     recipe_id = ForeignKeyField(model=Recipe, backref="recipes") 
     
     class Meta:

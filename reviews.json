@@ -14,5 +14,13 @@
         "user_id": 1,
         "recipe_id": 2,
         "id": 1
+    },
+    {
+        "rating": 3,
+        "date_reviewed": "2019-03-18",
+        "comment": "yummy",
+        "user_id": 0,
+        "recipe_id": 3,
+        "id": 2
     }
 ]

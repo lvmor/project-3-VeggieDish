@@ -11,7 +11,14 @@
             <div>{{recipe.instructions}}</div>
         </div>
     </article>
-    
+    {% block recipe_reviews %}
+    {% endblock%}
+
+   
+
+    <!-- {% for review in reviews_template %}
+    {% endfor %} -->
+
 {% endblock %}
 
 
