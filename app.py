@@ -78,13 +78,28 @@ def reviews(review_id = None):
 @app.route('/recipes/')
 @app.route('/recipes/<recipe_id>')
 def recipes(recipe_id = None):
-    with open('recipes.json') as json_data:
-        recipes_data = json.load(json_data)
-        if recipe_id == None:
-            return render_template('recipes.html', recipes_template = recipes_data)
-        else:
-            recipe_ID = int(recipe_id)
-            return render_template('recipe.html', recipe = recipes_data[recipe_ID])
+    # if form.validate_on_submit():
+    #     return redirect('/create-recipe')
+    if recipe_id == None:
+        recipes = models.Recipe.select().limit(10)
+        print(recipes)
+        return render_template("recipes.html", recipes_template = recipes)
+    else:
+        recipe_id = int(recipe_id)
+        recipe = models.Recipe.get(models.Recipe.id == recipe_id)
+        return render_template("recipe.html", recipe=recipe)
+
+# @app.route('/recipes')
+# @app.route('/recipes/')
+# @app.route('/recipes/<recipe_id>')
+# def recipes(recipe_id = None):
+#     with open('recipes.json') as json_data:
+#         recipes_data = json.load(json_data)
+#         if recipe_id == None:
+#             return render_template('recipes.html', recipes_template = recipes_data)
+#         else:
+#             recipe_ID = int(recipe_id)
+#             return render_template('recipe.html', recipe = recipes_data[recipe_ID])
 
 
 @app.route('/create-recipe', methods=['GET', 'POST'])
