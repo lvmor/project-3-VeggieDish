@@ -1,7 +1,8 @@
-{% extends "layout.html" %}
+{% extends "recipe.html" %}
 
-{% block content %}
+{% block recipe_reviews %}
 <h1>Reviews</h1>
+
 {% for review in reviews_template %}
 <article class="message is-secondary">
     <div class="message-header">
@@ -14,4 +15,9 @@
     </div>
 </article>
 {% endfor %}
+
+{% block reviewForm %}
+{% endblock%}
+
+
 {% endblock %}

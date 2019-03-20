@@ -33,3 +33,4 @@ class RecipeForm(Form):
 class ReviewForm(Form):
     rating = IntegerField("Recipe Rating on a scale of 1-5")
     comment = TextAreaField("Review of Recipe")
+    submit = SubmitField('Create Review')

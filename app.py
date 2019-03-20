@@ -70,30 +70,43 @@ def users(user_id = None):
 @app.route('/reviews/')
 @app.route('/reviews/<review_id>')
 def reviews(review_id = None):
-    with open('reviews.json') as json_data:
-        reviews_data = json.load(json_data)
-        if review_id == None:
-            return render_template('reviews.html', reviews_template = reviews_data)
-        else:
-            review_ID = int(review_id)
-            return render_template('review.html', review = reviews_data[review_ID])
+    if review_id == None:
+        reviews = models.Review.select().limit(10)
+        return render_template("reviews.html", reviews_template = reviews)
+    else:
+        review_id = int(review_id)
+        review = models.Reviews.get(models.Reviews.id == review_id)
+        return render_template("reviews.html", reviews=reviews)
 
 @app.route('/recipes')
 @app.route('/recipes/')
-@app.route('/recipes/<recipe_id>')
+@app.route('/recipes/<recipe_id>', methods=['GET', 'POST'])
 def recipes(recipe_id = None):
     if recipe_id == None:
         recipes = models.Recipe.select().limit(10)
-        print(recipes)
-        return render_template("recipes.html", recipes_template = recipes)
+        return render_template("recipes.html", recipes_template=recipes)
     else:
         recipe_id = int(recipe_id)
         recipe = models.Recipe.get(models.Recipe.id == recipe_id)
-        return render_template("recipe.html", recipe=recipe)
+        reviews_template = models.Review.select().where(models.Review.recipe_id == recipe_id)
+        
+        form = ReviewForm()
+        if form.validate_on_submit():
+            ratingInt = int(form.rating.data)
+            models.Review.create(
+                rating=ratingInt, 
+                comment=form.comment.data.strip(),
+                recipe_id = recipe_id
+            )
+            return redirect('/recipes/{}'.format(recipe_id))
+        else:
+            return render_template("review_form.html", recipe=recipe, form=form, reviews_template=reviews_template)
 
 @app.route('/create-recipe', methods=['GET', 'POST'])
+#function name needs to match the link
 def recipe_form():
     form = RecipeForm()
+     #same name as imported form
     if form.validate_on_submit():
         models.Recipe.create(
             name=form.name.data.strip(), 
