@@ -54,7 +54,8 @@ def users(user_id = None):
     if form.validate_on_submit():
         models.User.create( 
             avatar = form.avatar.strip(), 
-            full_name = form.full_name.strip())
+            full_name = form.full_name.strip(),
+            city = form.city.strip(),)
 
         flash("Name changed to: {}".format(form.full_name))
         return redirect('/users')
