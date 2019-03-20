@@ -12,6 +12,8 @@ from flask import (
 )
 from werkzeug.security import check_password_hash, generate_password_hash
 
+import models
+
 DEBUG = True
 PORT = 8000
 
@@ -32,19 +34,15 @@ def load_user(userid):
         return None
 
 
-@app.before_request
-def before_request():
-    """Connect to the database before each request."""
-    g.db = models.DATABASE
-    g.db.connect()
+# @app.before_request
+# def before_request():
+#     g.db = models.DATABASE
+#     g.db.connect()
 
-
-@app.after_request
-def after_request(response):
-    """Close the database connection after each request."""
-    g.db.close()
-    return response
-
+# @app.after_request
+# def after_request():
+#     g.db.close()
+#     return response
 
 @app.route('/')
 def index():
@@ -101,4 +99,5 @@ def recipes(recipe_id = None):
 
 
 if __name__ == '__main__':
+    models.initialize()
     app.run(debug=DEBUG, port=PORT)

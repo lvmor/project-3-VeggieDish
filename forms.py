@@ -10,6 +10,11 @@ from models import User, Recipe, Review
 
 images = UploadSet('images', IMAGES)
 
+class UserForm(Form):
+    full_name =  TextField("Your Full Name")
+    avatar = CharField()
+    submit = SubmitField('Edit Profile')
+
 class RecipeForm(Form):
     name = TextField("Recipe Name")
     image = FileField('image', validators=[
@@ -19,10 +24,12 @@ class RecipeForm(Form):
     description = TextAreaField("Recipe Description")
     ingredients = TextAreaField("Recipe Ingredients")
     instructions = TextField("Recipe Instructions")
+    submit = SubmitField('Create Recipe')
 
 class ReviewForm(Form):
     rating = IntegerField("Recipe Rating on a scale of 1-5")
     comment = TextAreaField("Review of Recipe")
+
 
 
 # class UserForm(Form):
@@ -78,5 +85,5 @@ class RegisterForm(Form):
 class LoginForm(Form):
     email = StringField('Email', validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired()])
-
+    submit = SubmitField('Submit')
     

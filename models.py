@@ -25,7 +25,7 @@ class Recipe(Model):
     class Meta:
         database = DATABASE
 
-class Reviews(Model):
+class Review(Model):
     rating = IntegerField(default=0)
     date_reviewed = DateTimeField(default=datetime.datetime.now)
     comment = TextField()
@@ -38,7 +38,7 @@ class Reviews(Model):
 
 def initialize():
     DATABASE.connect()
-    DATABASE.create_tables([User, Recipe, Reviews], safe=True)
+    DATABASE.create_tables([User, Recipe, Review], safe=True)
     DATABASE.close()
 
     
