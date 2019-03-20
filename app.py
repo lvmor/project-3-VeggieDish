@@ -59,9 +59,12 @@ def recipes(recipe_id = None):
             return render_template('recipe.html', recipe = recipes_data[recipe_ID])
 
 
-@app.route("/register")
+@app.route("/register", methods=['GET', 'POST'])
 def register():
     form = RegistrationForm()
+    if form.validate_on_submit():
+        flash(f'Account created for {form.username.data}!', 'success')
+        return redirect(url_for('index'))
     return render_template('register.html', title='Register', form=form)
 
 
