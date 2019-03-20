@@ -2,6 +2,11 @@ from flask import Flask, g
 from flask import render_template, flash, redirect, url_for
 import json
 
+
+# , RecipeForm, UserForm to be included into app later
+from forms import ReviewForm
+import models
+
 DEBUG = True
 PORT = 8000
 
