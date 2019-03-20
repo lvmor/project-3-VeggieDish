@@ -29,40 +29,6 @@ def index():
     recipe_data = models.Recipe.select().limit(100)
     return render_template("recipes.html", recipes_template=recipe_data)
 
-# @app.route('/recipes', methods=['GET', 'POST'])
-# @app.route('/recipes/', methods=['GET', 'POST'])
-# @app.route('/recipes/<id>', methods=['GET', 'POST'])
-# def recipes(recipe_id = None):
-    
-#     form = RecipeForm()
-#     if recipe_id == None:
-#         return render_template('recipe_form.html', form=form)
-#     else:
-        
-#         if form.validate_on_submit():
-#             models.Recipe.create(
-#                 name=form.name.data.strip(), 
-#                 description=form.description.data.strip(),
-#                 ingredients=form.ingredients.data.strip(),
-#                 instructions=form.instructions.data.strip(),
-#                 image="form.image.data.strip()")
-#             flash("New recipe created. Called: {}".format(form.name.data))
-#             return redirect('/recipes/')
-
-#         return render_template('recipe_form.html', form=form)
-
-@app.route('/recipes')
-@app.route('/recipes/')
-@app.route('/recipes/<recipe_id>')
-def recipes(recipe_id = None):
-    with open('recipes.json') as json_data:
-        recipes_data = json.load(json_data)
-        if recipe_id == None:
-            return render_template('recipes.html', recipes_template = recipes_data)
-        else:
-            recipe_ID = int(recipe_id)
-            return render_template('recipe.html', recipe = recipes_data[recipe_ID])
-
 @app.route('/about')
 @app.route('/about/')
 def about():
