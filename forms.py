@@ -14,6 +14,7 @@ from models import User, Recipe, Review
 class UserForm(Form):
     full_name =  TextField("Your Full Name")
     avatar = StringField()
+    city = StringField()
     submit = SubmitField('Edit Profile')
 
 class RecipeForm(Form):
