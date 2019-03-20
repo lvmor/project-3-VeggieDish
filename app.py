@@ -3,7 +3,7 @@ from flask import render_template, flash, redirect, url_for
 
 import json
 import models
-from forms import RecipeForm
+from forms import RecipeForm, UserForm
 
 import functools
 
@@ -46,19 +46,25 @@ def about():
 
 @app.route('/users')
 @app.route('/users/')
-@app.route('/users/<user_id>', methods = ['GET', 'POST'])
+@app.route('/users/<user_id>', methods=['GET', 'POST'])
 def users(user_id = None):
-    form = UserForm()
-    if form.validate_on_submit():
-        models.User.create( 
-            avatar = form.avatar.strip(), 
-            full_name = form.full_name.strip(),
-            city = form.city.strip(),)
-
-        flash("Name changed to: {}".format(form.full_name))
-        return redirect('/users')
-
-    return render_template("new_user.html", title="New User", form=form)
+    if user_id == None:
+        users_data = models.User.select().limit(5)
+        return render_template('users.html', users_template = users_data)
+    else:
+        user_id = int(user_id)
+        user_data = models.User.get(models.User.id == user_id)
+        
+        form = UserForm()
+        if form.validate_on_submit():
+            models.User.create( 
+                avatar = form.avatar.data.strip(), 
+                full_name = form.full_name.data.strip(),
+                city = form.city.data.strip())
+            flash("Name changed to: {}".format(form.full_name))
+            return redirect('/users/')
+        
+        return render_template("new_user.html", title="New User", form=form, user=user_data)
 
 @app.route('/reviews')
 @app.route('/reviews/')
@@ -71,7 +77,6 @@ def reviews(review_id = None):
         review_id = int(review_id)
         review = models.Reviews.get(models.Reviews.id == review_id)
         return render_template("reviews.html", reviews=reviews)
-
 
 @app.route('/recipes')
 @app.route('/recipes/')
