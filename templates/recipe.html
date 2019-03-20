@@ -4,7 +4,7 @@
     <h1>Recipe</h1>
     <article class="message tile is-4 is-vertical is-parent is-primary">
         <div class="message-body tile is-child box">
-            <div>{{recipe.image}}</div>
+            <img src={{recipe.image}} alt="">
             <div>{{recipe.name}}</div>
             <div>{{recipe.average_rating}}</div>
             <div>{{recipe.description}}</div>
@@ -12,27 +12,7 @@
             <div>{{recipe.instructions}}</div>
         </div>
     </article>
-    <section>
-            <h2>Write a review for this recipe?</h2>
-            <form method="POST" action="" novalidate>
-                {{ form.hidden_tag() }}
     
-                <div class="field">
-                {{ form.title.label }}
-                {{ form.title(class_="input") }}
-                </div>
-                <div class="field">
-                {{ form.text.label }}
-                {{ form.text(class_="textarea") }}
-                </div>
-                <div class="field">
-                {{ form.user.label("Post By:") }}
-                {{ form.user(class_="input") }}
-                </div>
-    
-                {{ form.submit(class_="button") }}
-            </form>
-        </section>
 {% endblock %}
 
 

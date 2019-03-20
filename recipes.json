@@ -1,27 +1,27 @@
 [
     {
         "name": "Black Bean Enchiladas",
-        "image": "Wow this sub is so cool!",
+        "image": "http://minimalistbaker.com/wp-content/uploads/2013/05/Spicy-Black-Bean-Enchiladas.jpg",
         "description": "beeeeans",
-        "ingredients": "beans, tortillas, etc.",
+        "ingredients": ["beans", "tortillas", "etc."],
         "instructions": "assemble it. bake it. eat it. bon appetit!",
         "average_rating": "5",
         "id": 0
     },
     {
         "name": "Eggplant Parmesan",
-        "image": "I dig it.",
+        "image": "http://whatsgabycooking.com/wp-content/uploads/WGC-eggplant-parm-copy-2.jpg",
         "description": "110% amazing.",
-        "ingredients": "eggplant, parmesan",
+        "ingredients": ["eggplant", "tomato sauce", "parmesan cheese"],
         "instructions": "assemble it. bake it. eat it. bon appetit!",
         "average_rating": "4",
         "id": 1
     },
     {
         "name": "Falafels",
-        "image": "I dig it.",
+        "image": "https://images.unsplash.com/photo-1548070779-c9030e21d1c8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80",
         "description": "for all gyro needs",
-        "ingredients": "chickpeas. oil to fry. can also dip in chickpea sauce (hummus).",
+        "ingredients": ["chickpeas", "oil to fry", "can also dip in chickpea sauce (hummus)."],
         "instructions": "assemble it. bake it. eat it. bon appetit!",
         "average_rating": "4.5",
         "id": 2
