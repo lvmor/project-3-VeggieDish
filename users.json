@@ -1,0 +1,18 @@
+[
+    {
+        "full_name": "Mary Jane",
+        "avatar": "mary.png",
+        "email": "mjfan@gmail.com",
+        "password": "supersecret",
+        "date_joined": "2019-03-17",
+        "id": 0
+    },
+    {
+        "full_name": "Michael Jackson",
+        "avatar": "michael.png",
+        "email": "realmj@gmail.com",
+        "password": "mjsecrets",
+        "date_joined": "2019-03-18",
+        "id": 1
+    }
+]

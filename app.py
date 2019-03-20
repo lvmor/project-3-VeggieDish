@@ -52,6 +52,29 @@ def index():
         recipes_data = json.load(json_data)
         return render_template('recipes.html', recipes_template = recipes_data)
 
+@app.route('/users')
+@app.route('/users/')
+@app.route('/users/<user_id>')
+def users(user_id = None):
+    with open('users.json') as json_data:
+        users_data = json.load(json_data)
+        if user_id == None:
+            return render_template('users.html', user_template = users_data)
+        else:
+            user_ID = int(user_id)
+            return render_template('user.html', user = users_data[user_ID])
+
+@app.route('/reviews')
+@app.route('/reviews/')
+@app.route('/reviews/<review_id>')
+def reviews(review_id = None):
+    with open('reviews.json') as json_data:
+        reviews_data = json.load(json_data)
+        if review_id == None:
+            return render_template('reviews.html', reviews_template = reviews_data)
+        else:
+            review_ID = int(review_id)
+            return render_template('review.html', review = reviews_data[review_ID])
 
 @app.route('/recipes')
 @app.route('/recipes/')
