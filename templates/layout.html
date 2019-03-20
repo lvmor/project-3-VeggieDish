@@ -11,18 +11,14 @@
 
 <body>
     <nav class="navbar is-primary" role="navigation" aria-label="main navigation">
-        <div > 
-            <a class="navbar-item " href="{{url_for('index')}}">
-                <!-- <img src="https://i.imgur.com/sdO8tAw.png" width="50" height="100"> -->
-                <h3>VeggieDish</h3>
-            </a>
+        <div> 
+            <a class="navbar-item" href="{{url_for('index')}}"><h3>VeggieDish</h3></a>
             <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
             </a>
         </div>
-
         <div id="navbarBasicExample" class="navbar-menu">
             <div class="navbar-start">
                 <a class="navbar-item">
@@ -33,9 +29,8 @@
                 <div class="navbar-item">
 
                     <div class="buttons">
-                        <a class="button is-light" href="" title="login">Login</a>
-                        <a class="button is-primary" href="" title="register"><strong>Sign
-                                up</strong></a>
+                        <a class="button is-light is-outlined" href="{{ url_for('login') }}" title="login"><strong>Login</strong></a>
+                        <a class="button is-light is-outlined" href="{{ url_for('signup') }}" title="signup"><strong>Signup</strong></a>
                     </div>
                 </div>
             </div>
