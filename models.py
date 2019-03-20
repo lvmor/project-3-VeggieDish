@@ -23,7 +23,7 @@ class Recipe(Model):
     average_rating = IntegerField(default=0)
 
     class Meta:
-    database = DATABASE
+        database = DATABASE
 
 class Reviews(Model):
     rating = IntegerField(default=0)
