@@ -1,21 +1,15 @@
 from flask_wtf import FlaskForm as Form
-from wtforms import TextField, TextAreaField, SubmitField, PasswordField, FileField, FileAllowed, FileRequired
-
+from wtforms import TextField, TextAreaField, SubmitField, IntegerField
 from models import User, Recipe, Review
 
-images = UploadSet('images', IMAGES)
 
 class UserForm(Form):
     full_name =  TextField("Your Full Name")
-    avatar = CharField()
+    avatar = TextField()
     submit = SubmitField('Edit Profile')
 
 class RecipeForm(Form):
     name = TextField("Recipe Name")
-    image = FileField('image', validators=[
-        FileRequired(),
-        FileAllowed(images, 'Images only!')
-    ])
     description = TextAreaField("Recipe Description")
     ingredients = TextAreaField("Recipe Ingredients")
     instructions = TextField("Recipe Instructions")
