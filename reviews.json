@@ -1,0 +1,26 @@
+[
+    {
+        "rating": 4,
+        "date_reviewed": "2019-03-18",
+        "comment": "awesome",
+        "user_id": 0,
+        "recipe_id": 1,
+        "id": 0
+    },
+    {
+        "rating": 4,
+        "date_reviewed": "2019-08-20",
+        "comment": "good",
+        "user_id": 1,
+        "recipe_id": 2,
+        "id": 1
+    },
+    {
+        "rating": 3,
+        "date_reviewed": "2019-03-18",
+        "comment": "yummy",
+        "user_id": 0,
+        "recipe_id": 3,
+        "id": 2
+    }
+]

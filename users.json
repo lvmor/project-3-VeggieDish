@@ -4,6 +4,7 @@
         "avatar": "mary.png",
         "email": "mjfan@gmail.com",
         "password": "supersecret",
+        "city": "Concord",
         "date_joined": "2019-03-17",
         "id": 0
     },
@@ -12,6 +13,7 @@
         "avatar": "michael.png",
         "email": "realmj@gmail.com",
         "password": "mjsecrets",
+        "city": "Hollywood",
         "date_joined": "2019-03-18",
         "id": 1
     }

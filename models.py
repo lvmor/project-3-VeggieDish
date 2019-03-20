@@ -1,14 +1,14 @@
 import datetime
-
 from peewee import *
 
 DATABASE = SqliteDatabase('veggiedish.db')
 
 class User(Model):
-    full_name = CharField()
-    avatar = CharField()
-    email = CharField()
-    password = CharField()
+    full_name = TextField()
+    avatar = TextField()
+    email = TextField()
+    password = TextField()
+    city = TextField()
     date_joined = DateTimeField(default=datetime.datetime.now)
 
     class Meta:
@@ -17,7 +17,8 @@ class User(Model):
 
 class Recipe(Model):
     name = CharField()
-    image = CharField()
+    # image = CharField()
+    # id = primary key
     description = TextField()
     ingredients = TextField()
     instructions = TextField()
@@ -30,8 +31,8 @@ class Review(Model):
     rating = IntegerField(default=0)
     date_reviewed = DateTimeField(default=datetime.datetime.now)
     comment = TextField()
-    user_id = ForeignKeyField(User, backref="users") 
-    recipe_id = ForeignKeyField(Recipe, backref="recipes") 
+    # user_id = ForeignKeyField(model=User, backref="users") 
+    recipe_id = ForeignKeyField(model=Recipe, backref="recipes") 
     
     class Meta:
         database = DATABASE

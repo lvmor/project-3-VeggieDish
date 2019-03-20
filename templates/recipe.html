@@ -6,13 +6,20 @@
         <div class="message-body tile is-child box">
             <img src={{recipe.image}} alt="">
             <div>{{recipe.name}}</div>
-            <div>{{recipe.average_rating}}</div>
             <div>{{recipe.description}}</div>
             <div>{{recipe.ingredients}}</div>
             <div>{{recipe.instructions}}</div>
         </div>
     </article>
-    
+
+    {% block recipe_reviews %}
+{% endblock%}
+
+   
+
+    <!-- {% for review in reviews_template %}
+    {% endfor %} -->
+
 {% endblock %}
 
 
