@@ -4,9 +4,10 @@ from models import User, Recipe, Review
 
 
 class UserForm(Form):
-    full_name =  TextField("Your Full Name")
-    avatar = TextField()
-    submit = SubmitField('Edit Profile')
+    avatar = TextField("Profile Picture")
+    full_name = TextField("Name")
+    city = TextField("City")
+    submit = SubmitField('Change')
 
 class RecipeForm(Form):
     name = TextField("Recipe Name")
@@ -19,4 +20,3 @@ class ReviewForm(Form):
     rating = IntegerField("Recipe Rating on a scale of 1-5")
     comment = TextAreaField("Review of Recipe")
     submit = SubmitField('Submit')
-    
