@@ -1,6 +1,16 @@
 from flask import Flask, g
 from flask import render_template, flash, redirect, url_for
+
 import json
+import models
+import forms
+
+import functools
+
+from flask import (
+    Blueprint, flash, g, redirect, render_template, request, session, url_for
+)
+from werkzeug.security import check_password_hash, generate_password_hash
 
 DEBUG = True
 PORT = 8000
@@ -8,11 +18,40 @@ PORT = 8000
 app = Flask(__name__)
 app.secret_key = 'adkjfalj.adflja.dfnasdf.asd'
 
+login_manager = LoginManager()
+## sets up our login for the app
+login_manager.init_app(app)
+login_manager.login_view = 'login'
+
+@login_manager.user_loader
+def load_user(userid):
+    try:
+        # get the user if the user exists in the system
+        return models.User.get(models.User.id == userid)
+    except models.DoesNotExist:
+        return None
+
+
+@app.before_request
+def before_request():
+    """Connect to the database before each request."""
+    g.db = models.DATABASE
+    g.db.connect()
+
+
+@app.after_request
+def after_request(response):
+    """Close the database connection after each request."""
+    g.db.close()
+    return response
+
+
 @app.route('/')
 def index():
     with open('recipes.json') as json_data:
         recipes_data = json.load(json_data)
         return render_template('recipes.html', recipes_template = recipes_data)
+
 
 @app.route('/recipes')
 @app.route('/recipes/')
@@ -26,6 +65,6 @@ def recipes(recipe_id = None):
             recipe_ID = int(recipe_id)
             return render_template('recipe.html', recipe = recipes_data[recipe_ID])
 
+
 if __name__ == '__main__':
     app.run(debug=DEBUG, port=PORT)
-

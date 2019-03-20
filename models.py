@@ -1,5 +1,4 @@
 import datetime
-
 from peewee import *
 
 DATABASE = SqliteDatabase('veggiedish.db')
@@ -23,14 +22,14 @@ class Recipe(Model):
     average_rating = IntegerField(default=0)
 
     class Meta:
-    database = DATABASE
+        database = DATABASE
 
 class Reviews(Model):
     rating = IntegerField(default=0)
     date_reviewed = DateTimeField(default=datetime.datetime.now)
     comment = TextField()
-    user_id = ForeignKeyField(User, backref="users") 
-    recipe_id = ForeignKeyField(Recipe, backref="recipes") 
+    user_id = ForeignKeyField(model=User, backref="users") 
+    recipe_id = ForeignKeyField(model=Recipe, backref="recipes") 
     
     class Meta:
         database = DATABASE
