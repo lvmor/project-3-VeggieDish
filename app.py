@@ -2,7 +2,7 @@ from flask import Flask, g
 from flask import render_template, flash, redirect, url_for
 import json
 
-from forms import UserForm, RecipeForm
+from forms import UserForm, RecipeForm, ReviewForm
 
 import functools
 import models
@@ -29,27 +29,39 @@ def index():
     recipe_data = models.Recipe.select().limit(100)
     return render_template("recipes.html", recipes_template=recipe_data)
 
-@app.route('/recipes', methods=['GET', 'POST'])
-@app.route('/recipes/', methods=['GET', 'POST'])
-@app.route('/recipes/<id>', methods=['GET', 'POST'])
-def recipes(id=None):
+# @app.route('/recipes', methods=['GET', 'POST'])
+# @app.route('/recipes/', methods=['GET', 'POST'])
+# @app.route('/recipes/<id>', methods=['GET', 'POST'])
+# def recipes(recipe_id = None):
     
-    form = RecipeForm()
-    if id == None:
-        return render_template('recipe_form.html', form=form)
-    else:
+#     form = RecipeForm()
+#     if recipe_id == None:
+#         return render_template('recipe_form.html', form=form)
+#     else:
         
-        if form.validate_on_submit():
-            models.Recipe.create(
-                name=form.name.data.strip(), 
-                description=form.description.data.strip(),
-                ingredients=form.ingredients.data.strip(),
-                instructions=form.instructions.data.strip(),
-                image="form.image.data.strip()")
-            flash("New recipe created. Called: {}".format(form.name.data))
-            return redirect('/recipes/')
+#         if form.validate_on_submit():
+#             models.Recipe.create(
+#                 name=form.name.data.strip(), 
+#                 description=form.description.data.strip(),
+#                 ingredients=form.ingredients.data.strip(),
+#                 instructions=form.instructions.data.strip(),
+#                 image="form.image.data.strip()")
+#             flash("New recipe created. Called: {}".format(form.name.data))
+#             return redirect('/recipes/')
 
-        return render_template('recipe_form.html', form=form)
+#         return render_template('recipe_form.html', form=form)
+
+@app.route('/recipes')
+@app.route('/recipes/')
+@app.route('/recipes/<recipe_id>')
+def recipes(recipe_id = None):
+    with open('recipes.json') as json_data:
+        recipes_data = json.load(json_data)
+        if recipe_id == None:
+            return render_template('recipes.html', recipes_template = recipes_data)
+        else:
+            recipe_ID = int(recipe_id)
+            return render_template('recipe.html', recipe = recipes_data[recipe_ID])
 
 @app.route('/about')
 @app.route('/about/')
@@ -83,46 +95,31 @@ def users(user_id = None):
 
     return render_template("new_user.html", title="New User", form=form)
 
-# @app.route('/reviews')
-# @app.route('/reviews/')
-# @app.route('/reviews/<review_id>')
-# def reviews(review_id = None):
-#     with open('reviews.json') as json_data:
-#         reviews_data = json.load(json_data)
-#         if review_id == None:
-#             return render_template('reviews.html', reviews_template = reviews_data)
-#         else:
-#             review_ID = int(review_id)
-#             return render_template('review.html', review = reviews_data[review_ID])
-
 @app.route('/reviews')
 @app.route('/reviews/')
 @app.route('/reviews/<review_id>')
 def reviews(review_id = None):
-    form = ReviewForm()
-    if form.validate_on_submit():
-        models.Review.create(
-            rating = form.rating.data.strip(), 
-            date_reviewed = form.date_reviewed.strip(),
-            comment = form.comment.strip())
-        flash("New comment and rating: {}".format(form.full_name.data))
-        return redirect('/reviews/')
+    with open('reviews.json') as json_data:
+        reviews_data = json.load(json_data)
+        if review_id == None:
+            return render_template('reviews.html', reviews_template = reviews_data)
+        else:
+            review_ID = int(review_id)
+            return render_template('review.html', review = reviews_data[review_ID])
 
-    return render_template("new_user.html", title="New User", form=form)
+# @app.route('/reviews')
+# @app.route('/reviews/')
+# @app.route('/reviews/<review_id>', methods = ['GET', 'POST'])
+# def reviews(review_id = None):
+#     form = ReviewForm()
+#     if form.validate_on_submit():
+#         models.Review.create(
+#             rating = form.rating.data.strip(), 
+#             comment = form.comment.strip())
+#         flash("New comment and rating: {}".format(form.full_name.data))
+#         return redirect('/reviews/')
 
-
-
-# @app.route('/recipes')
-# @app.route('/recipes/')
-# @app.route('/recipes/<recipe_id>')
-# def recipes(recipe_id = None):
-#     with open('recipes.json') as json_data:
-#         recipes_data = json.load(json_data)
-#         if recipe_id == None:
-#             return render_template('recipes.html', recipes_template = recipes_data)
-#         else:
-#             recipe_ID = int(recipe_id)
-#             return render_template('recipe.html', recipe = recipes_data[recipe_ID])
+#     return render_template("new_user.html", title="New Review", form=form)
 
 if __name__ == '__main__':
     models.initialize()
