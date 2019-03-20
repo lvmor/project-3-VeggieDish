@@ -3,7 +3,7 @@ from flask import render_template, flash, redirect, url_for
 
 import json
 import models
-import forms
+from forms import RecipeForm
 
 import functools
 
@@ -87,6 +87,17 @@ def recipes(recipe_id = None):
         else:
             recipe_ID = int(recipe_id)
             return render_template('recipe.html', recipe = recipes_data[recipe_ID])
+
+            form = RecipeForm()
+            if form.validate_on_submit():
+                models.Recipe.create(
+                    name=form.name.data.strip(), 
+                    description=form.description.data.strip(),
+                    ingredients=form.ingredients.data.strip(),
+                    instructions=form.instructions.data.strip()
+                )
+                flash("New recipe created. Called: {}".format(form.name.data))
+            return redirect('/recipes')
 
 
 if __name__ == '__main__':
