@@ -3,8 +3,8 @@ from flask_wtf import FlaskForm as Form
 from wtforms import TextField, TextAreaField, SubmitField, PasswordField, FileField, StringField, IntegerField
 
 
-from wtforms.validators import (DataRequired, Regexp, ValidationError, Email,
-                               Length, EqualTo)
+# from wtforms.validators import (DataRequired, Regexp, ValidationError, Email,
+#                                Length, EqualTo)
 
 from models import User, Recipe, Review
 
@@ -14,6 +14,7 @@ from models import User, Recipe, Review
 class UserForm(Form):
     full_name =  TextField("Your Full Name")
     avatar = StringField()
+    city = TextField()
     submit = SubmitField('Edit Profile')
 
 class RecipeForm(Form):

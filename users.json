@@ -2,7 +2,7 @@
     {
         "full_name": "Mary Jane",
         "avatar": "mary.png",
-        "email": "mjfan@gmail.com",
+        // "email": "mjfan@gmail.com",
         "password": "supersecret",
         "city": "Concord",
         "date_joined": "2019-03-17",
@@ -11,7 +11,7 @@
     {
         "full_name": "Michael Jackson",
         "avatar": "michael.png",
-        "email": "realmj@gmail.com",
+        // "email": "realmj@gmail.com",
         "password": "mjsecrets",
         "city": "Hollywood",
         "date_joined": "2019-03-18",
