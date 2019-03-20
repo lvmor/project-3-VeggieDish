@@ -1,0 +1,18 @@
+{% extends "layout.html"%}
+
+{% block content %}
+
+<form method="POST" action="" nonvalidate>
+    {{form.hidden_tag()}}
+    <div>
+        {{form.avatar.label}}
+        {{form.rating()}}
+    </div>
+    <div>
+        {{form.comment.label("Comment:")}}
+        {{form.comment()}}
+    </div>
+    {{ form.submit() }}
+</form>
+
+{% endblock %}
