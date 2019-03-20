@@ -5,6 +5,7 @@
 {% for recipe in recipes_template %}
 <article class="message is-primary">
     <div class="message-body">
+            <a href={{url_for('recipes', recipe_id=recipe.id)}}>{{recipe.name}}</a>
         <div>{{recipe.name}}</div>
         <img src={{recipe.image}} alt="">
         <h4>Description</h4>

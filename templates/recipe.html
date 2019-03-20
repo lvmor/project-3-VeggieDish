@@ -2,13 +2,16 @@
 
 {% block content %}
     <h1>Recipe</h1>
-    <article class="message is-primary">
-        <div class="message-body">
-            <div>{{recipe.name}}</div>
+    <article class="message tile is-4 is-vertical is-parent is-primary">
+        <div class="message-body tile is-child box">
             <img src={{recipe.image}} alt="">
+            <div>{{recipe.name}}</div>
             <div>{{recipe.description}}</div>
             <div>{{recipe.ingredients}}</div>
             <div>{{recipe.instructions}}</div>
         </div>
     </article>
+    
 {% endblock %}
+
+
