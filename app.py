@@ -20,18 +20,18 @@ PORT = 8000
 app = Flask(__name__)
 app.secret_key = 'adkjfalj.adflja.dfnasdf.asd'
 
-login_manager = LoginManager()
-## sets up our login for the app
-login_manager.init_app(app)
-login_manager.login_view = 'login'
+# login_manager = LoginManager()
+# ## sets up our login for the app
+# login_manager.init_app(app)
+# login_manager.login_view = 'login'
 
-@login_manager.user_loader
-def load_user(userid):
-    try:
-        # get the user if the user exists in the system
-        return models.User.get(models.User.id == userid)
-    except models.DoesNotExist:
-        return None
+# @login_manager.user_loader
+# def load_user(userid):
+#     try:
+#         # get the user if the user exists in the system
+#         return models.User.get(models.User.id == userid)
+#     except models.DoesNotExist:
+#         return None
 
 
 # @app.before_request
@@ -86,16 +86,76 @@ def recipes(recipe_id = None):
             recipe_ID = int(recipe_id)
             return render_template('recipe.html', recipe = recipes_data[recipe_ID])
 
-            form = RecipeForm()
-            if form.validate_on_submit():
-                models.Recipe.create(
-                    name=form.name.data.strip(), 
-                    description=form.description.data.strip(),
-                    ingredients=form.ingredients.data.strip(),
-                    instructions=form.instructions.data.strip()
-                )
-                flash("New recipe created. Called: {}".format(form.name.data))
-            return redirect('/recipes')
+
+@app.route('/create-recipe', methods=['GET', 'POST'])
+def recipe_form():
+    form = RecipeForm()
+    if form.validate_on_submit():
+        models.Recipe.create(
+            name=form.name.data.strip(), 
+            description=form.description.data.strip(),
+            ingredients=form.ingredients.data.strip(),
+            instructions=form.instructions.data.strip(),
+            image=form.image.data.strip()
+        )
+        flash("New recipe created. Called: {}".format(form.name.data))
+        return redirect('/recipes')
+    else:
+        return render_template('recipe_form.html', form=form)
+        
+
+# @app.route('/create-review', methods=['GET', 'POST'])
+# def recipeForm():
+#     form = RecipeForm()
+#     if form.validate_on_submit():
+#         models.Recipe.create(
+#             name=form.name.data.strip(), 
+#             description=form.description.data.strip(),
+#             ingredients=form.ingredients.data.strip(),
+#             instructions=form.instructions.data.strip(),
+            
+#         )
+#         flash("New recipe created. Called: {}".format(form.name.data))
+#         return redirect('/recipes')
+#     else:
+#         return render_template('recipe_form.html', form=form)
+        
+
+
+
+
+# @app.route('/r')
+# @app.route('/r/<sub>', methods=['GET', 'POST'])
+# def r(sub=None):
+#   if sub == None:
+#     subs = models.Sub.select().limit(100)
+#     return render_template("subs.html", subs=subs)
+#   else:
+#     # Find the right Sub
+#     sub_id = int(sub)
+#     sub = models.Sub.get(models.Sub.id == sub_id)
+    
+#     posts = sub.posts
+    
+#     # Define the form for Posts
+#     form = PostForm()
+#     if form.validate_on_submit():
+#       models.Post.create(
+#         user=form.user.data.strip(),
+#         title=form.title.data.strip(), 
+#         text=form.text.data.strip(), 
+#         sub=sub)
+#         #what's a fla
+#       flash("New post created")
+#       return redirect("/posts".format(sub_id))
+#     return render_template("sub.html", sub=sub, posts=posts, form=form)
+
+
+
+
+
+
+
 
 
 if __name__ == '__main__':

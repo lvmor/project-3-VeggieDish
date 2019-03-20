@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+{% block content %}
+    <h1>Review</h1>
+    <article class="message is-primary">
+        <div class="message-body">
+            <div>{{review.rating}}</div>
+            <div>{{review.comment}}</div>
+        </div>
+    </article>
+{% endblock %}
