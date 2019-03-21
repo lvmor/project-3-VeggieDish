@@ -166,14 +166,17 @@ def recipes(recipe_id = None):
         form = ReviewForm()
         if form.validate_on_submit():
             ratingInt = int(form.rating.data)
-            models.Review.create(
-                rating=ratingInt, 
-                comment=form.comment.data.strip(),
-                recipe_id = recipe_id
-            )
-            return redirect('/recipes/{}'.format(recipe_id))
+            if ratingInt > 0 and ratingInt <= 5:
+                models.Review.create(
+                    rating=ratingInt, 
+                    comment=form.comment.data.strip(),
+                    recipe_id = recipe_id
+                )
+                return redirect('/recipes/{}'.format(recipe_id))
+            #flash("Please enter a number between 1 and 5")
         else:
             return render_template("review_form.html", recipe=recipe, form=form, reviews_template=reviews_template)
+             
 
 @app.route('/create-recipe', methods=['GET', 'POST'])
 #function name needs to match the link

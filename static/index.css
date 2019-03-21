@@ -5,15 +5,20 @@ h4 {
 }
 
 h1 {
-    color: teal;
-    font-size: 30px;
+    color: black;
+    font-size: 38px;
 }
-
+/* 
 img {
     height: 100px;
     width: auto;
-}
+} */
 
 .recipe {
     display: block;
+}
+
+#averageDiv {
+    color: teal;
+    font-size: 22px;
 }

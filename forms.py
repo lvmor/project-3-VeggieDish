@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm as Form
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextField, TextAreaField, FileField, IntegerField
-from wtforms.validators import DataRequired, Length, Email, EqualTo
+from wtforms.validators import DataRequired, Length, Email, EqualTo, Regexp, ValidationError, NumberRange
 
 from models import User, Recipe, Review
 
@@ -31,7 +31,10 @@ class RecipeForm(Form):
     
 
 class ReviewForm(Form):
-    rating = IntegerField("Recipe Rating on a scale of 1-5")
+    rating = IntegerField("Recipe Rating on a scale of 1-5",
+        validators=[
+            NumberRange(min=1, max=5, message="Please enter a number between 1 and 5")
+        ])
     comment = TextAreaField("Review of Recipe")
     submit = SubmitField('Create Review')
 
