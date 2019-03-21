@@ -29,6 +29,7 @@ class RecipeForm(Form):
     submit = SubmitField('Create Recipe')
 
 class ReviewForm(Form):
+    id = HiddenField()
     rating = IntegerField("Recipe Rating on a scale of 1-5")
     comment = TextAreaField("Review of Recipe")
     submit = SubmitField('Create Review')
