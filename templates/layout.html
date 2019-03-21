@@ -3,6 +3,7 @@
 
 <head>
     <title></title>
+    <link rel="stylesheet" type="text/css" href="../static/index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/static/style.css">
@@ -29,8 +30,9 @@
                 <div class="navbar-item">
 
                     <div class="buttons">
-                        <a class="button is-light is-outlined" href="{{ url_for('login') }}" title="login"><strong>Login</strong></a>
-                        <a class="button is-light is-outlined" href="{{ url_for('signup') }}" title="signup"><strong>Signup</strong></a>
+                        <a class="button is-light is-outlined" href="{{ url_for('about') }}" title="about"><strong>About</strong></a>
+                        <a class="button is-light" href="{{ url_for('login') }}" title="login"><strong>Login</strong></a>
+                        <a class="button is-light" href="{{ url_for('signup') }}" title="signup"><strong>Signup</strong></a>
                     </div>
                 </div>
             </div>
