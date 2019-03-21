@@ -17,12 +17,19 @@ from forms import UserForm, RecipeForm, ReviewForm
 import functools
 import models
 
+
+# ReviewForm, RecipeForm, UserForm to be included into app later
+from forms import RegistrationForm, LoginForm
+import models
+
 DEBUG = True
 PORT = 8000
 
 app = Flask(__name__)
 app.secret_key = 'adkjfalj.adflja.dfnasdf.asd'
 
+#Config for secret key
+app.config['SECRET_KEY'] = '8c1577e01307f04f3d91a2a6c6450f31'
 
 @app.before_request
 def before_request():
@@ -119,6 +126,28 @@ def recipe_form():
         return redirect('/recipes')
     else:
         return render_template('recipe_form.html', form=form)
+
+
+@app.route("/signup", methods=['GET', 'POST'])
+def signup():
+    form = RegistrationForm()
+    if form.validate_on_submit():
+        flash(f'Account created for {form.username.data}!', 'success')
+        return redirect(url_for('index'))
+    return render_template('signup.html', title='Signup', form=form)
+
+
+@app.route("/login", methods=['GET', 'POST'])
+def login():
+    form = LoginForm()
+    if form.validate_on_submit():
+        if form.email.data == 'user@site.com' and form.password.data == 'password':
+            flash('You have been logged in!', 'success')
+            return redirect(url_for('index'))
+        else:
+            flash('Login unsuccessful. Please check username and password', 'danger')
+    return render_template('login.html', title='Login', form=form)
+
 
 if __name__ == '__main__':
     models.initialize()
