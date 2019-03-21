@@ -16,7 +16,7 @@ class User(Model):
 
 class Recipe(Model):
     name = CharField()
-    # image = CharField()
+    image = CharField()
     description = TextField()
     ingredients = TextField()
     instructions = TextField()

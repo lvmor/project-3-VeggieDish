@@ -13,19 +13,11 @@
         <h4>Description</h4>
         <div>{{recipe.description}}</div>
         <div>{{recipe.average_rating}}</div>
-        <form action="" method="POST">
-            <input name="recipeid" type="hidden" value="{{recipe.id}}">
-            {{form.submit(value="Edit")}}
-            {{form.submit(value="Delete")}}
-        </form>
     </div>
 </article>
 {% endfor %}
 
 <br>
-<h2>Recipe Form</h2>
-<hr />
 
-{% include "recipe_form.html"%}
 
 {% endblock %}

@@ -1,30 +1,26 @@
-{% extends "layout.html" %}
+<form method="POST" action="" novalidate>
+  {{ form.hidden_tag() }}
+  {{form.id}}
+  <div>
+    {{ form.name.label }}
+    {{ form.name(class_="input") }}
+  </div>
+  <div>
+    {{ form.description.label }}
+    {{ form.description(class_="textarea") }}
+  </div>
+  <div>
+    {{ form.ingredients.label }}
+    {{ form.ingredients(class_="textarea") }}
+  </div>
+  <div>
+    {{ form.instructions.label }}
+    {{ form.instructions(class_="textarea") }}
+  </div>
+  <div>
+    {{ form.image.label }}
+    {{ form.image(class_="input") }}
+  </div>
 
-{% block content %}
-  <form method="POST" action="" novalidate>
-    {{ form.hidden_tag() }}
-
-    <div>
-      {{ form.name.label }}
-      {{ form.name(class_="input") }}
-    </div>
-    <div>
-      {{ form.description.label }}
-      {{ form.description(class_="textarea") }}
-    </div>
-    <div>
-        {{ form.ingredients.label }}
-        {{ form.ingredients(class_="textarea") }}
-    </div>
-    <div>
-        {{ form.instructions.label }}
-        {{ form.instructions(class_="textarea") }}
-    </div>
-    <div>
-        {{ form.image.label }}
-        {{ form.image(class_="input") }}
-    </div>
-
-    {{ form.submit(class_="button") }}
-  </form>
-{% endblock %}
+  {{ form.submit(class_="button") }}
+</form>

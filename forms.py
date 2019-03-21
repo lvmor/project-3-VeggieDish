@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm as Form
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextField, TextAreaField, FileField, IntegerField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextField, TextAreaField, FileField, IntegerField, HiddenField
 from wtforms.validators import DataRequired, Length, Email, EqualTo
 
 from models import User, Recipe, Review
@@ -15,6 +15,7 @@ class UserForm(Form):
     submit = SubmitField('Edit Profile')
 
 class RecipeForm(Form):
+    id = HiddenField()
     name = TextField("Recipe Name")
     # image = FileField('image', validators=[
     #     FileRequired(),
