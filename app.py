@@ -144,15 +144,16 @@ def recipes(recipe_id = None):
         reviews_template = models.Review.select().where(models.Review.recipe_id == recipe_id)
         
         form = ReviewForm()
-
+        reviews = models.Review.select().limit(10)
         reviewsid = request.form.get('reviewsid', '')
         command = request.form.get('submit', '')
 
         if command == 'Delete':
             models.Review.delete_by_id(reviewsid)
             return redirect('/recipes/{}'.format(recipe_id))
- 
 
+
+        
         if form.validate_on_submit():
             ratingInt = int(form.rating.data)
             models.Review.create(
