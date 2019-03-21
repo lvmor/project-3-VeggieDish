@@ -5,8 +5,9 @@
 <br>
 <br>
 {% for recipe in recipes_template %}
-<article class="message is-primary">
-    <div class="message-body">
+
+<article class="message tile is-6 is-vertical is-parent is-primary">
+    <div class="message-body tile is-child box">
         <a href={{url_for('recipes', recipe_id=recipe.id)}}>{{recipe.name}}</a>
         <img src={{ recipe.image }} alt="">
         <h4>Description</h4>
