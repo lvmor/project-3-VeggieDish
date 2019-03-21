@@ -13,6 +13,11 @@
         {{review.rating}}
         {{review.comment}}
     </div>
+    <form action="" method="POST">
+        <input name="reviewsid" type="hidden" value="{{review.id}}">
+        {{form.submit(value="Edit")}}
+        {{form.submit(value="Delete")}}
+    </form>
 </article>
 {% endfor %}
 </div>

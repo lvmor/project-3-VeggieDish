@@ -19,11 +19,26 @@
         <h4>Description</h4>
         <div>{{recipe.description}}</div>
         <div>{{recipe.average_rating}}</div>
+        <form action="" method="POST">
+            <input name="recipeid" type="hidden" value="{{recipe.id}}">
+            {{form.submit(value="Edit")}}
+            {{form.submit(value="Delete")}}
+        </form>
     </div>
 </article>
 {% endfor %}
+<<<<<<< HEAD
 </div>
 <br>
 <button id = "create-recipe-btn" class="button is-medium" 
 onclick="window.location.href= '{{ url_for('recipe_form') }}';">Create new recipe</button>
+=======
+
+<br>
+<h2>Recipe Form</h2>
+<hr />
+
+{% include "recipe_form.html"%}
+
+>>>>>>> 6545691ab5b20dbfa41d77b95a3905d58d62113c
 {% endblock %}

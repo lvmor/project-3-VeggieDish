@@ -44,7 +44,7 @@ def after_request(response):
 @app.route('/')
 def index():
     recipe_data = models.Recipe.select().limit(100)
-    return render_template("recipes.html", recipes_template=recipe_data)
+    return render_template("home.html", recipes_template=recipe_data)
 
 @app.route('/about')
 @app.route('/about/')
@@ -151,19 +151,75 @@ def reviews(review_id = None):
         return render_template("reviews.html", reviews=reviews)
 
 @app.route('/recipes')
-@app.route('/recipes/')
+@app.route('/recipes/', methods=['GET', 'POST'])
 @app.route('/recipes/<recipe_id>', methods=['GET', 'POST'])
 def recipes(recipe_id = None):
     if recipe_id == None:
+
+        # this is list of recipes we show in page
         recipes = models.Recipe.select().limit(10)
-        return render_template("recipes.html", recipes_template=recipes)
-    else:
+
+        # this is add/update form for recipe
+        form = RecipeForm()
+        
+        # receive recipe id and command from recipes list
+        recipeid = request.form.get('recipeid', '')
+        command = request.form.get('submit', '')
+
+        if command == 'Delete':
+            models.Recipe.delete_by_id(recipeid)
+            return redirect("/recipes")
+        elif command == 'Edit':
+            recipeid = int(recipeid)
+            recipe = models.Recipe.get(models.Recipe.id == recipeid)
+            form.id.data = recipe.id
+            form.name.data = recipe.name
+            form.image.data = recipe.image
+            form.description.data = recipe.description
+            form.ingredients.data = recipe.ingredients
+            form.instructions.data = recipe.instructions
+
+            return render_template("recipes.html", recipes_template=recipes, form=form)
+
+        if form.validate_on_submit():
+            if form.id.data == '': # Create new
+                models.Recipe.create(
+                    name=form.name.data.strip(), 
+                    description=form.description.data.strip(),
+                    ingredients=form.ingredients.data.strip(),
+                    instructions=form.instructions.data.strip(),
+                    image=form.image.data.strip()
+                )
+                flash("New recipe created. Called: {}".format(form.name.data))
+            else: # Update Recipe
+                recipe = models.Recipe.get(models.Recipe.id == form.id.data)
+                recipe.name = form.name.data.strip()
+                recipe.image = form.image.data.strip()
+                recipe.description = form.description.data.strip()
+                recipe.ingredients = form.ingredients.data.strip()
+                recipe.instructions = form.instructions.data.strip()
+                recipe.save()
+                flash("recipe updated")
+            return redirect('/recipes')
+
+        return render_template("recipes.html", recipes_template=recipes, form=form)
+    else: # Recipe Details
         recipe_id = int(recipe_id)
         recipe = models.Recipe.get(models.Recipe.id == recipe_id)
         reviews_template = models.Review.select().where(models.Review.recipe_id == recipe_id)
         #create if statement so if user is signed in then display reviews & form
         # else display reviews
         form = ReviewForm()
+        reviews = models.Review.select().limit(10)
+        reviewsid = request.form.get('reviewsid', '')
+        command = request.form.get('submit', '')
+
+        if command == 'Delete':
+            models.Review.delete_by_id(reviewsid)
+            return redirect('/recipes/{}'.format(recipe_id))
+
+
+        
         if form.validate_on_submit():
             ratingInt = int(form.rating.data)
             if ratingInt > 0 and ratingInt <= 5:
@@ -177,25 +233,6 @@ def recipes(recipe_id = None):
         else:
             return render_template("review_form.html", recipe=recipe, form=form, reviews_template=reviews_template)
              
-
-@app.route('/create-recipe', methods=['GET', 'POST'])
-#function name needs to match the link
-def recipe_form():
-    form = RecipeForm()
-     #same name as imported form
-    if form.validate_on_submit():
-        models.Recipe.create(
-            name=form.name.data.strip(), 
-            description=form.description.data.strip(),
-            ingredients=form.ingredients.data.strip(),
-            instructions=form.instructions.data.strip(),
-            image=form.image.data.strip()
-        )
-        flash("New recipe created. Called: {}".format(form.name.data))
-        return redirect('/recipes')
-    else:
-        return render_template('recipe_form.html', form=form)
-
 
 @app.route("/signup", methods=['GET', 'POST'])
 def signup():
