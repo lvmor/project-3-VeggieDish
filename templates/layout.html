@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html>
-
+ 
 <head>
     <title></title>
     <link rel="stylesheet" type="text/css" href="../static/index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/static/style.css">
+    <script src="/static/index.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
@@ -39,6 +40,31 @@
         </div>
     </nav>
     <br>
+    <input type="text" class="search" id="myInput" onkeyup="searchFunction()" placeholder="Search by keyword">
+
+    <script>
+    function searchFunction() {
+    var input = document.getElementById('myInput');
+    console.log(input.value)
+    var filter = input.value.toUpperCase();
+    var list = document.getElementsByClassName("all-recipes")[0];
+    console.log(list)
+    var div = list.getElementsByClassName("message");
+    console.log(div)
+    for (var i = 0; i < div.length; i++) {
+    var desc = div[i];
+            console.log(desc)
+            var txtValue = desc.textContent || desc.outerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                div[i].style.display = "block";
+                } 
+                else {
+                div[i].style.display = "none";
+                }
+        }
+    }</script>
+
+
     <div class="columns" style="padding: 0 20px">
         <div class="column">
             {% with messages = get_flashed_messages(with_categories=true) %}

@@ -63,15 +63,80 @@ def users(user_id = None):
         user_data = models.User.get(models.User.id == user_id)
         
         form = UserForm()
-        if form.validate_on_submit():
-            models.User.create( 
-                avatar = form.avatar.data.strip(), 
-                full_name = form.full_name.data.strip(),
-                city = form.city.data.strip())
-            flash("Name changed to: {}".format(form.full_name))
-            return redirect('/users/')
+        user_id = request.form.get('user_id', '')
+        command = request.form.get('submit', '')
+
+        if command == 'Delete':
+            models.User.delete_by_id(user_id)
+            return redirect("/users")
+   
+        elif command == 'Edit':
+            user_id = 4
+            user = models.User.get(models.User.id == user_id)
+            print(user)
+            print(form.full_name.data)
+            user.full_name = form.full_name.data
+            user.avatar = form.avatar.data
+            user.city = form.city.data
+            user.save()
+            return redirect("/users")
+
+        # if form.validate_on_submit():
+        #     models.User.create( 
+        #         avatar = form.avatar.data.strip(), 
+        #         full_name = form.full_name.data.strip(),
+        #         city = form.city.data.strip())
+        #     flash("Name changed to: {}".format(form.full_name))
+        #     return redirect('/users/')
         
         return render_template("new_user.html", title="New User", form=form, user=user_data)
+   
+ # if user_id == None:
+    #     users_data = models.User.select().limit(5)
+    #     return render_template('users.html', users_template = users_data)
+    # else:
+    #     user_id = int(user_id)
+    #     user_data = models.User.get(models.User.id == user_id)
+    #     form = UserForm()
+    #     if form.validate_on_submit():
+    #         form.avatar.data = user_data.avatar
+    #         form.full_name.data = user_data.full_name
+    #         form.city.data = user_data.city
+    #         return redirect('/users/{}'.format(user_id))
+    #     return render_template("new_user.html", title="New User", form=form, user=user_data)
+
+
+
+# def edit(id):
+#     qry = db_session.query(Album).filter(
+#                 Album.id==id)
+#     album = qry.first()
+ 
+#     if album:
+#         form = AlbumForm(formdata=request.form, obj=album)
+#         if request.method == 'POST' and form.validate():
+#             # save edits
+#             save_changes(album, form)
+#             flash('Album updated successfully!')
+#             return redirect('/')
+#         return render_template('edit_album.html', form=form)
+#     else:
+#         return 'Error loading #{id}'.format(id=id)
+
+  # user_id = int(user_id)
+        # user_data = models.User.get(models.User.id == user_id)
+        
+        # form = UserForm()
+        # if form.validate_on_submit():
+        #     models.User.create( 
+        #         avatar = form.avatar.data.strip(), 
+        #         full_name = form.full_name.data.strip(),
+        #         city = form.city.data.strip())
+        #     flash("Name changed to: {}".format(form.full_name))
+        #     return redirect('/users/')
+        
+
+        
 
 @app.route('/reviews')
 @app.route('/reviews/')
@@ -96,7 +161,8 @@ def recipes(recipe_id = None):
         recipe_id = int(recipe_id)
         recipe = models.Recipe.get(models.Recipe.id == recipe_id)
         reviews_template = models.Review.select().where(models.Review.recipe_id == recipe_id)
-        
+        #create if statement so if user is signed in then display reviews & form
+        # else display reviews
         form = ReviewForm()
         if form.validate_on_submit():
             ratingInt = int(form.rating.data)

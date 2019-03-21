@@ -4,6 +4,8 @@
 <h1>Recipes</h1>
 <br>
 <br>
+<div class="all-recipes">
+
 {% for recipe in recipes_template %}
 
 <article class="message tile is-6 is-vertical is-parent is-primary">
@@ -16,6 +18,7 @@
     </div>
 </article>
 {% endfor %}
+</div>
 <br>
 <button id = "create-recipe-btn" class="button is-medium" 
 onclick="window.location.href= '{{ url_for('recipe_form') }}';">Create new recipe</button>
