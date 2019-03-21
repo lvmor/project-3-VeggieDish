@@ -1,26 +1,19 @@
 from flask import Flask, g
 from flask import render_template, flash, redirect, url_for
+from flask_login import LoginManager, login_user, logout_user, login_required, current_user
+from flask_bcrypt import check_password_hash
 
 import json
 import models
-from forms import RecipeForm, UserForm
+from forms import RecipeForm, ReviewForm, UserForm, RegistrationForm, LoginForm
 
 import functools
 
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
-from werkzeug.security import check_password_hash, generate_password_hash
-
-from forms import UserForm, RecipeForm, ReviewForm
-
-import functools
-import models
 
 
-# ReviewForm, RecipeForm, UserForm to be included into app later
-from forms import RegistrationForm, LoginForm
-import models
 
 DEBUG = True
 PORT = 8000
@@ -180,6 +173,11 @@ def signup():
     form = RegistrationForm()
     if form.validate_on_submit():
         flash(f'Account created for {form.username.data}!', 'success')
+        models.User.create_user(
+            username=form.username.data,
+            email=form.email.data,
+            password=form.password.data
+            )
         return redirect(url_for('index'))
     return render_template('signup.html', title='Signup', form=form)
 
@@ -188,11 +186,10 @@ def signup():
 def login():
     form = LoginForm()
     if form.validate_on_submit():
-        if form.email.data == 'user@site.com' and form.password.data == 'password':
-            flash('You have been logged in!', 'success')
-            return redirect(url_for('index'))
-        else:
-            flash('Login unsuccessful. Please check username and password', 'danger')
+        flash('You have been logged in!', 'success')
+        return redirect(url_for('index'))
+    else:
+        flash('Login unsuccessful. Please check username and password', 'danger')
     return render_template('login.html', title='Login', form=form)
 
 
