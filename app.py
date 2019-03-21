@@ -144,6 +144,15 @@ def recipes(recipe_id = None):
         reviews_template = models.Review.select().where(models.Review.recipe_id == recipe_id)
         
         form = ReviewForm()
+
+        reviewsid = request.form.get('reviewsid', '')
+        command = request.form.get('submit', '')
+
+        if command == 'Delete':
+            models.Review.delete_by_id(reviewsid)
+            return redirect('/recipes/{}'.format(recipe_id))
+ 
+
         if form.validate_on_submit():
             ratingInt = int(form.rating.data)
             models.Review.create(
@@ -154,26 +163,6 @@ def recipes(recipe_id = None):
             return redirect('/recipes/{}'.format(recipe_id))
         else:
             return render_template("review_form.html", recipe=recipe, form=form, reviews_template=reviews_template)
-
-
-# @app.route('/create-recipe', methods=['GET', 'POST'])
-# #function name needs to match the link
-# def recipe_form():
-#     form = RecipeForm()
-#      #same name as imported form
-#     if form.validate_on_submit():
-#         models.Recipe.create(
-#             name=form.name.data.strip(), 
-#             description=form.description.data.strip(),
-#             ingredients=form.ingredients.data.strip(),
-#             instructions=form.instructions.data.strip(),
-#             image=form.image.data.strip()
-#         )
-#         flash("New recipe created. Called: {}".format(form.name.data))
-#         return redirect('/recipes')
-#     else:
-#         return render_template('recipe_form.html', form=form)
-
 
 @app.route("/signup", methods=['GET', 'POST'])
 def signup():
