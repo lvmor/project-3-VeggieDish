@@ -6,8 +6,7 @@ DATABASE = SqliteDatabase('veggiedish.db')
 class User(Model):
     full_name = TextField()
     avatar = TextField()
-    email = TextField()
-    password = TextField()
+
     city = TextField()
     date_joined = DateTimeField(default=datetime.datetime.now)
 
@@ -17,8 +16,7 @@ class User(Model):
 
 class Recipe(Model):
     name = CharField()
-    # image = CharField()
-    # id = primary key
+    image = CharField()
     description = TextField()
     ingredients = TextField()
     instructions = TextField()
