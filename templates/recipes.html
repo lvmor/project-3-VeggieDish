@@ -3,13 +3,11 @@
 {% block content %}
 <h1>Recipes</h1>
 <br>
-<br>
-<div class="all-recipes">
 <input type="text" class="search" id="myInput" onkeyup="searchFunction()" placeholder="Search by keyword">
+<br>
 
-
-
-
+<div class="user-recipes-container">
+<div class="all-recipes user-recipes">
 {% for recipe in recipes_template %}
 
 <article class="message tile is-6 is-vertical is-parent is-primary">
@@ -27,11 +25,13 @@
     </div>
 </article>
 {% endfor %}
+</div>
 
-<br>
+<div class= "recipe-form"> 
 <h2>Recipe Form</h2>
 <hr />
-
 {% include "recipe_form.html"%}
+</div>
+</div>
 
 {% endblock %}

@@ -3,7 +3,9 @@
 {% block content %}
 <h1>Recipes</h1>
 <br>
+<input type="text" class="search" id="myInput" onkeyup="searchFunction()" placeholder="Search by keyword">
 <br>
+<div class="all-recipes home-recipes">
 {% for recipe in recipes_template %}
 
 <article class="message tile is-6 is-vertical is-parent is-primary">
@@ -16,7 +18,7 @@
     </div>
 </article>
 {% endfor %}
-
+</div>
 <br>
 
 

@@ -37,13 +37,15 @@ console.log(reviews)
         sum = sum + ratingInt;
         amount++;
     }
+    let average = 0.0;
+    if (sum != 0) {
     let avg = (sum/amount)
     //tofixed rounds the rating to the first decimal place
-    var average = avg.toFixed(1);
-
+    average = avg.toFixed(1);
+    }
     var averageDiv = document.getElementById("averageDiv");
     averageDiv.innerText = `Average Rating: ${average}`
-    console.log(avg)
+    
 
 // return average}
 

@@ -38,7 +38,8 @@ def after_request(response):
 def index():
     recipe_data = models.Recipe.select().limit(100)
     return render_template("home.html", recipes_template=recipe_data)
-
+    #have a search bar template and inject it in home.html 
+    
 @app.route('/about')
 @app.route('/about/')
 def about():
