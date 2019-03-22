@@ -1,6 +1,7 @@
 from flask_wtf import FlaskForm as Form
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextField, TextAreaField, FileField, IntegerField, HiddenField
-from wtforms.validators import DataRequired, Length, Email, EqualTo
+from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
+from veggieproject.models import User
 
 # from models import User
 from veggieproject import models
@@ -43,6 +44,15 @@ class RegistrationForm(Form):
     confirm_password = PasswordField('Confirm password', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Sign Up')
 
+    def validate_username(self, username):
+        user = User.query.filter_by(username=username.data).first()
+        if user:
+            raise ValidationError('That username is already taken. Please choose a different one')
+
+    def validate_email(self, email):
+        user = User.query.filter_by(email=email.data).first()
+        if user:
+            raise ValidationError('That email is already taken. Please choose a different one')
 
 class LoginForm(Form):
     email = StringField('Email', validators=[DataRequired(), Email()])
