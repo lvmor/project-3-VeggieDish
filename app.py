@@ -1,5 +1,7 @@
 from flask import Flask, g
 from flask import render_template, flash, redirect, url_for
+from flask_login import LoginManager, login_user, logout_user, login_required, current_user
+from flask_bcrypt import check_password_hash
 
 import json
 import models
@@ -14,7 +16,6 @@ from flask import (
 from werkzeug.security import check_password_hash, generate_password_hash
 from forms import UserForm, RecipeForm, ReviewForm, RegistrationForm, LoginForm
 
-
 DEBUG = True
 PORT = 8000
 
@@ -22,7 +23,19 @@ app = Flask(__name__)
 app.secret_key = 'adkjfalj.adflja.dfnasdf.asd'
 
 #Config for secret key
-app.config['SECRET_KEY'] = '8c1577e01307f04f3d91a2a6c6450f31'
+# app.config['SECRET_KEY'] = '8c1577e01307f04f3d91a2a6c6450f31'
+login_manager = LoginManager()
+## sets up our login for the app
+login_manager.init_app(app)
+login_manager.login_view = 'login'
+
+@login_manager.user_loader
+def load_user(userid):
+    try:
+        return models.User.get(models.User.id == userid)
+    except models.DoesNotExist:
+        return None
+
 
 @app.before_request
 def before_request():
@@ -202,13 +215,33 @@ def recipes(recipe_id = None):
         else:
             return render_template("review_form.html", recipe=recipe, form=form, reviews_template=reviews_template)
 
+# @app.route("/signup", methods=['GET', 'POST'])
+# def signup():
+#     form = RegistrationForm()
+#     if form.validate_on_submit():
+#         flash(f'Account created for {form.username.data}!', 'success')
+#         return redirect(url_for('index'))
+#     return render_template('signup.html', title='Signup', form=form)
+
+
 @app.route("/signup", methods=['GET', 'POST'])
 def signup():
     form = RegistrationForm()
     if form.validate_on_submit():
         flash(f'Account created for {form.username.data}!', 'success')
+        models.User.create_user(
+            username=form.username.data,
+            email=form.email.data,
+            password=form.password.data,
+            full_name=form.full_name.data,
+            avatar=form.avatar.data,
+            city=form.city.data
+            )
         return redirect(url_for('index'))
     return render_template('signup.html', title='Signup', form=form)
+
+
+
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
@@ -220,6 +253,20 @@ def login():
         else:
             flash('Login unsuccessful. Please check username and password', 'danger')
     return render_template('login.html', title='Login', form=form)
+
+
 if __name__ == '__main__':
     models.initialize()
+    try:
+        models.User.create_user(
+            username='jimbo',
+            email="jim@jim.com",
+            password='password',
+            full_name = "JIMMY BOB",
+            avatar ="pic.png",
+            city = "Oakland"
+            )
+    except ValueError:
+        pass
+
     app.run(debug=DEBUG, port=PORT)

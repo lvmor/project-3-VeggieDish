@@ -43,12 +43,56 @@ class ReviewForm(Form):
     submit = SubmitField('Create Review')
 
 
+# class RegistrationForm(Form):
+#     username = StringField('Username', validators=[DataRequired(), Length(min=2, max=20)])
+#     email = StringField('Email', validators=[DataRequired(), Email()])
+#     password = PasswordField('Password', validators=[DataRequired()])
+#     confirm_password = PasswordField('Confirm password', validators=[DataRequired(), EqualTo('password')])
+#     submit = SubmitField('Sign Up')
+
+def name_exists(form, field):
+    if User.select().where(User.username == field.data).exists():
+        raise ValidationError('User with that name already exists.')
+
+def email_exists(form, field):
+    if User.select().where(User.email == field.data).exists():
+        raise ValidationError('User with that email already exists.')
+ 
+
 class RegistrationForm(Form):
-    username = StringField('Username', validators=[DataRequired(), Length(min=2, max=20)])
-    email = StringField('Email', validators=[DataRequired(), Email()])
-    password = PasswordField('Password', validators=[DataRequired()])
-    confirm_password = PasswordField('Confirm password', validators=[DataRequired(), EqualTo('password')])
-    submit = SubmitField('Sign Up')
+    full_name = StringField("Your full name", validators=[DataRequired()])
+    avatar = StringField("Your avatar")
+    city = StringField("Your city", validators=[DataRequired()])
+    username = StringField(
+        'Username',
+        validators=[
+            DataRequired(),
+            #name_exists calls the above method to make sure user doesn't already exist
+            name_exists
+        ])
+    email = StringField(
+        'Email',
+        validators=[
+            DataRequired(),
+            Email(),
+            email_exists
+        ])
+    password = PasswordField(
+        'Password',
+        validators=[
+            DataRequired(),
+            Length(min=3),
+            EqualTo('confirm_password', message='Passwords must match')
+        ])
+
+    confirm_password = PasswordField(
+        'Confirm password', 
+        validators=[DataRequired(), EqualTo('password')]
+        )
+    #submit = SubmitField('Sign Up')
+
+
+  
 
 
 class LoginForm(Form):
