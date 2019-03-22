@@ -5,8 +5,6 @@ from wtforms.validators import DataRequired, Length, Email, EqualTo, Regexp, Val
 
 from models import User, Recipe, Review
 
-
-
 #images = UploadSet('images', IMAGES)
 
 class UserForm(Form):
@@ -35,20 +33,8 @@ class RecipeForm(Form):
 class ReviewForm(Form):
     id = HiddenField()
     rating = SelectField(u"Recipe Rating ", choices=[('1', '1'), ('2', '2'), ('3', '3'), ('4', '4'), ('5', '5')])
-    # rating = IntegerField("Recipe Rating on a scale of 1-5",
-    # validators=[
-    #     NumberRange(min=1, max=5, message="Please enter a number between 1 and 5")
-    # ])
     comment = TextAreaField("Review of Recipe")
     submit = SubmitField('Create Review')
-
-
-# class RegistrationForm(Form):
-#     username = StringField('Username', validators=[DataRequired(), Length(min=2, max=20)])
-#     email = StringField('Email', validators=[DataRequired(), Email()])
-#     password = PasswordField('Password', validators=[DataRequired()])
-#     confirm_password = PasswordField('Confirm password', validators=[DataRequired(), EqualTo('password')])
-#     submit = SubmitField('Sign Up')
 
 def name_exists(form, field):
     if User.select().where(User.username == field.data).exists():
@@ -58,7 +44,6 @@ def email_exists(form, field):
     if User.select().where(User.email == field.data).exists():
         raise ValidationError('User with that email already exists.')
  
-
 class RegistrationForm(Form):
     full_name = StringField("Your full name", validators=[DataRequired()])
     avatar = StringField("Your avatar")
@@ -89,17 +74,6 @@ class RegistrationForm(Form):
         'Confirm password', 
         validators=[DataRequired()]
         )
-    #submit = SubmitField('Sign Up')
-
-
-  
-
-
-# class LoginForm(Form):
-#     email = StringField('Email', validators=[DataRequired(), Email()])
-#     password = PasswordField('Password', validators=[DataRequired()])
-#     remember = BooleanField('Remember Me')
-#     submit = SubmitField('Login')
 
 class LoginForm(Form):
     email = StringField('Email', validators=[DataRequired(), Email()])

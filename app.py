@@ -2,7 +2,6 @@ from flask import Flask, g
 from flask import render_template, flash, redirect, url_for
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from flask_bcrypt import check_password_hash
-#from werkzeug.security import check_password_hash
 
 import json
 import models
@@ -23,11 +22,7 @@ PORT = 8000
 
 app = Flask(__name__)
 app.secret_key = 'adkjfalj.adflja.dfnasdf.asd'
-
-#Config for secret key
-# app.config['SECRET_KEY'] = '8c1577e01307f04f3d91a2a6c6450f31'
 login_manager = LoginManager()
-## sets up our login for the app
 login_manager.init_app(app)
 login_manager.login_view = 'login'
 
@@ -44,16 +39,19 @@ def before_request():
     g.db = models.DATABASE
     g.db.connect()
 
+
 @app.after_request
 def after_request(response):
     g.db.close()
     return response
+
 
 @app.route('/')
 def index():
     recipe_data = models.Recipe.select().limit(100)
     return render_template("home.html", recipes_template=recipe_data)
     #have a search bar template and inject it in home.html 
+
 
 @app.route('/about')
 @app.route('/about/')
@@ -83,9 +81,6 @@ def users(user_id):
     return render_template("new_user.html", title="New User", form=form, user=user_data)
 
 
-
-
-
 @app.route('/reviews')
 @app.route('/reviews/')
 @app.route('/reviews/<review_id>')
@@ -97,6 +92,7 @@ def reviews(review_id = None):
         review_id = int(review_id)
         review = models.Reviews.get(models.Reviews.id == review_id)
         return render_template("reviews.html", reviews=reviews)
+
 
 @app.route('/recipes')
 @app.route('/recipes/', methods=['GET', 'POST'])
@@ -189,14 +185,6 @@ def recipes(recipe_id = None):
         else:
             return render_template("review_form.html", recipe=recipe, form=form, reviews_template=reviews_template)
 
-# @app.route("/signup", methods=['GET', 'POST'])
-# def signup():
-#     form = RegistrationForm()
-#     if form.validate_on_submit():
-#         flash(f'Account created for {form.username.data}!', 'success')
-#         return redirect(url_for('index'))
-#     return render_template('signup.html', title='Signup', form=form)
-
 
 @app.route("/signup", methods=['GET', 'POST'])
 def signup():
@@ -215,23 +203,6 @@ def signup():
     return render_template('signup.html', title='Signup', form=form)
 
 
-
-# EUNICE
-# @app.route("/login", methods=['GET', 'POST'])
-# def login():
-#     form = LoginForm()
-#     if form.validate_on_submit():
-#         if form.email.data == 'user@site.com' and form.password.data == 'password':
-#             flash('You have been logged in!', 'success')
-#             return redirect(url_for('index'))
-#         else:
-#             flash('Login unsuccessful. Please check username and password', 'danger')
-#     return render_template('login.html', title='Login', form=form)
-
-# BROCK
-
-
-
 @app.route('/login', methods=('GET', 'POST'))
 def login():
     form = LoginForm()
@@ -244,32 +215,13 @@ def login():
             print(user.password)
             print(form.password.data)
             if check_password_hash(user.password, form.password.data):
-                ## creates session
                 login_user(user)
                 flash("You've been logged in", "success")
-                #Session['user_id'] = user.id
                 return redirect(url_for('index'))
             #why does the below flash show up in the wrong spot
             else:
                 flash("your email or password doesn't match", "error")
     return render_template('login.html', form=form)
-
-
-# @app.route("/login", methods=['GET', 'POST'])
-# def login():
-#     form = LoginForm()
-#     if form.validate_on_submit():
-#         user = models.User.get(models.User.email == form.email.data and models.User.password == form.password.data)
-#         if user != None:
-#             flash('You have been logged in!', 'success')
-#             Session['user_id'] = user.id
-#             return redirect(url_for('index'))
-#         else:
-#             flash('Login unsuccessful. Please check username and password', 'danger')
-#     return render_template('login.html', title='Login', form=form)
-
-
-
 
 
 @app.route('/logout')
