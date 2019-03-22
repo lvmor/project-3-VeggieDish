@@ -2,7 +2,7 @@
 
 {% block recipe_reviews %}
 <h1>Reviews</h1>
-
+<div  id="all-reviews">
 {% for review in reviews_template %}
 <article class="message is-secondary">
     <div class="message-header">
@@ -20,7 +20,7 @@
     </form>
 </article>
 {% endfor %}
-
+</div>
 {% block reviewForm %}
 {% endblock%}
 
