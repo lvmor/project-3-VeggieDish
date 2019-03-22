@@ -1,5 +1,5 @@
 from flask import render_template, flash, redirect, url_for
-from veggieproject import app
+from veggieproject import app, db, bcrypt
 from veggieproject.forms import RecipeForm, ReviewForm, UserForm, RegistrationForm, LoginForm
 from veggieproject.models import User, Review
 
@@ -123,13 +123,13 @@ def recipes(recipe_id = None):
 def signup():
     form = RegistrationForm()
     if form.validate_on_submit():
-        flash(f'Account created for {form.username.data}!', 'success')
-        models.User.create_user(
-            username=form.username.data,
-            email=form.email.data,
-            password=form.password.data
-            )
-        return redirect(url_for('index'))
+        hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+        user = User(username=form.username.data, email=form.email.data, password=hashed_password)
+        db.session.add(user)
+        db.session.commit()
+        flash('Your account has been created! You are now able to log in', 'success')
+
+        return redirect(url_for('login'))
     return render_template('signup.html', title='Signup', form=form)
 
 
