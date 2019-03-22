@@ -1,5 +1,7 @@
-from flask import Flask, g
-from flask import render_template, flash, redirect, url_for
+from datetime import datetime
+from flask import g
+from flask import Flask, render_template, flash, redirect, url_for
+from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from flask_bcrypt import check_password_hash
 
@@ -23,6 +25,36 @@ app.secret_key = 'adkjfalj.adflja.dfnasdf.asd'
 
 #Config for secret key
 app.config['SECRET_KEY'] = '8c1577e01307f04f3d91a2a6c6450f31'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///veggiedish.db'
+
+db = SQLAlchemy(app)
+
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(20), unique=True, nullable=False)
+    email = db.Column(db.String(120), unique=True, nullable=False)
+    image_file = db.Column(db.String(20), nullable=False, default='default.jpg')
+    password = db.Column(db.String(60), nullable=False)
+    reviews = db.relationship('Review', backref='author', lazy=True) #This sets relationship between user and reviews
+
+#This shows how our user object looks when printed out
+    def __repr__(self):
+        return f"User('{self.username}', '{self.email}', '{self.image_file}')"
+
+
+class Review(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(100), nullable=False)
+    date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    content = db.Column(db.Text, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False) #user.id here refers to id of user(author) 
+
+
+    def __repr__(self):
+        return f"Post('{self.title}', '{self.date_posted}')"
+
+
+
 
 @app.before_request
 def before_request():
