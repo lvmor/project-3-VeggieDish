@@ -1,25 +1,21 @@
 {% extends "layout.html" %}
 
 {% block content %}
-    <h1>Recipe</h1>
-    <article class="message tile is-vertical is-parent is-primary">
-        <div class="message-body tile is-child box">
-            <img src={{recipe.image}} alt="">
-            <div>{{recipe.name}}</div>
-            <div>{{recipe.description}}</div>
-            <div>{{recipe.ingredients}}</div>
-            <div>{{recipe.instructions}}</div>
-        </div>
-    </article>
+<h1>Recipe</h1>
+<article style="display: block" class="recipe message tile is-vertical is-parent is-primary">
+    <div class="message-body tile is-child box">
+        <img src={{recipe.image}} alt="">
+        <div class="name">{{recipe.name}}</div>
+        <div class="description">{{recipe.description}}</div>
+        <div>{{recipe.ingredients.replace('\n', '<br />')}}</div>
+        <div>{{recipe.instructions}}</div>
+    </div>
+</article>
+<div id="averageDiv"></div>
 
-    {% block recipe_reviews %}
+{% block recipe_reviews %}
 {% endblock%}
 
-   
 
-    <!-- {% for review in reviews_template %}
-    {% endfor %} -->
 
 {% endblock %}
-
-

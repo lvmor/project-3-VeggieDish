@@ -3,24 +3,17 @@ from flask import render_template, flash, redirect, url_for
 
 import json
 import models
-from forms import RecipeForm, UserForm
-
 import functools
+
+from forms import RecipeForm, UserForm
 
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
+
 from werkzeug.security import check_password_hash, generate_password_hash
+from forms import UserForm, RecipeForm, ReviewForm, RegistrationForm, LoginForm
 
-from forms import UserForm, RecipeForm, ReviewForm
-
-import functools
-import models
-
-
-# ReviewForm, RecipeForm, UserForm to be included into app later
-from forms import RegistrationForm, LoginForm
-import models
 
 DEBUG = True
 PORT = 8000
@@ -51,6 +44,7 @@ def index():
 def about():
     return render_template('about.html')
 
+
 @app.route('/users')
 @app.route('/users/')
 @app.route('/users/<user_id>', methods=['GET', 'POST'])
@@ -63,15 +57,46 @@ def users(user_id = None):
         user_data = models.User.get(models.User.id == user_id)
         
         form = UserForm()
-        if form.validate_on_submit():
-            models.User.create( 
-                avatar = form.avatar.data.strip(), 
-                full_name = form.full_name.data.strip(),
-                city = form.city.data.strip())
-            flash("Name changed to: {}".format(form.full_name))
-            return redirect('/users/')
-        
+        user_id = request.form.get('user_id', '')
+        command = request.form.get('submit', '')
+
+        if command == 'Delete':
+            models.User.delete_by_id(user_id)
+            return redirect("/users")
+   
+        elif command == 'Edit':
+            user_id = 4
+            user = models.User.get(models.User.id == user_id)
+            print(user)
+            print(form.full_name.data)
+            user.full_name = form.full_name.data
+            user.avatar = form.avatar.data
+            user.city = form.city.data
+            user.save()
+            return redirect("/users")
         return render_template("new_user.html", title="New User", form=form, user=user_data)
+   
+# @app.route('/users')
+# @app.route('/users/')
+# @app.route('/users/<user_id>', methods=['GET', 'POST'])
+# def users(user_id = None):
+#     if user_id == None:
+#         users_data = models.User.select().limit(5)
+#         return render_template('users.html', users_template = users_data)
+#     else:
+#         user_id = int(user_id)
+#         user_data = models.User.get(models.User.id == user_id)
+        
+#         form = UserForm()
+#         if form.validate_on_submit():
+#             models.User.create( 
+#                 avatar = form.avatar.data.strip(), 
+#                 full_name = form.full_name.data.strip(),
+#                 city = form.city.data.strip())
+#             flash("Name changed to: {}".format(form.full_name))
+#             return redirect('/users/') 
+#        return render_template("new_user.html", title="New User", form=form, user=user_data)
+
 
 @app.route('/reviews')
 @app.route('/reviews/')
@@ -90,17 +115,11 @@ def reviews(review_id = None):
 @app.route('/recipes/<recipe_id>', methods=['GET', 'POST'])
 def recipes(recipe_id = None):
     if recipe_id == None:
-
-        # this is list of recipes we show in page
         recipes = models.Recipe.select().limit(10)
-
-        # this is add/update form for recipe
         form = RecipeForm()
         
-        # receive recipe id and command from recipes list
         recipeid = request.form.get('recipeid', '')
         command = request.form.get('submit', '')
-
         if command == 'Delete':
             models.Recipe.delete_by_id(recipeid)
             return redirect("/recipes")
@@ -113,9 +132,7 @@ def recipes(recipe_id = None):
             form.description.data = recipe.description
             form.ingredients.data = recipe.ingredients
             form.instructions.data = recipe.instructions
-
-            return render_template("recipes.html", recipes_template=recipes, form=form)
-
+           
         if form.validate_on_submit():
             if form.id.data == '': # Create new
                 models.Recipe.create(
@@ -126,7 +143,7 @@ def recipes(recipe_id = None):
                     image=form.image.data.strip()
                 )
                 flash("New recipe created. Called: {}".format(form.name.data))
-            else: # Update Recipe
+            else: 
                 recipe = models.Recipe.get(models.Recipe.id == form.id.data)
                 recipe.name = form.name.data.strip()
                 recipe.image = form.image.data.strip()
@@ -136,43 +153,46 @@ def recipes(recipe_id = None):
                 recipe.save()
                 flash("recipe updated")
             return redirect('/recipes')
-
         return render_template("recipes.html", recipes_template=recipes, form=form)
-    else: # Recipe Details
+    else: 
         recipe_id = int(recipe_id)
         recipe = models.Recipe.get(models.Recipe.id == recipe_id)
         reviews_template = models.Review.select().where(models.Review.recipe_id == recipe_id)
         
         form = ReviewForm()
+        reviews = models.Review.select().limit(10)
+
+        reviewsid = request.form.get('reviewsid', '')
+        command = request.form.get('submit', '')
+        if command == 'Delete':
+            models.Review.delete_by_id(reviewsid)
+            return redirect('/recipes/{}'.format(recipe_id))
+        
+        elif command == 'Edit':
+            reviewsid = int(reviewsid)
+            review = models.Review.get(models.Review.id == reviewsid)
+            form.id.data = review.id
+            form.rating.data = review.rating
+            form.comment.data = review.comment
+
+            return render_template("review_form.html", recipe=recipe, form=form, reviews_template=reviews_template)
+
         if form.validate_on_submit():
-            ratingInt = int(form.rating.data)
-            models.Review.create(
-                rating=ratingInt, 
-                comment=form.comment.data.strip(),
-                recipe_id = recipe_id
-            )
+            if form.id.data == '': 
+                models.Review.create(
+                    recipe_id = recipe_id,
+                    rating=form.rating.data,
+                    comment=form.comment.data.strip(),
+                )
+            else: 
+                review = models.Review.get(models.Review.id == form.id.data)
+                review.rating = form.rating.data
+                review.comment = form.comment.data.strip()
+                review.save()
+                flash("review updated")
             return redirect('/recipes/{}'.format(recipe_id))
         else:
             return render_template("review_form.html", recipe=recipe, form=form, reviews_template=reviews_template)
-
-
-# @app.route('/create-recipe', methods=['GET', 'POST'])
-# #function name needs to match the link
-# def recipe_form():
-#     form = RecipeForm()
-#      #same name as imported form
-#     if form.validate_on_submit():
-#         models.Recipe.create(
-#             name=form.name.data.strip(), 
-#             description=form.description.data.strip(),
-#             ingredients=form.ingredients.data.strip(),
-#             instructions=form.instructions.data.strip(),
-#             image=form.image.data.strip()
-#         )
-#         flash("New recipe created. Called: {}".format(form.name.data))
-#         return redirect('/recipes')
-#     else:
-#         return render_template('recipe_form.html', form=form)
 
 
 @app.route("/signup", methods=['GET', 'POST'])
@@ -182,7 +202,6 @@ def signup():
         flash(f'Account created for {form.username.data}!', 'success')
         return redirect(url_for('index'))
     return render_template('signup.html', title='Signup', form=form)
-
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
@@ -194,8 +213,6 @@ def login():
         else:
             flash('Login unsuccessful. Please check username and password', 'danger')
     return render_template('login.html', title='Login', form=form)
-
-
 if __name__ == '__main__':
     models.initialize()
     app.run(debug=DEBUG, port=PORT)
