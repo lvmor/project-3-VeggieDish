@@ -2,6 +2,7 @@ from flask import Flask, g
 from flask import render_template, flash, redirect, url_for
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from flask_bcrypt import check_password_hash
+#from werkzeug.security import check_password_hash
 
 import json
 import models
@@ -13,7 +14,8 @@ from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
 
-from werkzeug.security import check_password_hash, generate_password_hash
+from werkzeug.security import generate_password_hash
+
 from forms import UserForm, RecipeForm, ReviewForm, RegistrationForm, LoginForm
 
 DEBUG = True
@@ -59,57 +61,33 @@ def about():
     return render_template('about.html')
 
 
-@app.route('/users')
-@app.route('/users/')
 @app.route('/users/<user_id>', methods=['GET', 'POST'])
-def users(user_id = None):
-    if user_id == None:
-        users_data = models.User.select().limit(5)
-        return render_template('users.html', users_template = users_data)
-    else:
-        user_id = int(user_id)
-        user_data = models.User.get(models.User.id == user_id)
-        
-        form = UserForm()
-        user_id = request.form.get('user_id', '')
-        command = request.form.get('submit', '')
+def users(user_id):
+    user_id = int(user_id)
+    user_data = models.User.get(models.User.id == user_id)
+    
+    form = UserForm()
+    user_id = request.form.get('user_id', '')
+    command = request.form.get('submit', '')
 
-        if command == 'Delete':
-            models.User.delete_by_id(user_id)
-            return redirect("/users")
-   
-        elif command == 'Edit':
-            user_id = 4
-            user = models.User.get(models.User.id == user_id)
-            print(user)
-            print(form.full_name.data)
-            user.full_name = form.full_name.data
-            user.avatar = form.avatar.data
-            user.city = form.city.data
-            user.save()
-            return redirect("/users")
-        return render_template("new_user.html", title="New User", form=form, user=user_data)
-   
-# @app.route('/users')
-# @app.route('/users/')
-# @app.route('/users/<user_id>', methods=['GET', 'POST'])
-# def users(user_id = None):
-#     if user_id == None:
-#         users_data = models.User.select().limit(5)
-#         return render_template('users.html', users_template = users_data)
-#     else:
-#         user_id = int(user_id)
-#         user_data = models.User.get(models.User.id == user_id)
-        
-#         form = UserForm()
-#         if form.validate_on_submit():
-#             models.User.create( 
-#                 avatar = form.avatar.data.strip(), 
-#                 full_name = form.full_name.data.strip(),
-#                 city = form.city.data.strip())
-#             flash("Name changed to: {}".format(form.full_name))
-#             return redirect('/users/') 
-#        return render_template("new_user.html", title="New User", form=form, user=user_data)
+    if command == 'Delete':
+        models.User.delete_by_id(user_id)
+        return redirect('/users/{}'.format(user_id))
+
+    elif command == 'Edit':
+        user_id = int(user_id)
+        user = models.User.get(models.User.id == user_id)
+        print(user)
+        print(form.full_name.data)
+        user.full_name = form.full_name.data
+        user.avatar = form.avatar.data
+        user.city = form.city.data
+        user.save()
+        return redirect('/users/{}'.format(user_id))
+    return render_template("new_user.html", title="New User", form=form, user=user_data)
+
+
+
 
 
 @app.route('/reviews')
@@ -148,7 +126,7 @@ def recipes(recipe_id = None):
             form.instructions.data = recipe.instructions
            
         if form.validate_on_submit():
-            if form.id.data == '': # Create new
+            if form.id.data == '': 
                 models.Recipe.create(
                     name=form.name.data.strip(), 
                     description=form.description.data.strip(),
@@ -242,18 +220,68 @@ def signup():
 
 
 
+# EUNICE
+# @app.route("/login", methods=['GET', 'POST'])
+# def login():
+#     form = LoginForm()
+#     if form.validate_on_submit():
+#         if form.email.data == 'user@site.com' and form.password.data == 'password':
+#             flash('You have been logged in!', 'success')
+#             return redirect(url_for('index'))
+#         else:
+#             flash('Login unsuccessful. Please check username and password', 'danger')
+#     return render_template('login.html', title='Login', form=form)
 
-@app.route("/login", methods=['GET', 'POST'])
+# BROCK
+
+
+
+@app.route('/login', methods=('GET', 'POST'))
 def login():
     form = LoginForm()
     if form.validate_on_submit():
-        if form.email.data == 'user@site.com' and form.password.data == 'password':
-            flash('You have been logged in!', 'success')
-            return redirect(url_for('index'))
+        try:
+            user = models.User.get(models.User.email == form.email.data)
+        except models.DoesNotExist:
+            flash("your email or password doesn't match", "error")
         else:
-            flash('Login unsuccessful. Please check username and password', 'danger')
-    return render_template('login.html', title='Login', form=form)
+            print(user.password)
+            print(form.password.data)
+            if check_password_hash(user.password, form.password.data):
+                ## creates session
+                login_user(user)
+                flash("You've been logged in", "success")
+                #Session['user_id'] = user.id
+                return redirect(url_for('index'))
+            #why does the below flash show up in the wrong spot
+            else:
+                flash("your email or password doesn't match", "error")
+    return render_template('login.html', form=form)
 
+
+# @app.route("/login", methods=['GET', 'POST'])
+# def login():
+#     form = LoginForm()
+#     if form.validate_on_submit():
+#         user = models.User.get(models.User.email == form.email.data and models.User.password == form.password.data)
+#         if user != None:
+#             flash('You have been logged in!', 'success')
+#             Session['user_id'] = user.id
+#             return redirect(url_for('index'))
+#         else:
+#             flash('Login unsuccessful. Please check username and password', 'danger')
+#     return render_template('login.html', title='Login', form=form)
+
+
+
+
+
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    flash("You've been logged out", "success")
+    return redirect(url_for('index'))
 
 if __name__ == '__main__':
     models.initialize()

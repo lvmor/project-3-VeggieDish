@@ -87,7 +87,7 @@ class RegistrationForm(Form):
 
     confirm_password = PasswordField(
         'Confirm password', 
-        validators=[DataRequired(), EqualTo('password')]
+        validators=[DataRequired()]
         )
     #submit = SubmitField('Sign Up')
 
@@ -95,8 +95,12 @@ class RegistrationForm(Form):
   
 
 
+# class LoginForm(Form):
+#     email = StringField('Email', validators=[DataRequired(), Email()])
+#     password = PasswordField('Password', validators=[DataRequired()])
+#     remember = BooleanField('Remember Me')
+#     submit = SubmitField('Login')
+
 class LoginForm(Form):
     email = StringField('Email', validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired()])
-    remember = BooleanField('Remember Me')
-    submit = SubmitField('Login')
