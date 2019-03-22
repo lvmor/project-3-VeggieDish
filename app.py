@@ -38,6 +38,7 @@ def after_request(response):
 def index():
     recipe_data = models.Recipe.select().limit(100)
     return render_template("home.html", recipes_template=recipe_data)
+    #have a search bar template and inject it in home.html 
 
 @app.route('/about')
 @app.route('/about/')
@@ -155,8 +156,15 @@ def recipes(recipe_id = None):
             return redirect('/recipes')
         return render_template("recipes.html", recipes_template=recipes, form=form)
     else: 
+        print("HELLO FROM line 159")
+        
         recipe_id = int(recipe_id)
+        print("HELLO FROM line 162")
+        print(recipe_id)
         recipe = models.Recipe.get(models.Recipe.id == recipe_id)
+        print(recipe_id)
+
+        print(models.Review.recipe_id)
         reviews_template = models.Review.select().where(models.Review.recipe_id == recipe_id)
         
         form = ReviewForm()
@@ -193,7 +201,6 @@ def recipes(recipe_id = None):
             return redirect('/recipes/{}'.format(recipe_id))
         else:
             return render_template("review_form.html", recipe=recipe, form=form, reviews_template=reviews_template)
-
 
 @app.route("/signup", methods=['GET', 'POST'])
 def signup():

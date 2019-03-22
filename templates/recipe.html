@@ -5,10 +5,12 @@
 <article style="display: block" class="recipe message tile is-vertical is-parent is-primary">
     <div class="message-body tile is-child box">
         <img src={{recipe.image}} alt="">
+        <div>
         <div class="name">{{recipe.name}}</div>
         <div class="description">{{recipe.description}}</div>
         <div>{{recipe.ingredients.replace('\n', '<br />')}}</div>
         <div>{{recipe.instructions}}</div>
+    </div>
     </div>
 </article>
 <div id="averageDiv"></div>

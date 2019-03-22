@@ -1,5 +1,4 @@
 
-
 h4 {
     font-weight: bolder;
     font-size: 16px;
@@ -12,8 +11,9 @@ h1 {
 }
 
 img {
-    height: 200px;
-    width: auto;
+    width: 250px;
+    height: auto;
+    
 }
 
 .recipe {
@@ -24,3 +24,18 @@ img {
     color: teal;
     font-size: 22px;
 }
+
+/* .home-recipes{
+    display: flex;
+    flex-direction: row;
+}
+
+.user-recipes {
+    display: flex;
+    flex-direction: column;
+} */
+/* 
+.user-recipes-container {
+    display: flex;
+    justify-content: space-around;
+} */
