@@ -70,11 +70,7 @@ def users(user_id):
     user_id = request.form.get('user_id', '')
     command = request.form.get('submit', '')
 
-    if command == 'Delete':
-        models.User.delete_by_id(user_id)
-        return redirect('/users/{}'.format(user_id))
-
-    elif command == 'Edit':
+    if command == 'Edit':
         user_id = int(current_user.id)
         user = models.User.get(models.User.id == user_id)
         print(user)
