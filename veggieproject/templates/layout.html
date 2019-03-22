@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../static/index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <nav class="navbar is-primary" role="navigation" aria-label="main navigation">
+        <div> 
+            <a class="navbar-item" href="{{url_for('index')}}"><h3>VeggieDish</h3></a>
+            <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
+        </div>
+        <div id="navbarBasicExample" class="navbar-menu">
+            <div class="navbar-start">
+                <a class="navbar-item">
+                </a>
+            </div>
+
+            <div class="navbar-end">
+                <div class="navbar-item">
+
+                    <div class="buttons">
+                        <a class="button is-light is-outlined" href="{{ url_for('about') }}" title="about"><strong>About</strong></a>
+                        <a class="button is-light" href="{{ url_for('login') }}" title="login"><strong>Login</strong></a>
+                        <a class="button is-light" href="{{ url_for('signup') }}" title="signup"><strong>Signup</strong></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <br>
+    <div class="columns" style="padding: 0 20px">
+        <div class="column">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            {% block content %}
+        
+            {% endblock %}
+        </div>
+        <div class="column">
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,17 @@
+{% extends "layout.html"%}
+
+{% block content%}
+<h1>User Profile</h1>
+<article class="message secondary">
+    <div class="message-body">
+        <div>{{user.avatar}}</div>
+        <div>{{user.full_name}}</div>
+        <div>{{user.city}}</div>
+        <div>{{user.date_joined}}</div>
+    </div>
+</article>
+
+{% block userForm %}
+{%endblock%}
+
+{%endblock%}
