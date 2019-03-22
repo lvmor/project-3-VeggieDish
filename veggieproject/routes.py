@@ -2,11 +2,12 @@ from flask import render_template, flash, redirect, url_for
 from veggieproject import app, db, bcrypt
 from veggieproject.forms import RecipeForm, ReviewForm, UserForm, RegistrationForm, LoginForm
 from veggieproject.models import User, Review
+from veggieproject import models
 
 
 @app.route('/')
 def index():
-    # recipe_data = models.Recipe.select().limit(100)
+    recipe_data = models.Recipe.select().limit(100)
     return render_template("home.html", recipes_template=recipe_data)
 
 @app.route('/about')

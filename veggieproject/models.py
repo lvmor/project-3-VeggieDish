@@ -4,6 +4,8 @@ from flask_login import UserMixin
 
 from peewee import *
 
+DATABASE = db
+
 #This function is for reloading user from user_id stored in the session
 @login_manager.user_loader
 def load_user(user_id):
@@ -35,16 +37,16 @@ class Review(db.Model):
         return f"Post('{self.title}', '{self.date_posted}')"
 
 
-# class Recipe(Model):
-#     name = CharField()
-#     image = CharField()
-#     description = TextField()
-#     ingredients = TextField()
-#     instructions = TextField()
-#     average_rating = IntegerField(default=0)
+class Recipe(Model):
+    name = CharField()
+    image = CharField()
+    description = TextField()
+    ingredients = TextField()
+    instructions = TextField()
+    average_rating = IntegerField(default=0)
 
-#     class Meta:
-#         database = DATABASE
+    class Meta:
+        database = DATABASE
 
 # class Review(Model):
 #     rating = IntegerField(default=0)

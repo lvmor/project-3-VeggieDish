@@ -6,6 +6,7 @@
     <div class="column">
         <h2>Edit your Profile</h2>
         <form method="POST" action="" nonvalidate>
+
             {{form.hidden_tag()}}
             <div>
                 {{form.avatar.label}}
@@ -19,7 +20,9 @@
                 {{form.city.label}}
                 {{form.city(class_="input")}}
             </div>
-            {{ form.submit(class_="button") }}
+            <input name="id" id="id" type="hidden" value="{{user.id}}">
+            {{form.submit(value="Edit")}}
+            
         </form>
     </div>
 
