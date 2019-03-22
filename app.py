@@ -139,10 +139,11 @@ def recipes(recipe_id = None):
 
         return render_template("recipes.html", recipes_template=recipes, form=form)
     else: # Recipe Details
+        # print(recipe_id)
         recipe_id = int(recipe_id)
         recipe = models.Recipe.get(models.Recipe.id == recipe_id)
         reviews_template = models.Review.select().where(models.Review.recipe_id == recipe_id)
-        
+        print('in review')
         form = ReviewForm()
         reviews = models.Review.select().limit(10)
         reviewsid = request.form.get('reviewsid', '')
@@ -151,7 +152,15 @@ def recipes(recipe_id = None):
         if command == 'Delete':
             models.Review.delete_by_id(reviewsid)
             return redirect('/recipes/{}'.format(recipe_id))
+        elif command == 'Edit':
+            reviewsid = int(reviewsid)
+            review = models.Review.get(models.Review.id == reviewsid)
+            form.id.data = review.id
+            form.rating.data = review.rating
+            form.comment.data = review.comment
 
+            # return redirect('/recipes/{}'.format(recipe_id))
+            # return render_template("reviews.html", reviews_template=reviews, form=form)
 
         
         if form.validate_on_submit():
