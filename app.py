@@ -180,7 +180,8 @@ def recipes(recipe_id = None):
         if form.validate_on_submit():
             if form.id.data == '': 
                 models.Review.create(
-                    rating=form.rating.data.strip(), 
+                    recipe_id = recipe_id,
+                    rating=form.rating.data,
                     comment=form.comment.data.strip(),
                 )
             else: 
@@ -188,7 +189,7 @@ def recipes(recipe_id = None):
                 review.rating = form.rating.data
                 review.comment = form.comment.data.strip()
                 review.save()
-                flash("review updated", "success")
+                flash("review updated")
             return redirect('/recipes/{}'.format(recipe_id))
         else:
             return render_template("review_form.html", recipe=recipe, form=form, reviews_template=reviews_template)
