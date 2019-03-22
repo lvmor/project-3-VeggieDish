@@ -1,6 +1,7 @@
 {% extends "reviews.html" %}
 
 {% block reviewForm %}
+{% if current_user.is_authenticated %}
   <form method="POST" action="" novalidate>
     {{ form.hidden_tag() }}
 
@@ -15,4 +16,5 @@
 
     {{ form.submit(class_="button") }}
   </form>
+{% endif %}
 {% endblock %}

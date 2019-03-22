@@ -75,7 +75,7 @@ def users(user_id):
         return redirect('/users/{}'.format(user_id))
 
     elif command == 'Edit':
-        user_id = int(user_id)
+        user_id = int(current_user.id)
         user = models.User.get(models.User.id == user_id)
         print(user)
         print(form.full_name.data)

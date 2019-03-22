@@ -1,7 +1,9 @@
 {% extends "layout.html" %}
 
+
 {% block content %}
-<h1>Recipes</h1>
+{% if current_user.is_authenticated %}
+<h1>Your Recipes</h1>
 <br>
 <input type="text" class="search" id="myInput" onkeyup="searchFunction()" placeholder="Search by keyword">
 <br>
@@ -33,5 +35,8 @@
 {% include "recipe_form.html"%}
 </div>
 </div>
+{% else %}
+<h1>Please Log In</h1>
+{% endif %}
 
 {% endblock %}
