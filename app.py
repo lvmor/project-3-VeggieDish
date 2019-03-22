@@ -231,16 +231,20 @@ def logout():
     flash("You've been logged out", "success")
     return redirect(url_for('index'))
 
+if 'ON_HEROKU' in os.environ:
+    print('hitting ')
+    models.initialize()
+
 if __name__ == '__main__':
     models.initialize()
     try:
         models.User.create_user(
-            username='jimbo',
-            email="jim@jim.com",
+            username='sirilou',
+            email="unicorn@unicorn.com",
             password='password',
-            full_name = "JIMMY BOB",
+            full_name = "Eunice Siri Lou",
             avatar ="pic.png",
-            city = "Oakland"
+            city = "San Francisco"
             )
     except ValueError:
         pass
