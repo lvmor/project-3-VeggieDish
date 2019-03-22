@@ -199,7 +199,7 @@ def signup():
             avatar=form.avatar.data,
             city=form.city.data
             )
-        return redirect(url_for('index'))
+        return redirect(url_for('login'))
     return render_template('signup.html', title='Signup', form=form)
 
 
@@ -231,6 +231,13 @@ def logout():
     flash("You've been logged out", "success")
     return redirect(url_for('index'))
 
+
+
+if 'ON_HEROKU' in os.environ:
+    print('hitting ')
+    models.initialize()
+
+
 if __name__ == '__main__':
     models.initialize()
     try:
@@ -246,3 +253,4 @@ if __name__ == '__main__':
         pass
 
     app.run(debug=DEBUG, port=PORT)
+    

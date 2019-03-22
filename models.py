@@ -3,8 +3,12 @@ from peewee import *
 
 from flask_login import UserMixin
 from flask_bcrypt import generate_password_hash
+import os
 
-DATABASE = SqliteDatabase('veggiedish.db')
+from playhouse.db_url import connect
+
+DATABASE = connect(os.environ.get('DATABASE_URL'))
+#DATABASE = SqliteDatabase('veggiedish.db')
 
 class User(UserMixin, Model):
     username = CharField(unique=True)
@@ -13,7 +17,7 @@ class User(UserMixin, Model):
     full_name = TextField()
     avatar = TextField()
     city = TextField()
-    
+
     #comes from backend - do not need in forms
     date_joined = DateTimeField(default=datetime.datetime.now)
 
