@@ -1,6 +1,6 @@
 # App Name: VeggieDish
 
-VeggiDish is a platform designed with the vegeterian community in mind. Through the use of this application, users can search and create vegeterian recipes. They can also rate and comment their favorite dishes.
+VeggieDish is a platform designed with the vegeterian community in mind. Through the use of this application, users can search and create vegeterian recipes. They can also rate and comment their favorite dishes.
 
 _VeggieDish Team_
 San Francisco, CA
@@ -36,9 +36,9 @@ User Profile Page
 
 Recipe & Reviews Page
 
-- Recipe Page with Dynamic Layout
-- Reviews Form with full CRUD
-- Recipe Form with full CRUD
+- Recipe Page & Form with full CRUD
+- Nested Reviews & Form with full CRUD
+
 
 ---
 
