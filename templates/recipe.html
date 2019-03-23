@@ -8,17 +8,17 @@
     <div class="field message-body tile is-child box">
         <div>
             <img class="field" src={{recipe.image}} alt="" width="600px">
-            <div class="field description"> DESCRIPTION: {{recipe.description}}</div>
+            <div class="field description"> DESCRIPTION: <br /> {{recipe.description}}</div>
         </div>
     </div>
     <div class="field message-body tile is-child box">
         <div>
-            <div class="field"> INGREDIENTS: {{recipe.ingredients.replace('\n', '<br />') | safe}}</div>
+            <div class="field"> INGREDIENTS: <br /> {{recipe.ingredients.replace('\n', '<br />') | safe}}</div>
         </div>
     </div>
     <div class="field message-body tile is-child box">
         <div>
-            <div class="field"> DIRECTIONS: {{recipe.instructions.replace('\n', '<br />')|safe}}</div>
+            <div class="field"> DIRECTIONS: <br /> {{recipe.instructions.replace('\n', '<br />')|safe}}</div>
         </div>
     </div>
     {% block recipe_reviews %}
