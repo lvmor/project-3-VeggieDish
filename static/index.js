@@ -43,9 +43,10 @@ console.log(reviews)
     //tofixed rounds the rating to the first decimal place
     average = avg.toFixed(1);
     }
-    var averageDiv = document.getElementById("averageDiv");
-    averageDiv.innerText = `Average Rating: ${average}`
-    
+    let averageDiv = document.getElementById("averageDiv");
+    averageDiv.innerText = `Average Rating: ${average}`;
+    let numberOfRatings = document.getElementById("numberOfRatings");
+    numberOfRatings.innerText = `Number of ratings: ${amount}`;
 
 // return average}
 
