@@ -3,12 +3,8 @@ from peewee import *
 
 from flask_login import UserMixin
 from flask_bcrypt import generate_password_hash
-import os
 
-from playhouse.db_url import connect
-
-DATABASE = connect(os.environ.get('DATABASE_URL'))
-#DATABASE = SqliteDatabase('veggiedish.db')
+DATABASE = SqliteDatabase('veggiedish.db')
 
 class User(UserMixin, Model):
     username = CharField(unique=True)
@@ -46,6 +42,7 @@ class Recipe(Model):
     ingredients = TextField()
     instructions = TextField()
     average_rating = IntegerField(default=0)
+    user_id = ForeignKeyField(model=User, backref="users") 
 
     class Meta:
         database = DATABASE
@@ -54,7 +51,7 @@ class Review(Model):
     rating = IntegerField(default=0)
     date_reviewed = DateTimeField(default=datetime.datetime.now)
     comment = TextField()
-    # user_id = ForeignKeyField(model=User, backref="users") 
+    user_id = ForeignKeyField(model=User, backref="users") 
     recipe_id = ForeignKeyField(model=Recipe, backref="recipes") 
     
     class Meta:

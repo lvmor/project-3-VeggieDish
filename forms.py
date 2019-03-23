@@ -23,13 +23,11 @@ class RecipeForm(Form):
     #     FileAllowed(images, 'Images only!')
     # ])
     image = StringField("url for image")
-
     description = TextAreaField("Recipe Description")
     ingredients = TextAreaField("Recipe Ingredients")
     instructions = TextField("Recipe Instructions")
     submit = SubmitField('Create Recipe')
     
-
 class ReviewForm(Form):
     id = HiddenField()
     rating = SelectField(u"Recipe Rating ", choices=[('1', '1'), ('2', '2'), ('3', '3'), ('4', '4'), ('5', '5')])
