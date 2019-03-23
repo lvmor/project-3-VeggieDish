@@ -6,14 +6,16 @@
     {% for review in reviews_template %}
     <article class="message is-secondary">
         <div class="message-header">
-            <a>{{review.user_id}}</a>
+            <span>Review by: {{review.user_id.username}}</span>
             {{review.date_reviewed}}
         </div>
         <div class="message-body">
             {{review.rating}}
             {{review.comment}}
         </div>
-        {% if current_user.is_authenticated %}
+
+
+        {% if current_user.id == review.user_id.id %}
         <form action="" method="POST">
             <input name="reviewsid" type="hidden" value="{{review.id}}">
             {{form.submit(value="Edit")}}
