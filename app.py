@@ -147,7 +147,7 @@ def recipes(recipe_id = None):
                     ingredients=form.ingredients.data.strip(),
                     instructions=form.instructions.data.strip(),
                     image=form.image.data.strip(),
-                    user_id=current_user.id
+                    
                 )
                 flash("New recipe created. Called: {}".format(form.name.data))
             else: 
