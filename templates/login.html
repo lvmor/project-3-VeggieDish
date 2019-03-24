@@ -1,3 +1,6 @@
+{% extends "layout.html" %}
+{% block content %}
+
 {% from 'macros.html' import render_field %}
 
 <form method="POST" action="" class="form">
@@ -7,3 +10,5 @@
     {% endfor %}
     <button type="submit" id="submit">Login!</button>
 </form>
+
+{% endblock content %}

@@ -21,7 +21,7 @@
         <div>{{recipe.average_rating}}</div>
         <form action="" method="POST">
             <input name="recipeid" type="hidden" value="{{recipe.id}}">
-            {% if recipe.user_id == current_user.id %}
+            {% if recipe.user_id.id == current_user.id %}
                 <div>
                 {{form.submit(value="Edit")}}
                 {{form.submit(value="Delete")}}

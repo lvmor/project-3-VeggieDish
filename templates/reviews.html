@@ -17,7 +17,7 @@
         {% if current_user.is_authenticated %}
         <form action="" method="POST">
             <input name="reviewsid" type="hidden" value="{{review.id}}">
-            {% if review.user_id != current_user.id %}
+            {% if review.user_id.id == current_user.id %}
             {{form.submit(value="Edit")}}
             {{form.submit(value="Delete")}}
             {% endif %}

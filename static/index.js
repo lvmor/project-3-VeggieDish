@@ -44,7 +44,13 @@ console.log(reviews)
     average = avg.toFixed(1);
     }
     let averageDiv = document.getElementById("averageDiv");
-    averageDiv.innerText = `Average Rating: ${average}`;
+    if (average == 0){ 
+        averageDiv.innerText = `Be the first to rate this recipe!`;
+    }
+    else {
+        averageDiv.innerText = `Average Rating: ${average}`;
+    }
+    
     let numberOfRatings = document.getElementById("numberOfRatings");
     numberOfRatings.innerText = `Number of ratings: ${amount}`;
 

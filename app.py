@@ -64,6 +64,7 @@ def users():
     user_id = int(current_user.id)
     user_data = models.User.get(models.User.id == user_id)
     
+    print(str(user_data.date_joined)[0:10])
     form = UserForm()
     user_id = request.form.get('user_id', '')
     command = request.form.get('submit', '')
@@ -196,10 +197,10 @@ def recipes(recipe_id = None):
         reviewsid = request.form.get('reviewsid', '')
         command = request.form.get('submit', '')
  
-        if command == 'Delete' and models.Review.user_id == user_id:
+        if command == 'Delete':
             models.Review.delete_by_id(reviewsid)
             return redirect('/recipes/{}'.format(recipe_id))
-        elif command == 'Edit' and models.Review.user_id == user_id:
+        elif command == 'Edit':
             print(current_user.id)
             print("HELLO FROM line 206")
             print(models.Review.user_id)

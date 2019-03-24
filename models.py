@@ -8,9 +8,9 @@ import os
 
 from playhouse.db_url import connect
 
-DATABASE = connect(os.environ.get('DATABASE_URL'))
+#DATABASE = connect(os.environ.get('DATABASE_URL'))
 
-# DATABASE = SqliteDatabase('veggiedish.db')
+DATABASE = SqliteDatabase('veggiedish.db')
 
 class User(UserMixin, Model):
     username = CharField(unique=True)
@@ -19,9 +19,8 @@ class User(UserMixin, Model):
     full_name = TextField()
     avatar = TextField()
     city = TextField()
-
     #comes from backend - do not need in forms
-    date_joined = DateTimeField(default=datetime.datetime.now)
+    date_joined = DateTimeField(default= str(datetime.datetime.now)[0:10])
 
     class Meta:
         database = DATABASE

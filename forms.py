@@ -30,6 +30,7 @@ class RecipeForm(Form):
     
 class ReviewForm(Form):
     id = HiddenField()
+    
     rating = SelectField(u"Recipe Rating ", choices=[('1', '1'), ('2', '2'), ('3', '3'), ('4', '4'), ('5', '5')])
     comment = TextAreaField("Review of Recipe")
     submit = SubmitField('Create Review')

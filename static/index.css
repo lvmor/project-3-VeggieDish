@@ -1,19 +1,22 @@
 
+.column{
+    padding: 0;
+    
+}
+
 h4 {
     font-weight: bolder;
     font-size: 16px;
     padding-top: 1em;
 }
 
-h3, h2 {
-    color: white;
-    font-size: 38px;
-}
-
 h3 {
     margin-right: 1em;
     font-size: 28px;
-    
+}
+
+h2, h3 {
+    color: rgb(5, 186, 186)
 }
 
 
@@ -43,17 +46,45 @@ h3 {
 #veggiedish-hero {
 
 }
+nav {
+    padding-right: 2.5em;
+    margin-right: 2.5em;
+}
+
+.home-recipes {
+    /* margin-top: -500px; */
+}
+
 
 #myVideo {
     position: relative;
     top: -150px;
-    right: -20px;
-    left: -20px;
+    
+    left: -10px;
     padding-left: -50px;
     padding-right: -50px;
-    
     background-image: linear-gradient()
   }
+
+.content {
+    position: relative;
+    bottom: 1000px;
+    display: flex;
+    flex-direction: row;
+
+}
+
+.content div {
+    padding-top: 20%;
+    text-align: right;
+}
+
+
+.content h1, .content h3 {
+    color: white;
+}
+
+
 
 
 .body {
@@ -67,6 +98,14 @@ h3 {
     font-weight: 600;
     color:grey;
   }
+
+.edit-profile {
+    margin-right: 50%;
+}
+
+.edit-profile #submit {
+    margin-top: 1em;
+}
 
 /* .home-recipes{
     display: flex;
