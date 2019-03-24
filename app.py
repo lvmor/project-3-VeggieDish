@@ -61,7 +61,9 @@ def about():
 
 
 @app.route('/users/<user_id>', methods=['GET', 'POST'])
+@login_required
 def users(user_id):
+    avatar = url_for('static', filename='profile_pics/' + current_user.avatar)
     user_id = int(user_id)
     user_data = models.User.get(models.User.id == user_id)
     
@@ -79,7 +81,7 @@ def users(user_id):
         user.city = form.city.data
         user.save()
         return redirect('/users/{}'.format(user_id))
-    return render_template("new_user.html", title="New User", form=form, user=user_data)
+    return render_template("new_user.html", title="New User", form=form, user=user_data, avatar=avatar)
 
 
 @app.route('/reviews')
