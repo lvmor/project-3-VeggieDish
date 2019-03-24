@@ -8,6 +8,7 @@ import os
 
 from playhouse.db_url import connect
 
+# DATABASE = connect(os.environ.get('DATABASE_URL'))
 DATABASE = SqliteDatabase('veggiedish.db')
 
 class User(UserMixin, Model):
