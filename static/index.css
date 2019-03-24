@@ -21,9 +21,9 @@ h3 {
     font-size: 28px;
 }
 
-h2, h3 {
+/* h2, h3 {
     color: rgb(5, 186, 186)
-}
+} */
 
 
 .all-recipes img {
@@ -52,10 +52,10 @@ h2, h3 {
 #veggiedish-hero {
 
 }
-nav {
+/* nav {
     padding-right: 2.5em;
     margin-right: 2.5em;
-}
+} */
 
 .home-recipes {
     /* margin-top: -500px; */
