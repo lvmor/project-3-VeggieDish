@@ -59,12 +59,12 @@ def index():
 def about():
     return render_template('about.html')
 
-
-@app.route('/users/<user_id>', methods=['GET', 'POST'])
-def users(user_id):
-    user_id = int(user_id)
+@app.route('/profile', methods=['GET', 'POST'])
+def users():
+    user_id = int(current_user.id)
     user_data = models.User.get(models.User.id == user_id)
     
+    print(str(user_data.date_joined)[0:10])
     form = UserForm()
     user_id = request.form.get('user_id', '')
     command = request.form.get('submit', '')
@@ -78,21 +78,56 @@ def users(user_id):
         user.avatar = form.avatar.data
         user.city = form.city.data
         user.save()
-        return redirect('/users/{}'.format(user_id))
+        return redirect('/profile')
     return render_template("new_user.html", title="New User", form=form, user=user_data)
 
 
-@app.route('/reviews')
-@app.route('/reviews/')
-@app.route('/reviews/<review_id>')
-def reviews(review_id = None):
-    if review_id == None:
-        reviews = models.Review.select().limit(10)
-        return render_template("reviews.html", reviews_template = reviews)
-    else:
-        review_id = int(review_id)
-        review = models.Reviews.get(models.Reviews.id == review_id)
-        return render_template("reviews.html", reviews=reviews)
+# @app.route('/users/<user_id>', methods=['GET', 'POST'])
+# def users(user_id):
+#     user_id = int(user_id)
+#     user_data = models.User.get(models.User.id == user_id)
+    
+#     form = UserForm()
+#     user_id = request.form.get('user_id', '')
+#     command = request.form.get('submit', '')
+
+#     if command == 'Edit':
+#         user_id = int(current_user.id)
+#         user = models.User.get(models.User.id == user_id)
+#         print(user)
+#         print(form.full_name.data)
+#         user.full_name = form.full_name.data
+#         user.avatar = form.avatar.data
+#         user.city = form.city.data
+#         user.save()
+#         return redirect('/users/{}'.format(user_id))
+#     return render_template("new_user.html", title="New User", form=form, user=user_data)
+
+
+# @app.route('/reviews')
+# @app.route('/reviews/')
+# @app.route('/reviews/<review_id>')
+# def reviews(review_id = None):
+#     if review_id == None:
+#         reviews = models.Review.select().limit(10)
+#         return render_template("reviews.html", reviews_template = reviews)
+#     else:
+#         review_id = int(review_id)
+#         review = models.Reviews.get(models.Reviews.id == review_id)
+#         return render_template("reviews.html", reviews=reviews)
+
+
+
+#  user_id = int(current_user.id)
+#         recipe = models.Recipe.get(models.Recipe.id == recipe_id)
+
+#         reviews_template = models.Review.select().where(models.Review.recipe_id == recipe_id)
+        
+#         form = ReviewForm()
+#         reviews = models.Review.select().limit(10)
+
+#         reviewsid = request.form.get('reviewsid', '')
+#         command = request.form.get('submit', '')
 
 
 @app.route('/recipes')
@@ -100,9 +135,13 @@ def reviews(review_id = None):
 @app.route('/recipes/<recipe_id>', methods=['GET', 'POST'])
 def recipes(recipe_id = None):
     if recipe_id == None:
+
+        # user_id = int(current_user.id)
+        # recipes = models.Recipe.select().where(models.Recipe.user_id == user_id).limit(10)
+        # ^^^^ use that instead of the one below for only the user's recipes
         recipes = models.Recipe.select().limit(10)
+
         form = RecipeForm()
-        
         recipeid = request.form.get('recipeid', '')
         command = request.form.get('submit', '')
         if command == 'Delete':
@@ -121,6 +160,7 @@ def recipes(recipe_id = None):
         if form.validate_on_submit():
             if form.id.data == '': 
                 models.Recipe.create(
+                    user_id = current_user.id,
                     name=form.name.data.strip(), 
                     description=form.description.data.strip(),
                     ingredients=form.ingredients.data.strip(),
@@ -141,15 +181,15 @@ def recipes(recipe_id = None):
             return redirect('/recipes')
         return render_template("recipes.html", recipes_template=recipes, form=form)
     else: 
-        print("HELLO FROM line 159")
-        
+        #print("HELLO FROM line 159")
+        user_id = current_user.id
         recipe_id = int(recipe_id)
-        print("HELLO FROM line 162")
-        print(recipe_id)
+        #print("HELLO FROM line 162")
+        #print(recipe_id)
         recipe = models.Recipe.get(models.Recipe.id == recipe_id)
-        print(recipe_id)
+        #print(recipe_id)
 
-        print(models.Review.recipe_id)
+        #print(models.Review.recipe_id)
         reviews_template = models.Review.select().where(models.Review.recipe_id == recipe_id)
         
         form = ReviewForm()
@@ -157,11 +197,14 @@ def recipes(recipe_id = None):
 
         reviewsid = request.form.get('reviewsid', '')
         command = request.form.get('submit', '')
+ 
         if command == 'Delete':
             models.Review.delete_by_id(reviewsid)
             return redirect('/recipes/{}'.format(recipe_id))
-        
         elif command == 'Edit':
+            print(current_user.id)
+            print("HELLO FROM line 206")
+            print(models.Review.user_id)
             reviewsid = int(reviewsid)
             review = models.Review.get(models.Review.id == reviewsid)
             form.id.data = review.id
@@ -173,6 +216,7 @@ def recipes(recipe_id = None):
         if form.validate_on_submit():
             if form.id.data == '': 
                 models.Review.create(
+                    user_id = user_id,
                     recipe_id = recipe_id,
                     rating=form.rating.data,
                     comment=form.comment.data.strip(),
@@ -202,7 +246,7 @@ def signup():
             avatar=form.avatar.data,
             city=form.city.data
             )
-        return redirect(url_for('index'))
+        return redirect(url_for('login'))
     return render_template('signup.html', title='Signup', form=form)
 
 
@@ -253,3 +297,4 @@ if __name__ == '__main__':
         pass
 
     app.run(debug=DEBUG, port=PORT)
+    

@@ -1,7 +1,21 @@
 {% extends "layout.html" %}
 
 {% block content %}
-<h1>Recipes</h1>
+<video autoplay muted loop id="myVideo">
+        <source src="static/media/veggie-cooking.mp4" type="video/mp4">
+</video>
+
+
+<div class="content">
+    <img src="static/media/veggiedish_logo.png" alt="">
+    <div>
+    <h1 id="veggiedish-hero"> All the vegan and vegetarian recipes you need…</h1>
+    <h3> In one place.</h3>
+</div>
+</div>
+
+<div class="home-recipes">
+<h2>Recipes</h2>
 <br>
 <input type="text" class="search" id="myInput" onkeyup="searchFunction()" placeholder="Search by keyword">
 <br>
@@ -20,6 +34,7 @@
 {% endfor %}
 </div>
 <br>
+</div>
 
 
 {% endblock %}

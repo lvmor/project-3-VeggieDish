@@ -12,6 +12,7 @@
     <div class="all-recipes user-recipes">
         {% for recipe in recipes_template %}
 
+<<<<<<< HEAD
         <article class="message tile is-6 is-vertical is-parent is-primary">
             <div class="message-body tile is-child box">
                 <h2><a href={{url_for('recipes', recipe_id=recipe.id)}}>{{recipe.name}}</a></h2>
@@ -29,6 +30,24 @@
             </div>
         </article>
         {% endfor %}
+=======
+<article class="message tile is-6 is-vertical is-parent is-primary">
+    <div class="message-body tile is-child box">
+        <a href={{url_for('recipes', recipe_id=recipe.id)}}>{{recipe.name}}</a>
+        <img src={{recipe.image}} alt="">
+        <h4>Description</h4>
+        <div>{{recipe.description}}</div>
+        <div>{{recipe.average_rating}}</div>
+        <form action="" method="POST">
+            <input name="recipeid" type="hidden" value="{{recipe.id}}">
+            {% if recipe.user_id.id == current_user.id %}
+                <div>
+                {{form.submit(value="Edit")}}
+                {{form.submit(value="Delete")}}
+                </div>
+            {% endif %}
+        </form>
+>>>>>>> f337c2074aa35903a1d6f1fbb14a2bb44165c598
     </div>
 
     <div class="recipe-form">

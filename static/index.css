@@ -5,21 +5,30 @@
     text-transform: uppercase;
   }
 
+.column{
+    padding: 0;
+    
+}
+
 h4 {
     font-weight: bolder;
     font-size: 16px;
     padding-top: 1em;
 }
 
-h1 {
-    color: black;
-    font-size: 38px;
+h3 {
+    margin-right: 1em;
+    font-size: 28px;
 }
 
-img {
+h2, h3 {
+    color: rgb(5, 186, 186)
+}
+
+
+.all-recipes img {
     width: 250px;
     height: auto;
-    
 }
 
 .recipe {
@@ -29,6 +38,79 @@ img {
 #averageDiv {
     color: teal;
     font-size: 22px;
+}
+
+#numberOfRatings {
+    color: teal;
+    font-size: 18px;
+}
+
+#video-container {
+    max-height: 200px;
+}
+
+#veggiedish-hero {
+
+}
+nav {
+    padding-right: 2.5em;
+    margin-right: 2.5em;
+}
+
+.home-recipes {
+    /* margin-top: -500px; */
+}
+
+
+#myVideo {
+    position: relative;
+    top: -150px;
+    
+    left: -10px;
+    padding-left: -50px;
+    padding-right: -50px;
+    background-image: linear-gradient()
+  }
+
+.content {
+    position: relative;
+    bottom: 1000px;
+    display: flex;
+    flex-direction: row;
+
+}
+
+.content div {
+    padding-top: 20%;
+    text-align: right;
+}
+
+
+.content h1, .content h3 {
+    color: white;
+}
+
+
+
+
+.body {
+    background-image: url('images/veggie-dishes.mp4');
+    background-attachment: fixed;
+    background-size: 100vw;
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: fill;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+    color:grey;
+  }
+
+.edit-profile {
+    margin-right: 50%;
+}
+
+.edit-profile #submit {
+    margin-top: 1em;
 }
 
 /* .home-recipes{

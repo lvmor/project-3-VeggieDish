@@ -1,6 +1,7 @@
 {% extends "recipe.html" %}
 
 {% block recipe_reviews %}
+<br/>
 <h1>Reviews</h1>
 <div id="all-reviews">
     {% for review in reviews_template %}
@@ -18,8 +19,10 @@
         {% if current_user.id == review.user_id.id %}
         <form action="" method="POST">
             <input name="reviewsid" type="hidden" value="{{review.id}}">
+            {% if review.user_id.id == current_user.id %}
             {{form.submit(value="Edit")}}
             {{form.submit(value="Delete")}}
+            {% endif %}
         </form>
         {% endif %}
     </article>
