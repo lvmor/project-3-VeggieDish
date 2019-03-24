@@ -78,3 +78,33 @@ class RegistrationForm(Form):
 class LoginForm(Form):
     email = StringField('Email', validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired()])
+
+
+
+class UpdateAccountForm(Form):
+    full_name = StringField("Your full name", validators=[DataRequired()])
+    avatar = StringField("Your avatar")
+    city = StringField("Your city", validators=[DataRequired()])
+    username = StringField(
+        'Username',
+        validators=[
+            DataRequired(),
+            #name_exists calls the above method to make sure user doesn't already exist
+            name_exists
+        ])
+    email = StringField(
+        'Email',
+        validators=[
+            DataRequired(),
+            Email(),
+            email_exists
+        ])
+    submit = SubmitField('Edit Profile')
+
+
+# Set up validators for these afterwards  
+# full_name =  TextField("Your Full Name")
+#     avatar = StringField()
+#     city = TextField()
+#     submit = SubmitField('Delete Profile')
+#     submit = SubmitField('Edit Profile')
