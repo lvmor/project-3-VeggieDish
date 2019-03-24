@@ -9,9 +9,9 @@
             </video>
         
         <div id="veggiedish-hero" class="main-content-header">
-                <h1> All the vegan and vegetarian recipes you need…</h1>
-                <h3> In one place.</h3>
+        <h1>Welcome to <span>VeggieDish</span> <br> The home of delicious vegetarian recipes</h1>
         </div>
+        
 </header>
 
 
@@ -20,18 +20,16 @@
 
     <div class="search-input">
     <input type="text" class="search" id="myInput" onkeyup="searchFunction()" placeholder="Search by keyword">
-    </div> 
-
- 
+    </div>  
         <br/>
         {% if current_user.is_authenticated %}
         <div class="has-text-right create-recipe-btn" style = "padding-right: .2em; margin-bottom: -1em;" >
         <a href="{{ url_for('recipes') }}"  style = "text-decoration: none;" ><button class = "button is-primary is-medium has-addons is-right">Create New Recipe</button></a>
     </div>
         {% else %}
-        <div class="create-recipe-btn">
-        <a href="{{ url_for('login') }}"><button  class = "button is-primary is-medium is-right">Create New Recipe</button></a>
-    </div>
+        <div class="has-text-right create-recipe-btn" style = "padding-right: .2em; margin-bottom: -1em;" >
+                <a href="{{ url_for('login') }}"  style = "text-decoration: none;" ><button class = "button is-primary is-medium has-addons is-right">Create New Recipe</button></a>
+            </div>
         {% endif %}
         <br/>
    
@@ -59,6 +57,11 @@
 </div>
 
 
+
+
+
+
+
 <style>
       * {
         margin: 0px;
@@ -66,10 +69,6 @@
         box-sizing: border-box;
     }
     header {
-        /* background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/static/images/about_header.jpg');
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat; */
         height: 100vh;
         text-align: right;
     }

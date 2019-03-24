@@ -1,6 +1,4 @@
 
-document.getElementById("myVideo").playbackRate = 0.7;
-
 // Search Function
 function searchFunction() {
     var input = document.getElementById('myInput');
@@ -57,18 +55,22 @@ numberOfRatings.innerText = `Number of ratings: ${amount}`;
 
 
 
-function openRecipeForm() {
-    var recipeForm = document.getElementsByClassName("recipe-form")[0];
-    var createRecipeButton = document.getElementsByClassName("create-recipe")[0];
-    if (recipeForm.style.display != 'none') {
-    recipeForm.style.display = 'none';
-    createRecipeButton.innerText = 'Share your recipe with us!';
-    }
-    else if (recipeForm.style.display == 'none') {
-        recipeForm.style.display = 'block';
-        createRecipeButton.innerText = 'Close form';
-    }
-}
+// function openRecipeForm() {
+//     var recipeForm = document.getElementsByClassName("recipe-form")[0];
+//     var createRecipeButton = document.getElementsByClassName("create-recipe")[0];
+//     if (recipeForm.style.display != 'none') {
+//     recipeForm.style.display = 'none';
+//     createRecipeButton.innerText = 'Create New Recipe';
+//     }
+//     else if (recipeForm.style.display == 'none') {
+//         recipeForm.style.display = 'block';
+//         createRecipeButton.innerText = 'Close form';
+//     }
+// }
 
 //grab the recipe form div
 //change display to none 
+
+
+
+document.getElementById("myVideo").playbackRate = 0.7;

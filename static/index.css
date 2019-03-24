@@ -27,9 +27,8 @@
     border: 2px solid darkgray;
 }
 
-.recipe-form {
-    display: none;
-    background: teal;
+#recipe-form {
+    display: block;
 }
 
 .recipes-functionality{
@@ -178,4 +177,14 @@ h3 {
 
 .edit-profile #submit {
     margin-top: 1em;
+}
+
+.group-photo {
+    text-align: center;
+}
+
+
+.group-photo img {
+    width: 600px;
+    height: auto;
 }

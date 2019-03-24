@@ -201,7 +201,7 @@ def signup():
             avatar=form.avatar.data,
             city=form.city.data
             )
-        return redirect(url_for('index'))
+        return redirect(url_for('login'))
     return render_template('signup.html', title='Signup', form=form)
 
 
