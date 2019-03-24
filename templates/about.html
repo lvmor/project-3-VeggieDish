@@ -2,15 +2,177 @@
 
 {% block content %}
 
-<h1>About VeggieDish</h1>
-<p>about text here...</p>
+<header class="field about-header-wrapper">
+    <img class="about-logo" src="/static/media/veggiedish_logo.png" alt="VeggieDish Logo">
+    <h1 class="main-content-header">
+        Welcome to <span>VeggieDish</span>. <br> The home of delicious vegetarian recipes
+    </h1>
+</header>
 
+<body>
+    <h1 class="field">Meet The Team</h1>
+
+    <div>
+        <img src="/static/images/about_group_pic.png" alt="">
+    </div>
+    <section class="team-pictures">
+        <div class="container my-5 pt-5">
+            <div class="row mt-30">
+                <div class="col-md-4 col-sm-6">
+                    <div class="box1">
+                        <img src="/static/images/about_l.JPG">
+                        <div class="box-content">
+                            <h3 class="title">Lourdes</h3>
+                            <span class="post">Web Designer</span>
+                            <span class="post">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                                tempor incididunt ut labore et dolore magna </span>
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <div class="box1">
+                        <img src="/static/images/about_e.JPG" alt="">
+                        <div class="box-content">
+                            <h3 class="title">Eunice</h3>
+                            <span class="post">Web Developer</span>
+                            <span class="post">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                                tempor incididunt ut labore et dolore magna </span>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <div class="box1">
+                        <img src="/static/images/about_s.JPG" alt="">
+                        <div class="box-content">
+                            <h3 class="title">Siri</h3>
+                            <span class="post">Web Developer</span>
+                            <span class="post">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                                tempor incididunt ut labore et dolore magna </span>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
 
 <style>
+    * {
+        margin: 0px;
+        padding: 0px;
+        box-sizing: border-box;
+    }
+
+    header {
+        background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/static/images/about_header.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        height: 100vh;
+        text-align: right;
+
+    }
+
+    img.about-logo {
+        height: 300px;
+        width: auto;
+        float: right;
+        margin: 20px;
+    }
+
+    section.team-pictures {
+        background-color: #00d1b2;
+        padding-bottom: 1em;
+
+    }
+
+    .main-content-header {
+        color: white;
+        width: 1180px;
+        position: absolute;
+        top: 60%;
+        right: 5%;
+        text-transform: uppercase;
+    }
+
+    .category-wrapper img {
+        width: 100%;
+        height: 33%;
+        object-fit: cover;
+    }
+
     body {
-        background-color: lightblue;
+        background: white;
+
+    }
+
+    .box1 {
+        position: relative;
+        transition: all .2s ease-out 0s
+    }
+
+    .box1 .box-content,
+    .box1:after {
+        position: absolute;
+        left: 20px;
+        right: 20px
+    }
+
+    .box1:after {
+        content: "";
+        display: block;
+        background: #20c997;
+        top: 20px;
+        bottom: 20px;
+        opacity: 0;
+        transform: rotate3d(-1, 1, 0, 100deg);
+        transition: all .4s ease-in-out 0s
+    }
+
+    .box1:hover:after {
+        opacity: .9;
+        transform: rotate3d(0, 0, 0, 0deg)
+    }
+
+    .box1 img {
+        width: 100%;
+        height: auto
+    }
+
+    .box1 .box-content {
+        text-align: center;
+        top: 45%;
+        opacity: 0;
+        z-index: 1;
+        -webkit-transform: translate(10%, -30%);
+        transform: translate(10%, -30%);
+        transition: all .2s ease-out 0s
+    }
+
+    .box1:hover .box-content {
+        opacity: 1;
+        transform: translate(0, -50%);
+        transition-delay: .2s
+    }
+
+    .box1 .title {
+        display: block;
+        font-size: 22px;
+        font-weight: 700;
+        color: white;
+        margin: 0 0 10px
+    }
+
+    .box1 .post {
+        display: block;
+        font-size: 15px;
+        color: black;
+        margin-bottom: 20px
     }
 </style>
-
 
 {% endblock %}
