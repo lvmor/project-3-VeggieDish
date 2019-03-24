@@ -66,5 +66,4 @@ def initialize():
     DATABASE.connect()
     DATABASE.create_tables([User, Recipe, Review], safe=True)
     DATABASE.close()
-
     

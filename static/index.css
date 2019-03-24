@@ -90,9 +90,6 @@ h3 {
     color: white;
 }
 
-
-
-
 .body {
     background-image: url('images/veggie-dishes.mp4');
     background-attachment: fixed;
@@ -112,18 +109,3 @@ h3 {
 .edit-profile #submit {
     margin-top: 1em;
 }
-
-/* .home-recipes{
-    display: flex;
-    flex-direction: row;
-}
-
-.user-recipes {
-    display: flex;
-    flex-direction: column;
-} */
-/* 
-.user-recipes-container {
-    display: flex;
-    justify-content: space-around;
-} */

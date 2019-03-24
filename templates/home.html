@@ -2,38 +2,38 @@
 
 {% block content %}
 <video autoplay muted loop id="myVideo">
-        <source src="static/media/veggie-cooking.mp4" type="video/mp4">
+    <source src="static/media/veggie-cooking.mp4" type="video/mp4">
 </video>
 
 
 <div class="content">
     <img src="static/media/veggiedish_logo.png" alt="">
     <div>
-    <h1 id="veggiedish-hero"> All the vegan and vegetarian recipes you need…</h1>
-    <h3> In one place.</h3>
-</div>
+        <h1 id="veggiedish-hero"> All the vegan and vegetarian recipes you need…</h1>
+        <h3> In one place.</h3>
+    </div>
 </div>
 
 <div class="home-recipes">
-<h2>Recipes</h2>
-<br>
-<input type="text" class="search" id="myInput" onkeyup="searchFunction()" placeholder="Search by keyword">
-<br>
-<div class="all-recipes home-recipes">
-{% for recipe in recipes_template %}
+    <h2>Recipes</h2>
+    <br>
+    <input type="text" class="search" id="myInput" onkeyup="searchFunction()" placeholder="Search by keyword">
+    <br>
+    <div class="all-recipes home-recipes">
+        {% for recipe in recipes_template %}
 
-<article class="message tile is-6 is-vertical is-parent is-primary">
-    <div class="message-body tile is-child box">
-        <a href={{url_for('recipes', recipe_id=recipe.id)}}>{{recipe.name}}</a>
-        <img src={{ recipe.image }} alt="">
-        <h4>Description</h4>
-        <div>{{recipe.description}}</div>
-        <div>{{recipe.average_rating}}</div>
+        <article class="message tile is-6 is-vertical is-parent is-primary">
+            <div class="message-body tile is-child box">
+                <a href={{url_for('recipes', recipe_id=recipe.id)}}>{{recipe.name}}</a>
+                <img src={{ recipe.image }} alt="">
+                <h4>Description</h4>
+                <div>{{recipe.description}}</div>
+                <div>{{recipe.average_rating}}</div>
+            </div>
+        </article>
+        {% endfor %}
     </div>
-</article>
-{% endfor %}
-</div>
-<br>
+    <br>
 </div>
 
 
