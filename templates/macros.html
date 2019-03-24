@@ -1,5 +1,6 @@
+
 {% macro render_field(field) %}
-    <div class="field">
+    <div class="field invalid-feedback">
         {% if field.errors %}
             {% for error in field.errors %}
                 <div class="notification error">{{ error }}</div>

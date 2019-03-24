@@ -23,15 +23,13 @@ class RecipeForm(Form):
     #     FileAllowed(images, 'Images only!')
     # ])
     image = StringField("url for image")
-
     description = TextAreaField("Recipe Description")
     ingredients = TextAreaField("Recipe Ingredients")
-    instructions = TextField("Recipe Instructions")
+    instructions = TextAreaField("Recipe Instructions")
     submit = SubmitField('Create Recipe')
     
-
 class ReviewForm(Form):
-    id = HiddenField()
+    id = HiddenField() 
     rating = SelectField(u"Recipe Rating ", choices=[('1', '1'), ('2', '2'), ('3', '3'), ('4', '4'), ('5', '5')])
     comment = TextAreaField("Review of Recipe")
     submit = SubmitField('Create Review')
@@ -81,7 +79,17 @@ class LoginForm(Form):
 
 
 
-class UpdateAccountForm(Form):
+def validate_username(form, field):
+    if User.select().where(User.username == field.data).exists():
+        raise ValidationError('User with that name already exists.')
+
+def validate_email(form, field):
+    if User.select().where(User.email == field.data).exists():
+        raise ValidationError('User with that email already exists.')
+ 
+
+
+class ProfileUpdateForm(Form):
     full_name = StringField("Your full name", validators=[DataRequired()])
     avatar = StringField("Your avatar")
     city = StringField("Your city", validators=[DataRequired()])
@@ -96,10 +104,10 @@ class UpdateAccountForm(Form):
         'Email',
         validators=[
             DataRequired(),
-            Email(),
+            Email(), 
             email_exists
         ])
-    submit = SubmitField('Edit Profile')
+    submit = SubmitField('Edit profile')
 
 
 # Set up validators for these afterwards  
