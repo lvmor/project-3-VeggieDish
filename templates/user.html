@@ -1,7 +1,20 @@
 {% extends "layout.html"%}
 
-{% block content%}
+{% block content %}
 <h1>User Profile</h1>
+    <div class="media">
+        <img class="rounded-circle account-img" src="{{ user.avatar }}">
+        <div class="media-body">
+            <h2 class="account-heading">Full name</h2>
+            <p class="text-secondary">username</p>
+            <p class="text-secondary">username@email.com</p>
+            <p class="text-secondary">city</p>
+            <p class="text-secondary">date joined</p>
+        </div>
+    </div>
+<!-- 
+FORM HERE -->
+
 <article class="message secondary">
     <div class="message-body">
         <div>{{user.avatar}}</div>
@@ -14,4 +27,4 @@
 {% block userForm %}
 {%endblock%}
 
-{%endblock%}
+{% endblock content %}
