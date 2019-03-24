@@ -41,8 +41,8 @@
         <article class="message tile is-4 is-vertical is-parent is-primary">
             <div class="message-body tile is-child box">
                 <a href={{url_for('recipes', recipe_id=recipe.id)}}>{{recipe.name}}</a>
-            <div class="home-recipe-image-div">
-                <div class="recipe-image image is-4by3">
+            <div class="home-recipe-image-div has-text-center">
+                <div class=" recipe-image image is-4by4">
                 <img src={{ recipe.image }} alt="">
                 </div>
                 <div class="home-recipe-info">
@@ -156,7 +156,11 @@
         margin-bottom: 20px
     }
 
-    .home-recipe-image{
+    .home-recipe-image-div{
+        /* text-align: center; */
+    }
+
+    .recipe-image {
         text-align: center;
     }
 
