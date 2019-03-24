@@ -8,8 +8,6 @@ import os
 
 from playhouse.db_url import connect
 
-# DATABASE = connect(os.environ.get('DATABASE_URL'))
-
 DATABASE = SqliteDatabase('veggiedish.db')
 
 class User(UserMixin, Model):
@@ -67,5 +65,4 @@ def initialize():
     DATABASE.connect()
     DATABASE.create_tables([User, Recipe, Review], safe=True)
     DATABASE.close()
-
     
