@@ -13,13 +13,12 @@ from playhouse.db_url import connect
 DATABASE = SqliteDatabase('veggiedish.db')
 
 class User(UserMixin, Model):
+    full_name = TextField()   
     username = CharField(unique=True)
     email = CharField(unique=True)
-    password = CharField(max_length = 100)
-    full_name = TextField()
+    password = CharField(max_length = 100)   
     avatar = TextField()
-    city = TextField()
-    
+    city = TextField()    
     #comes from backend - do not need in forms
     date_joined = DateTimeField(default=datetime.datetime.now)
 
