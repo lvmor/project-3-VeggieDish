@@ -1,11 +1,19 @@
 <!DOCTYPE html>
 <html>
- 
+
 <head>
     <title></title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='index.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='index.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='index.css') }}">
+    <link href="https://fonts.googleapis.com/css?family=Catamaran" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
@@ -48,22 +56,22 @@
     <div class="columns" style="padding: 0 20px">
         <div class="column">
             {% with messages = get_flashed_messages(with_categories=true) %}
-                {% if messages %}
-                    {% for category, message in messages %}
-                        <div class="alert alert-{{ category }}">
-                            {{ message }}
-                        </div>
-                    {% endfor %}
-                {% endif %}
+            {% if messages %}
+            {% for category, message in messages %}
+            <div class="alert alert-{{ category }}">
+                {{ message }}
+            </div>
+            {% endfor %}
+            {% endif %}
             {% endwith %}
             {% block content %}
-        
+
             {% endblock %}
         </div>
-       
+
     </div>
 
-<script src="{{url_for('static', filename='index.js')}}"></script>
+    <script src="{{url_for('static', filename='index.js')}}"></script>
 </body>
 
 </html>

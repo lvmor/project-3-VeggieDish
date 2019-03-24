@@ -8,8 +8,6 @@ import os
 
 from playhouse.db_url import connect
 
-#DATABASE = connect(os.environ.get('DATABASE_URL'))
-
 DATABASE = SqliteDatabase('veggiedish.db')
 
 class User(UserMixin, Model):
@@ -47,7 +45,7 @@ class Recipe(Model):
     ingredients = TextField()
     instructions = TextField()
     average_rating = IntegerField(default=0)
-    user_id = ForeignKeyField(model=User, backref="users") 
+    user_id = ForeignKeyField(model=User, backref="users")
 
     class Meta:
         database = DATABASE

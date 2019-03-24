@@ -25,7 +25,7 @@ class RecipeForm(Form):
     image = StringField("url for image")
     description = TextAreaField("Recipe Description")
     ingredients = TextAreaField("Recipe Ingredients")
-    instructions = TextField("Recipe Instructions")
+    instructions = TextAreaField("Recipe Instructions")
     submit = SubmitField('Create Recipe')
     
 class ReviewForm(Form):

@@ -165,7 +165,8 @@ def recipes(recipe_id = None):
                     description=form.description.data.strip(),
                     ingredients=form.ingredients.data.strip(),
                     instructions=form.instructions.data.strip(),
-                    image=form.image.data.strip()
+                    image=form.image.data.strip(),
+                    
                 )
                 flash("New recipe created. Called: {}".format(form.name.data))
             else: 
@@ -215,10 +216,10 @@ def recipes(recipe_id = None):
         if form.validate_on_submit():
             if form.id.data == '': 
                 models.Review.create(
-                    user_id = user_id,
                     recipe_id = recipe_id,
                     rating=form.rating.data,
                     comment=form.comment.data.strip(),
+                    user_id=current_user.id
                 )
             else: 
                 review = models.Review.get(models.Review.id == form.id.data)
@@ -276,9 +277,9 @@ def logout():
     flash("You've been logged out", "success")
     return redirect(url_for('index'))
 
-if 'ON_HEROKU' in os.environ:
-    print('hitting ')
-    models.initialize()
+# if 'ON_HEROKU' in os.environ:
+#     print('hitting ')
+#     models.initialize()
 
 if __name__ == '__main__':
     models.initialize()
