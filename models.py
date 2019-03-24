@@ -19,7 +19,7 @@ class User(UserMixin, Model):
     avatar = TextField()
     city = TextField()
     #comes from backend - do not need in forms
-    date_joined = DateTimeField(default= str(datetime.datetime.now)[0:10])
+    date_joined = DateTimeField(default= datetime.datetime.now)
 
     class Meta:
         database = DATABASE

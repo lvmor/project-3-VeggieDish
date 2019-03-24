@@ -1,6 +1,3 @@
-
-document.getElementById("myVideo").playbackRate = 0.7;
-
 // Search Function
 function searchFunction() {
     var input = document.getElementById('myInput');
@@ -72,3 +69,25 @@ function openRecipeForm() {
 
 //grab the recipe form div
 //change display to none 
+
+
+// function openRecipeForm() {
+//     var recipeForm = document.getElementsByClassName("recipe-form")[1];
+//     if (recipeForm.style.display == 'block') {
+//     recipeForm.style.display = 'none';
+//     }
+//     else if (recipeForm.style.display == 'none') {
+//         recipeForm.style.display = 'block';
+//     }
+// };
+
+
+// function openRecipeForm() {
+//     let recipeForm = document.getElementsByClassName("recipe-form")[0];
+//     if (recipeForm.style.display === 'block') {
+//         recipeForm.style.display = 'hidden';
+//     }
+//     else if(background.style.display === 'hidden'){
+//         recipeForm.style.display = 'block';
+//     }
+// }

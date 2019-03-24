@@ -59,28 +59,6 @@ def index():
 def about():
     return render_template('about.html')
 
-
-# @app.route('/users/<user_id>', methods=['GET', 'POST'])
-# def users(user_id):
-#     user_id = int(user_id)
-#     user_data = models.User.get(models.User.id == user_id)
-    
-#     form = UserForm()
-#     user_id = request.form.get('user_id', '')
-#     command = request.form.get('submit', '')
-
-#     if command == 'Edit':
-#         user_id = int(current_user.id)
-#         user = models.User.get(models.User.id == user_id)
-#         print(user)
-#         print(form.full_name.data)
-#         user.full_name = form.full_name.data
-#         user.avatar = form.avatar.data
-#         user.city = form.city.data
-#         user.save()
-#         return redirect('/users/{}'.format(user_id))
-#     return render_template("new_user.html", title="New User", form=form, user=user_data)
-
 @app.route('/profile', methods=['GET', 'POST'])
 def users():
     user_id = int(current_user.id)
@@ -147,7 +125,7 @@ def recipes(recipe_id = None):
                     ingredients=form.ingredients.data.strip(),
                     instructions=form.instructions.data.strip(),
                     image=form.image.data.strip(),
-                    
+                    user_id = current_user.id
                 )
                 flash("New recipe created. Called: {}".format(form.name.data))
             else: 
