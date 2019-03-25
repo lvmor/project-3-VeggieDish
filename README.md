@@ -77,12 +77,12 @@ Challenges
 
 #### Code snippet embedding reviews onto reciepes and creating functionality for them on recipes route
 
-![Screenshot Siri](../master/assets/code-snippet-veggiedish.png)
+![Screenshot](../master/assets/code-snippet-veggiedish.png)
 
 #### Code snippet for reviews JS functionality
 
-![Screenshot Siri](../master/assets/code-snippet-js.png)
+![Screenshot](../master/assets/code-snippet-js.png)
 
 #### Code snippet for auth
 
-![Screenshot Eunice](../master/assets/Project-3-auth.png)
+![Screenshot ](../master/assets/Project-3-auth.png)
