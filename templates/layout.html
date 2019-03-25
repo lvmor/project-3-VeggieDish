@@ -1,81 +1,200 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-    <title></title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='index.css') }}">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://fonts.googleapis.com/css?family=Catamaran" rel="stylesheet">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-</head>
-
-<body>
-    <nav class="navbar is-primary" role="navigation" aria-label="main navigation">
-        <div>
-            <a class="navbar-item" href="{{url_for('index')}}">
-                <h2 id="veggiedish-nav" style="text-decoration: none" >VeggieDish</h2>
-            </a>
-            <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
-                data-target="navbarBasicExample">
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-            </a>
-        </div>
-        <div id="navbarBasicExample" class="navbar-menu">
-            <div class="navbar-start">
-                <a class="navbar-item">
-                </a>
-            </div>
-
-            <div class="navbar-end">
-                <div class="navbar-item">
-                    <h3>{% if current_user.is_authenticated %} Hello {{current_user.full_name}} {%endif%}</h3>
-                    <div class="buttons">
-                        {% if current_user.is_authenticated %}
-                        <a class="button is-light" href="{{ url_for('about') }}"
-                            title="about"><strong>About</strong></a>
-                        <a class="button is-light" href="{{ url_for('logout') }}"
-                            title="logout"><strong>Logout</strong></a>
-                        <a class="button is-light" href="{{ url_for('users') }}"
-                            title="profile"><strong>Profile</strong></a>
-                        <a class="button is-light" href="{{ url_for('recipes') }}"
-                            title="recipes"><strong>Recipes</strong></a>
-                        {% else %}
-                        <a class="button is-light" href="{{ url_for('about') }}"
-                            title="about"><strong>About</strong></a>
-                        <a class="button is-light" href="{{ url_for('login') }}"
-                            title="login"><strong>Login</strong></a>
-                        <a class="button is-light" href="{{ url_for('signup') }}"
-                            title="signup"><strong>Signup</strong></a>
-                        {% endif %}
+{% extends "layout2.html" %}
+{% block content %}
+<div class="video-container">
+    <video autoplay loop muted>
+        <source src="static/media/veggie-cooking.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <div class="overlay-desc">
+        <img src="static/media/veggiedish_logo.png" alt="">
+        <h1 class="main-content-header">
+            Welcome to <span>VeggieDish</span>. <br> The home of delicious vegetarian recipes
+        </h1>
+    </div>
+</div>
+<div class="home-recipes">
+    <br />
+    <div class="search-input">
+        <input type="text" class="search" id="myInput" onkeyup="searchFunction()" placeholder="Search recipes">
+    </div>
+    <br />
+    {% if current_user.is_authenticated %}
+    <div class="has-text-right create-recipe-btn" style="padding-right: .2em; margin-bottom: -1em;">
+        <a href="{{ url_for('recipes') }}" style="text-decoration: none;"><button
+                class="button is-primary is-medium has-addons is-right">Create New Recipe</button></a>
+    </div>
+    {% else %}
+    <div class="has-text-right create-recipe-btn" style="padding-right: .2em; margin-bottom: -1em;">
+        <a href="{{ url_for('login') }}" style="text-decoration: none;"><button
+                class="button is-primary is-medium has-addons is-right">Create New Recipe</button></a>
+    </div>
+    {% endif %}
+    <br />
+    <div class="all-recipes home-recipes-div">
+        {% for recipe in recipes_template %}
+        <article class="message tile is-4 is-vertical is-parent is-primary">
+            <div class="message-body tile is-child box">
+                <a href={{url_for('recipes', recipe_id=recipe.id)}}>{{recipe.name}}</a>
+                <div class="home-recipe-image-div has-text-center">
+                    <div class=" recipe-image image is-4by4">
+                        <img src={{ recipe.image }} alt="">
+                    </div>
+                    <div class="home-recipe-info">
+                        <div>Rating: {{recipe.average_rating}}</div>
+                        <h4>Description</h4>
+                        <div>{{recipe.description}}</div>
                     </div>
                 </div>
             </div>
-        </div>
-    </nav>
-    <br>
-    <div class="columns" style="padding: 0 20px">
-        <div class="column">
-            {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-            {% for category, message in messages %}
-            <div class="alert alert-{{ category }}">
-                {{ message }}
-            </div>
-            {% endfor %}
-            {% endif %}
-            {% endwith %}
-            {% block content %}
-
-            {% endblock %}
-        </div>
-
+        </article>
+        {% endfor %}
     </div>
-
-    <script src="{{url_for('static', filename='index.js')}}"></script>
-</body>
-
-</html>
+    <br>
+</div>
+<style>
+    * {
+        margin: 0px;
+        padding: 0px;
+        box-sizing: border-box;
+    }
+    #myVideo {
+        position: relative;
+        left: -10px;
+        top: -150px;
+        padding-left: -50px;
+        padding-right: -50px;
+        -webkit-filter: grayscale(30%);
+        filter: grayscale(30%);
+    }
+    img.about-logo {
+        height: 300px;
+        width: auto;
+        float: left;
+        margin: 20px;
+    }
+    section.team-pictures {
+        background-color: #00d1b2;
+        padding-bottom: 1em;
+    }
+    .main-content-header {
+        color: white;
+        width: 1180px;
+        position: absolute;
+        top: 60%;
+        right: 5%;
+        text-transform: uppercase;
+    }
+    .category-wrapper img {
+        width: 100%;
+        height: 33%;
+        object-fit: cover;
+    }
+    body {
+        background: white;
+    }
+    .box1 {
+        position: relative;
+        transition: all .2s ease-out 0s
+    }
+    .box1 .box-content,
+    .box1:after {
+        position: absolute;
+        left: 20px;
+        right: 20px
+    }
+    .box1:after {
+        content: "";
+        display: block;
+        background: #20c997;
+        top: 20px;
+        bottom: 20px;
+        opacity: 0;
+        transform: rotate3d(-1, 1, 0, 100deg);
+        transition: all .4s ease-in-out 0s
+    }
+    .box1:hover:after {
+        opacity: .9;
+        transform: rotate3d(0, 0, 0, 0deg)
+    }
+    .box1 img {
+        width: 100%;
+        height: auto
+    }
+    .box1 .box-content {
+        text-align: center;
+        top: 45%;
+        opacity: 0;
+        z-index: 1;
+        -webkit-transform: translate(10%, -30%);
+        transform: translate(10%, -30%);
+        transition: all .2s ease-out 0s
+    }
+    .box1:hover .box-content {
+        opacity: 1;
+        transform: translate(0, -50%);
+        transition-delay: .2s
+    }
+    .box1 .title {
+        display: block;
+        font-size: 22px;
+        font-weight: 700;
+        color: white;
+        margin: 0 0 10px
+    }
+    .box1 .post {
+        display: block;
+        font-size: 15px;
+        color: black;
+        margin-bottom: 20px
+    }
+   
+    .recipe-image {
+        text-align: center;
+    }
+    .home-recipes-div a {
+        text-decoration: none;
+    }
+    .message a:not(.button):not(.tag):not(.dropdown-item) {
+        text-decoration: none;
+    }
+    .message a:not(.button):not(.tag):not(.dropdown-item):hover {
+        color: teal;
+    }
+    .home-recipe-image img:hover {
+        width: 360px;
+        height: auto;
+    }
+    .create-recipe-btn {
+        font-size: 88px;
+        text-align: left;
+    }
+    .box {
+        border: none;
+    }
+    .video-container {
+        position: relative;
+    }
+    video {
+        height: auto;
+        vertical-align: middle;
+        width: 100%;
+    }
+    .overlay-desc {
+        background: rgba(0, 0, 0, 0);
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    h1 {
+        color: white;
+        font-family: 'Nobile', sans-serif;
+        font-size: 4vw;
+        text-align: center;
+    }
+</style>
+{% endblock %}
