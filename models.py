@@ -9,7 +9,6 @@ import os
 from playhouse.db_url import connect
 
 # DATABASE = connect(os.environ.get('DATABASE_URL'))
-
 DATABASE = SqliteDatabase('veggiedish.db')
 
 class User(UserMixin, Model):
@@ -18,9 +17,9 @@ class User(UserMixin, Model):
     email = CharField(unique=True)
     password = CharField(max_length = 100)   
     avatar = TextField()
-    city = TextField()    
+    city = TextField()
     #comes from backend - do not need in forms
-    date_joined = DateTimeField(default=datetime.datetime.now)
+    date_joined = DateTimeField(default= datetime.datetime.now)
 
     class Meta:
         database = DATABASE
@@ -47,6 +46,7 @@ class Recipe(Model):
     ingredients = TextField()
     instructions = TextField()
     average_rating = IntegerField(default=0)
+    user_id = ForeignKeyField(model=User, backref="users")
 
     class Meta:
         database = DATABASE
@@ -55,7 +55,7 @@ class Review(Model):
     rating = IntegerField(default=0)
     date_reviewed = DateTimeField(default=datetime.datetime.now)
     comment = TextField()
-    # user_id = ForeignKeyField(model=User, backref="users") 
+    user_id = ForeignKeyField(model=User, backref="users") 
     recipe_id = ForeignKeyField(model=Recipe, backref="recipes") 
     
     class Meta:
@@ -66,5 +66,4 @@ def initialize():
     DATABASE.connect()
     DATABASE.create_tables([User, Recipe, Review], safe=True)
     DATABASE.close()
-
     

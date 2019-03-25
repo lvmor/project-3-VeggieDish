@@ -59,14 +59,12 @@ def index():
 def about():
     return render_template('about.html')
 
-
-@app.route('/users/<user_id>', methods=['GET', 'POST'])
-@login_required
-def users(user_id):
-    avatar = url_for('static', filename='profile_pics/' + current_user.avatar)
-    user_id = int(user_id)
+@app.route('/profile', methods=['GET', 'POST'])
+def users():
+    user_id = int(current_user.id)
     user_data = models.User.get(models.User.id == user_id)
     
+    print(str(user_data.date_joined)[0:10])
     form = UserForm()
     user_id = request.form.get('user_id', '')
     command = request.form.get('submit', '')
@@ -80,10 +78,9 @@ def users(user_id):
         user.avatar = form.avatar.data
         user.city = form.city.data
         user.save()
-        return redirect('/users/{}'.format(user_id))
-    return render_template("new_user.html", title="New User", form=form, user=user_data, avatar=avatar)
-
-
+        return redirect('/profile')
+    return render_template("new_user.html", title="New User", form=form, user=user_data)
+    
 @app.route('/reviews')
 @app.route('/reviews/')
 @app.route('/reviews/<review_id>')
@@ -127,7 +124,8 @@ def recipes(recipe_id = None):
                     description=form.description.data.strip(),
                     ingredients=form.ingredients.data.strip(),
                     instructions=form.instructions.data.strip(),
-                    image=form.image.data.strip()
+                    image=form.image.data.strip(),
+                    user_id = current_user.id
                 )
                 flash("New recipe created. Called: {}".format(form.name.data))
             else: 
@@ -142,15 +140,8 @@ def recipes(recipe_id = None):
             return redirect('/recipes')
         return render_template("recipes.html", recipes_template=recipes, form=form)
     else: 
-        print("HELLO FROM line 159")
-        
         recipe_id = int(recipe_id)
-        print("HELLO FROM line 162")
-        print(recipe_id)
         recipe = models.Recipe.get(models.Recipe.id == recipe_id)
-        print(recipe_id)
-
-        print(models.Review.recipe_id)
         reviews_template = models.Review.select().where(models.Review.recipe_id == recipe_id)
         
         form = ReviewForm()
@@ -177,6 +168,7 @@ def recipes(recipe_id = None):
                     recipe_id = recipe_id,
                     rating=form.rating.data,
                     comment=form.comment.data.strip(),
+                    user_id=current_user.id
                 )
             else: 
                 review = models.Review.get(models.Review.id == form.id.data)
@@ -202,7 +194,7 @@ def signup():
             avatar=form.avatar.data,
             city=form.city.data
             )
-        return redirect(url_for('index'))
+        return redirect(url_for('login'))
     return render_template('signup.html', title='Signup', form=form)
 
 
@@ -234,9 +226,9 @@ def logout():
     flash("You've been logged out", "success")
     return redirect(url_for('index'))
 
-if 'ON_HEROKU' in os.environ:
-    print('hitting ')
-    models.initialize()
+# if 'ON_HEROKU' in os.environ:
+#     print('hitting ')
+#     models.initialize()
 
 if __name__ == '__main__':
     models.initialize()
@@ -253,3 +245,4 @@ if __name__ == '__main__':
         pass
 
     app.run(debug=DEBUG, port=PORT)
+    

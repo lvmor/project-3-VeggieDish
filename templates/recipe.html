@@ -1,23 +1,31 @@
 {% extends "layout.html" %}
 
 {% block content %}
-<h1>Recipe</h1>
+
 <article style="display: block" class="recipe message tile is-vertical is-parent is-primary">
-    <div class="message-body tile is-child box">
-        <img src={{recipe.image}} alt="">
+    <h1 class="field name">{{recipe.name}}</h1>
+
+    <div class="field" id="averageDiv"></div>
+    <div class="field" id="numberOfRatings"></div>
+
+    <div class="field message-body tile is-child box">
         <div>
-        <div class="name">{{recipe.name}}</div>
-        <div class="description">{{recipe.description}}</div>
-        <div>{{recipe.ingredients.replace('\n', '<br />')}}</div>
-        <div>{{recipe.instructions}}</div>
+            <img class="field" src={{recipe.image}} alt="" width="600px">
+            <div class="field description"> DESCRIPTION: <br /> {{recipe.description}}</div>
+        </div>
     </div>
+    <div class="field message-body tile is-child box">
+        <div>
+            <div class="field"> INGREDIENTS: <br /> {{recipe.ingredients.replace('\n', '<br />') | safe}}</div>
+        </div>
     </div>
+    <div class="field message-body tile is-child box">
+        <div>
+            <div class="field"> DIRECTIONS: <br /> {{recipe.instructions.replace('\n', '<br />')|safe}}</div>
+        </div>
+    </div>
+    {% block recipe_reviews %}
+    {% endblock%}
 </article>
-<div id="averageDiv"></div>
-
-{% block recipe_reviews %}
-{% endblock%}
-
-
 
 {% endblock %}

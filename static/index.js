@@ -1,8 +1,6 @@
 
-console.log("Hello from JS from line 7")
-
 // Search Function
- function searchFunction() {
+function searchFunction() {
     var input = document.getElementById('myInput');
     console.log(input.value)
     var filter = input.value.toUpperCase();
@@ -16,12 +14,12 @@ console.log("Hello from JS from line 7")
         var txtValue = desc.textContent || desc.outerText;
         if (txtValue.toUpperCase().indexOf(filter) > -1) {
             div[i].style.display = "block";
-            } 
-            else {
+        }
+        else {
             div[i].style.display = "none";
-            }
         }
     }
+}
 
 
 var reviewsList = document.getElementById('all-reviews');
@@ -29,25 +27,50 @@ console.log(reviewsList)
 var reviews = reviewsList.getElementsByClassName("message-body");
 console.log(reviews)
 //function allReviews() {
-    let sum = 0
-    let amount = 0
-    for (var i=0; i< reviews.length; i++) {
-        var rating = reviews[i].innerText.charAt(0)
-        var ratingInt = parseInt(rating)
-        sum = sum + ratingInt;
-        amount++;
-    }
-    let average = 0.0;
-    if (sum != 0) {
-    let avg = (sum/amount)
+let sum = 0
+let amount = 0
+for (var i = 0; i < reviews.length; i++) {
+    var rating = reviews[i].innerText.charAt(0)
+    var ratingInt = parseInt(rating)
+    sum = sum + ratingInt;
+    amount++;
+}
+let average = 0.0;
+if (sum != 0) {
+    let avg = (sum / amount)
     //tofixed rounds the rating to the first decimal place
     average = avg.toFixed(1);
-    }
-    var averageDiv = document.getElementById("averageDiv");
-    averageDiv.innerText = `Average Rating: ${average}`
-    
+}
+let averageDiv = document.getElementById("averageDiv");
+if (average == 0) {
+    averageDiv.innerText = `Be the first to rate this recipe!`;
+}
+else {
+    averageDiv.innerText = `Average Rating: ${average}`;
+}
 
-// return average}
+let numberOfRatings = document.getElementById("numberOfRatings");
+numberOfRatings.innerText = `Number of ratings: ${amount}`;
 
-// allReviews()
 
+
+
+// function openRecipeForm() {
+//     var recipeForm = document.getElementsByClassName("recipe-form")[0];
+//     var createRecipeButton = document.getElementsByClassName("create-recipe")[0];
+//     if (recipeForm.style.display != 'none') {
+//     recipeForm.style.display = 'none';
+//     createRecipeButton.innerText = 'Create New Recipe';
+//     }
+//     else if (recipeForm.style.display == 'none') {
+//         recipeForm.style.display = 'block';
+//         createRecipeButton.innerText = 'Close form';
+//     }
+// }
+
+//grab the recipe form div
+//change display to none 
+
+
+
+document.getElementById("myVideo").playbackRate = 0.7;

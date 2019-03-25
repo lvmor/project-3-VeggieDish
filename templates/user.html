@@ -1,30 +1,38 @@
 {% extends "layout.html"%}
 
-{% block content %}
-<h1>User Profile</h1>
-    <div class="media">
-        <img class="rounded-circle account-img" src="{{ user.avatar }}">
-        <div class="media-body">
-            <h2 class="account-heading">Full name</h2>
-            <p class="text-secondary">username</p>
-            <p class="text-secondary">username@email.com</p>
-            <p class="text-secondary">city</p>
-            <p class="text-secondary">date joined</p>
-        </div>
-    </div>
-<!-- 
-FORM HERE -->
+{% block content%}
 
-<article class="message secondary">
-    <div class="message-body">
-        <div>{{user.avatar}}</div>
-        <div>{{user.full_name}}</div>
-        <div>{{user.city}}</div>
-        <div>{{user.date_joined}}</div>
+<div class="profile-wrapper columns is-multiline">
+    <div class="user-profile-box media column is-half">
+        <article class="message secondary">
+            <div class="profile-pic">
+                <img class="rounded-circle account-img" src="{{ user.avatar }}" style="height: 500px; width: auto;">
+            </div>
+            <div class="media-body message-body">
+                <h2 class="account-heading">Name: <span>{{user.full_name}}</span></h2>
+                <p class="text-secondary">Username: <span>{{user.username}}</span> </p>
+                <p class="text-secondary">Email: <span>{{user.email}}</span></p>
+                <p class="text-secondary">Current city: <span>{{user.city}}</span></p>
+                <p class="text-secondary">date joined <span>{{user.date_joined}}</span></p>
+            </div>
+        </article>
     </div>
-</article>
 
-{% block userForm %}
-{%endblock%}
+    <div class="user-edit-form column is-half">
+        {% block userForm %}
+        {%endblock%}
+    </div>
+</div>
+
+<style>
+    .profile-wrapper {
+        padding-top: 2em;
+    }
+
+    .user-profile-box,
+    .user-edit-form {
+        padding-left: 5em;
+    }
+</style>
 
 {% endblock content %}

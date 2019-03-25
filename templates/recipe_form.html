@@ -1,25 +1,25 @@
-<form id="recipe-form" method="POST" action="" novalidate>
+<form class="create-recipe-form" method="POST" action="" novalidate>
   {{ form.hidden_tag() }}
   {{form.id}}
   <div>
-    {{ form.name.label }}
-    {{ form.name(class_="input") }}
+    {{ form.name.label(class_="recipe-label") }}
+    {{ form.name(class_="input recipe-input") }}
   </div>
   <div>
-    {{ form.description.label }}
-    {{ form.description(class_="textarea") }}
+    {{ form.description.label(class_="recipe-label") }}
+    {{ form.description(class_="textarea recipe-input") }}
   </div>
   <div>
-    {{ form.ingredients.label }}
-    {{ form.ingredients(class_="textarea") }}
+    {{ form.ingredients.label(class_="recipe-label")}}
+    {{ form.ingredients(class_="textarea recipe-input") }}
   </div>
   <div>
-    {{ form.instructions.label }}
-    {{ form.instructions(class_="textarea") }}
+    {{ form.instructions.label(class_="recipe-label") }}
+    {{ form.instructions(class_="textarea recipe-input") }}
   </div>
   <div>
-    {{ form.image.label }}
-    {{ form.image(class_="input") }}
+    {{ form.image.label(class_="recipe-label") }}
+    {{ form.image(class_="input recipe-input") }}
   </div>
 
   {{ form.submit(class_="button") }}

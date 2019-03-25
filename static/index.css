@@ -1,3 +1,55 @@
+* {
+    box-sizing: border-box;
+    /* text-align: center; */
+    font-family: Catamaran, Sans-serfif;
+    /* text-transform: uppercase; */
+  }
+
+.column{
+    padding: 0;
+    /* margin-right: -.5em;
+    margin-left: -.5em; */
+}
+
+#logo {
+    height: 500px;
+    width: auto;
+    position: inherit;
+    /* top: 200px; */
+}
+
+.create-recipe {
+    background: none;
+    height: 40px;
+    width: 600px;
+    border-radius: 25px;
+    font-size: 22px;
+    border: 2px solid darkgray;
+}
+
+#recipe-form {
+    display: block;
+}
+
+.recipes-functionality{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.search {
+    width: 600px;
+    border: 2px solid darkgray;
+    height: 40px;
+    border-radius: 25px;
+    padding-left: 1em;
+    -moz-box-shadow:    inset 0 0 10px #000000;
+    -webkit-box-shadow: inset 0 0 10px #000000;
+    box-shadow:         inset 0 0 10px #000000;
+    /* -webkit-box-shadow: 3px 3px 5px 6px #ccc;
+    box-shadow:         3px 3px 5px 6px #ccc; */
+}
+
 
 h4 {
     font-weight: bolder;
@@ -5,14 +57,55 @@ h4 {
     padding-top: 1em;
 }
 
-h1 {
-    color: black;
-    font-size: 38px;
+h3 {
+    margin-right: 1em;
+    font-size: 28px;
 }
 
-img {
+/* h2, h3 {
+    color: rgb(5, 186, 186)
+} */
+
+.home-recipes .message-body {
+    display: flex;
+    flex-direction: column;
+}
+
+.home-recipes a {
+    font-size: 26px;
+    text-align: center;
+}
+
+.home-recipes-div{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.home-recipes-div article {
+    width: 8%;
+}
+
+.all-recipes img {
     width: 250px;
     height: auto;
+}
+
+.home-recipes img {
+    width: 350px;
+    height: auto;
+}
+
+.search-input {
+   text-align: center;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}
+
+
+.user-recipes {
+    display: flex;
+    flex-wrap: wrap;
     
 }
 
@@ -25,17 +118,73 @@ img {
     font-size: 22px;
 }
 
-/* .home-recipes{
-    display: flex;
-    flex-direction: row;
+#numberOfRatings {
+    color: teal;
+    font-size: 18px;
 }
 
-.user-recipes {
-    display: flex;
-    flex-direction: column;
+#video-container {
+    max-height: 200px;
+}
+
+/* #veggiedish-hero {
+    text-transform: uppercase;
 } */
-/* 
-.user-recipes-container {
-    display: flex;
-    justify-content: space-around;
+/* nav {
+    padding-right: 2.5em;
+    margin-right: 2.5em;
 } */
+
+.home-recipes {
+    /* margin-top: -500px; */
+}
+
+
+#myVideo {
+    position: relative;
+    left: -10px;
+    top: -150px;
+    padding-left: -50px;
+    padding-right: -50px;
+    -webkit-filter: grayscale(30%);
+    filter: grayscale(30%);
+  }
+
+.content {
+    position: relative;
+    bottom: 1000px;
+    display: flex;
+    flex-direction: row;
+
+}
+
+.content div {
+    padding-top: 20%;
+    text-align: right;
+    display: flex;
+    justify-items: right;
+}
+
+
+.content h1, .content h3 {
+    color: white;
+    text-align: right;
+}
+
+.edit-profile {
+    margin-right: 50%;
+}
+
+.edit-profile #submit {
+    margin-top: 1em;
+}
+
+.group-photo {
+    text-align: center;
+}
+
+
+.group-photo img {
+    width: 600px;
+    height: auto;
+}
