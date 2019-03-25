@@ -1,17 +1,44 @@
 {% extends "layout.html"%}
 
 {% block content%}
-<h1>User Profile</h1>
-<article class="message secondary">
-    <div class="message-body">
-        <div>{{user.avatar}}</div>
-        <div>{{user.full_name}}</div>
-        <div>{{user.city}}</div>
-        <div>{{user.date_joined}}</div>
-    </div>
-</article>
 
-{% block userForm %}
-{%endblock%}
+<div class="profile-wrapper columns is-multiline">
+    <div class="user-profile-box media column is-half">
+        <article class="message secondary">
+            <div class="profile-pic">
+                <img class="rounded-circle account-img" src="{{ user.avatar }}">
+            </div>
+            <div class="media-body message-body">
+                <h2 class="account-heading">Name: <span>{{user.full_name}}</span></h2>
+                <p class="text-secondary">Username: <span>{{user.username}}</span> </p>
+                <p class="text-secondary">Email: <span>{{user.email}}</span></p>
+                <p class="text-secondary">Current city: <span>{{user.city}}</span></p>
+                <p class="text-secondary">date joined <span>{{user.date_joined}}</span></p>
+            </div>
+        </article>
+    </div>
+
+    <div class="user-edit-form column is-half">
+        {% block userForm %}
+        {%endblock%}
+    </div>
+</div>
+
+<style>
+    .profile-wrapper {
+        padding-top: 2em;
+    }
+
+    .profile-pic {
+        height: 200px;
+        width: auto;
+
+    }
+
+    .user-profile-box,
+    .user-edit-form {
+        padding-left: 5em;
+    }
+</style>
 
 {%endblock%}

@@ -3,25 +3,25 @@
 {% block userForm %}
 
 <div class="edit-profile">
-        <h2>Edit your Profile</h2>
-        <form method="POST" action="" nonvalidate>
+    <h2>Edit your Profile</h2>
+    <form method="POST" action="" nonvalidate>
 
-            {{form.hidden_tag()}}
-            <div>
-                {{form.avatar.label}}
-                {{form.avatar(class_="input")}}
-            </div>
-            <div>
-                {{form.full_name.label}}
-                {{form.full_name(class_="input")}}
-            </div>
-            <div>
-                {{form.city.label}}
-                {{form.city(class_="input")}}
-            </div>
-            <input name="id" id="id" type="hidden" value="{{user.id}}">
-            {{form.submit(value="Edit")}}
-            
-        </form>
-    </div>
+        {{form.hidden_tag()}}
+        <div>
+            {{form.avatar.label}}
+            {{form.avatar(class_="input is-primary")}}
+        </div>
+        <div>
+            {{form.full_name.label}}
+            {{form.full_name(class_="input is-primary")}}
+        </div>
+        <div>
+            {{form.city.label}}
+            {{form.city(class_="input is-primary")}}
+        </div>
+        <input name="id" id="id" type="hidden" value="{{user.id}}">
+        {{form.submit(value="Edit", class_="button is-primary is-large")}}
+    </form>
+</div>
+
 {% endblock %}
