@@ -3,14 +3,16 @@
 {% block content %}
 {% if current_user.is_authenticated %}
 
-
 <header class="field about-header-wrapper">
     <video autoplay muted loop id="myVideo">
         <source src="static/media/veggie-cooking.mp4" type="video/mp4">
     </video>
 
-    <div id="veggiedish-hero" class="main-content-header">
-        <h1>Welcome to <span>VeggieDish</span> <br> The home of delicious vegetarian recipes</h1>
+    <div class="overlay-desc">
+        <img class="main-logo" src="static/media/veggiedish_logo.png" alt="">
+        <h1 class="main-content-header">
+            Welcome to <span>VeggieDish</span>. <br> The home of delicious vegetarian recipes
+        </h1>
     </div>
 
 </header>
@@ -25,7 +27,7 @@
             </div>
             <div class="has-text-right create-recipe-btn" style="padding-right: .2em;">
                 <a href="#recipe-form" style="text-decoration: none;"><button
-                        class="button is-primary is-medium has-addons is-right">Create New Recipe</button></a>
+                        class="button is-primary is-large has-addons is-right">Create New Recipe</button></a>
             </div>
 
 
@@ -33,14 +35,14 @@
                 {% for recipe in recipes_template %}
                 <article class="message tile is-4 is-vertical is-parent is-primary">
                     <div class="message-body tile is-child box">
-                        <a href={{url_for('recipes', recipe_id=recipe.id)}}>{{recipe.name}}</a>
+                        <a class="recipe-title-a" href={{url_for('recipes', recipe_id=recipe.id)}}>{{recipe.name}}</a>
                         <div class="home-recipe-image-div has-text-center">
                             <div class=" recipe-image image is-4by4">
-                                <img src={{ recipe.image }} alt="">
+                                <img class="image-box image is-4by4" src={{ recipe.image }} alt="">
                             </div>
                             <div class="home-recipe-info">
                                 <div>Rating: {{recipe.average_rating}}</div>
-                                <h4>Description</h4>
+                                <h4>Description:</h4>
                                 <div>{{recipe.description}}</div>
                             </div>
                             {% if current_user.id == recipe.user_id.id %}
@@ -80,27 +82,19 @@
 
 
 <style>
-    * {
-        margin: 0px;
-        padding: 0px;
-        box-sizing: border-box;
+    .recipe-title-a {
+        font-size: 22px;
+        text-align: center;
     }
 
-    header {
-        height: 100vh;
-        text-align: right;
+    .create-recipe-btn {
+        padding-bottom: -5em;
     }
 
-    img.about-logo {
-        height: 300px;
+    img.main-logo {
+        height: 40em;
         width: auto;
-        float: left;
-        margin: 20px;
-    }
-
-    section.team-pictures {
-        background-color: #00d1b2;
-        padding-bottom: 1em;
+        padding-right: 1000px;
     }
 
     .main-content-header {
@@ -110,6 +104,25 @@
         top: 60%;
         right: 5%;
         text-transform: uppercase;
+        font-family: Catamaran;
+        font-size: 50px;
+        text-align: right;
+    }
+
+    .recipe {
+        display: block;
+    }
+
+    .image-box {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 100%;
+    }
+
+    .home-recipe-image {
+        font-size: 22px;
+
     }
 
     .category-wrapper img {
@@ -187,7 +200,9 @@
     }
 
     .home-recipe-image-div {
+
         /* text-align: center; */
+
     }
 
     .recipe-image {

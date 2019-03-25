@@ -52,6 +52,10 @@
     box-shadow:         3px 3px 5px 4px #ccc;
 }
 
+.search-input {
+    padding-top: 3em;
+}
+
 
 h4 {
     font-weight: bolder;
@@ -143,13 +147,11 @@ h3 {
 
 
 #myVideo {
-    position: relative;
+    position: fixed;
     left: -10px;
     top: -150px;
     padding-left: -50px;
     padding-right: -50px;
-    -webkit-filter: grayscale(30%);
-    filter: grayscale(30%);
   }
 
 .content {

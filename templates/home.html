@@ -2,62 +2,64 @@
 
 {% block content %}
 
-<div class="video-container">
-    <video autoplay loop muted>
-        <source src="static/media/veggie-cooking.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-    </video>
-    <div class="overlay-desc">
-        <img src="static/media/veggiedish_logo.png" alt="">
-        <h1 class="main-content-header">
-            Welcome to <span>VeggieDish</span>. <br> The home of delicious vegetarian recipes
-        </h1>
-    </div>
-</div>
+<body>
+    <header class="video-container">
+        <video autoplay loop muted>
+            <source src="static/media/veggie-cooking.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="overlay-desc">
+            <img class="main-logo" src="static/media/veggiedish_logo.png" alt="">
+            <h1 class="main-content-header">
+                Welcome to <span>VeggieDish</span>. <br> The home of delicious vegetarian recipes
+            </h1>
+        </div>
+    </header>
 
 
-<div class="home-recipes">
-    <br />
+    <div class="home-recipes">
+        <section>
+            <div class="search-input">
+                <input type="text" class="search" id="myInput" onkeyup="searchFunction()" placeholder="Search recipes">
+            </div>
+            <br />
+            {% if current_user.is_authenticated %}
+            <div class="has-text-right create-recipe-btn" style="padding-right: .2em; margin-bottom: -1em;">
+                <a href="{{ url_for('recipes') }}" style="text-decoration: none;"><button
+                        class="create-recipe-btn button is-primary is-large has-addons is-right">Create New
+                        Recipe</button></a>
+            </div>
+            {% else %}
+            <div class="has-text-right create-recipe-btn" style="padding-right: .2em; margin-bottom: -1em;">
+                <a href="{{ url_for('login') }}" style="text-decoration: none;"><button
+                        class="create-recipe-btn button is-primary is-large has-addons is-right">Create New
+                        Recipe</button></a>
+            </div>
+            {% endif %}
+        </section>
 
-    <div class="search-input">
-        <input type="text" class="search" id="myInput" onkeyup="searchFunction()" placeholder="Search recipes">
-    </div>
-    <br />
-    {% if current_user.is_authenticated %}
-    <div class="has-text-right create-recipe-btn" style="padding-right: .2em; margin-bottom: -1em;">
-        <a href="{{ url_for('recipes') }}" style="text-decoration: none;"><button
-                class="button is-primary is-medium has-addons is-right">Create New Recipe</button></a>
-    </div>
-    {% else %}
-    <div class="has-text-right create-recipe-btn" style="padding-right: .2em; margin-bottom: -1em;">
-        <a href="{{ url_for('login') }}" style="text-decoration: none;"><button
-                class="button is-primary is-medium has-addons is-right">Create New Recipe</button></a>
-    </div>
-    {% endif %}
-    <br />
-
-
-    <div class="all-recipes home-recipes-div">
-        {% for recipe in recipes_template %}
-        <article class="message tile is-4 is-vertical is-parent is-primary">
-            <div class="message-body tile is-child box">
-                <a href={{url_for('recipes', recipe_id=recipe.id)}}>{{recipe.name}}</a>
-                <div class="home-recipe-image-div has-text-center">
-                    <div class=" recipe-image image is-4by4">
-                        <img src={{ recipe.image }} alt="">
-                    </div>
-                    <div class="home-recipe-info">
-                        <div>Rating: {{recipe.average_rating}}</div>
-                        <h4>Description</h4>
-                        <div>{{recipe.description}}</div>
+        <div class="all-recipes home-recipes-div">
+            {% for recipe in recipes_template %}
+            <article class="message tile is-4 is-vertical is-parent is-primary">
+                <div class="message-body tile is-child box">
+                    <a href={{url_for('recipes', recipe_id=recipe.id)}}>{{recipe.name}}</a>
+                    <div class="home-recipe-image-div has-text-center">
+                        <div class=" recipe-image image is-4by4">
+                            <img class="image-box image is-4by4" src={{ recipe.image }} alt="">
+                        </div>
+                        <div class="home-recipe-info">
+                            <div>Rating: {{recipe.average_rating}}</div>
+                            <h4>Description:</h4>
+                            <div>{{recipe.description}}</div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </article>
-        {% endfor %}
+            </article>
+            {% endfor %}
+        </div>
+        <br>
     </div>
-    <br>
-</div>
+</body>
 
 <style>
     * {
@@ -76,16 +78,14 @@
         filter: grayscale(30%);
     }
 
-    img.about-logo {
-        height: 300px;
-        width: auto;
-        float: left;
-        margin: 20px;
+    .create-recipe-btn {
+        padding-bottom: .5em;
     }
 
-    section.team-pictures {
-        background-color: #00d1b2;
-        padding-bottom: 1em;
+    img.main-logo {
+        height: 40em;
+        width: auto;
+        padding-right: 1000px;
     }
 
     .main-content-header {
@@ -95,6 +95,22 @@
         top: 60%;
         right: 5%;
         text-transform: uppercase;
+        font-family: Catamaran;
+        font-size: 50px;
+        text-align: right;
+    }
+
+
+    .image-box {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 100%;
+    }
+
+    .home-recipe-image {
+        font-size: 22px;
+
     }
 
     .category-wrapper img {
