@@ -62,20 +62,31 @@
 </body>
 
 <style>
-    * {
-        margin: 0px;
-        padding: 0px;
-        box-sizing: border-box;
+    .overlay-desc h1 {
+        font-size: 38px;
+        margin-top: 3em;
+        margin-left: 2.5em;
     }
 
-    #myVideo {
+    .overlay-desc img {
+        width: 400px;
+        height: auto;
+        margin-bottom: 10em;
+    }
+
+    #myVideo,
+    .video-container {
         position: relative;
         left: -10px;
         top: -150px;
         padding-left: -50px;
         padding-right: -50px;
-        -webkit-filter: grayscale(30%);
-        filter: grayscale(30%);
+    }
+
+    * {
+        margin: 0px;
+        padding: 0px;
+        box-sizing: border-box;
     }
 
     .create-recipe-btn {
@@ -86,16 +97,19 @@
         height: 40em;
         width: auto;
         padding-right: 1000px;
+        margin-right: -5em;
     }
 
     .main-content-header {
         color: white;
         width: 1180px;
         position: absolute;
-        top: 60%;
+        top: 52%;
         right: 5%;
         text-transform: uppercase;
-        font-family: Catamaran;
+        text-shadow: 2px 2px 5px black;
+        font-family: 'Playfair Display', serif;
+        font-weight: 400;
         font-size: 50px;
         text-align: right;
     }
@@ -111,6 +125,10 @@
     .home-recipe-image {
         font-size: 22px;
 
+    }
+
+    input {
+        font-size: 22px;
     }
 
     .category-wrapper img {
