@@ -82,4 +82,8 @@ Challenges
 
 ![Screenshot Siri](../master/assets/code-snippet-js.png)
 
-![Screenshot Siri](../master/assets/Project-3-auth.png)
+### Eunice 
+
+![Screenshot Eunice](../master/assets/Project-3-auth.png)
+
+![Screenshot Eunice](../master/assets/yourimagename!.png)
