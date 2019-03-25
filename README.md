@@ -80,4 +80,5 @@ Challenges
 
 ![Screenshot Siri](../master/assets/code-snippet-veggiedish.png)
 
+![Screenshot Siri](../master/assets/code-snippet-js.png)
 
