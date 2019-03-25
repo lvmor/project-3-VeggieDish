@@ -74,16 +74,15 @@ Challenges
 
 ---
 
-### Siri
 
 #### Code snippet embedding reviews onto reciepes and creating functionality for them on recipes route
 
 ![Screenshot Siri](../master/assets/code-snippet-veggiedish.png)
 
+#### Code snippet for reviews JS functionality
+
 ![Screenshot Siri](../master/assets/code-snippet-js.png)
 
-### Eunice 
+#### Code snippet for auth
 
 ![Screenshot Eunice](../master/assets/Project-3-auth.png)
-
-![Screenshot Eunice](../master/assets/yourimagename!.png)
