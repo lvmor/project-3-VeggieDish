@@ -35,7 +35,7 @@
                 {% for recipe in recipes_template %}
                 <article class="message tile is-4 is-vertical is-parent is-primary">
                     <div class="message-body tile is-child box">
-                        <a class="recipe-title-a" href={{url_for('recipes', recipe_id=recipe.id)}}>{{recipe.name}}</a>
+                        <a class="recipe-title-a " href={{url_for('recipes', recipe_id=recipe.id)}}>{{recipe.name}}</a>
                         <div class="home-recipe-image-div has-text-center">
                             <div class=" recipe-image image is-4by4">
                                 <img class="image-box image is-4by4" src={{ recipe.image }} alt="">

@@ -42,7 +42,7 @@
             {% for recipe in recipes_template %}
             <article class="message tile is-4 is-vertical is-parent is-primary">
                 <div class="message-body tile is-child box">
-                    <a href={{url_for('recipes', recipe_id=recipe.id)}}>{{recipe.name}}</a>
+                    <a class="has-addons is-right" href={{url_for('recipes', recipe_id=recipe.id)}}>{{recipe.name}}</a>
                     <div class="home-recipe-image-div has-text-center">
                         <div class=" recipe-image image is-4by4">
                             <img class="image-box image is-4by4" src={{ recipe.image }} alt="">
@@ -62,6 +62,10 @@
 </body>
 
 <style>
+    .home-recipes-div .message-body a {
+        text-align: center;
+    }
+
     .overlay-desc h1 {
         font-size: 38px;
         margin-top: 3em;
