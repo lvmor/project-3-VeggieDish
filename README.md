@@ -80,4 +80,6 @@ Challenges
 
 ![Screenshot Siri](../master/assets/code-snippet-veggiedish.png)
 
+![Screenshot Siri](../master/assets/code-snippet-js.png)
 
+![Screenshot Siri](../master/assets/Project-3-auth.png)
