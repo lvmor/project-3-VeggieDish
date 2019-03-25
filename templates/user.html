@@ -1,17 +1,39 @@
 {% extends "layout.html"%}
 
 {% block content%}
-<h1>User Profile</h1>
-<article class="message secondary">
-    <div class="message-body">
-        <div>{{user.avatar}}</div>
-        <div>{{user.full_name}}</div>
-        <div>{{user.city}}</div>
-        <div>{{user.date_joined}}</div>
+<h1>Your Profile</h1>
+<div class="profile-wrapper">
+    <div class="media">
+     <article class="message secondary">
+        <img class="rounded-circle account-img" src="{{ user.avatar }}" style = 'height: 200px; width: auto'>
+        <div class="media-body message-body">
+            <h2 class="account-heading">Name: <span>{{user.full_name}}</span></h2>
+            <p class="text-secondary">Username: <span>{{user.username}}</span> </p>
+            <p class="text-secondary">Email: <span>{{user.email}}</span></p>
+            <p class="text-secondary">Current city: <span>{{user.city}}</span></p>
+            <p class="text-secondary">date joined <span>{{user.date_joined}}</span></p>
+        </div>
+    </article>
     </div>
-</article>
 
-{% block userForm %}
-{%endblock%}
+    <div class="user-edit-form">
+    {% block userForm %}
+    {%endblock%}
+    </div>
+</div>
+
+<style>
+
+.user-edit-form {
+    width: 800px;
+    height: auto;
+}
+
+.profile-wrapper{
+display: flex;
+justify-content: space-around;
+}
+
+</style>
 
 {%endblock%}

@@ -2,50 +2,37 @@ from flask import Flask, g
 from flask import render_template, flash, redirect, url_for
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from flask_bcrypt import check_password_hash
-
 import os
 import json
 import models
 import functools
-
 from forms import RecipeForm, UserForm
-
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
-
 from werkzeug.security import generate_password_hash
-
 from forms import UserForm, RecipeForm, ReviewForm, RegistrationForm, LoginForm
-
 DEBUG = True
 PORT = 8000
-
 app = Flask(__name__)
 app.secret_key = 'adkjfalj.adflja.dfnasdf.asd'
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
-
 @login_manager.user_loader
 def load_user(userid):
     try:
         return models.User.get(models.User.id == userid)
     except models.DoesNotExist:
         return None
-
-
 @app.before_request
 def before_request():
     g.db = models.DATABASE
     g.db.connect()
-
-
 @app.after_request
 def after_request(response):
     g.db.close()
     return response
-
 
 @app.route('/')
 def index():
@@ -53,12 +40,11 @@ def index():
     return render_template("home.html", recipes_template=recipe_data)
     #have a search bar template and inject it in home.html 
 
-
+    
 @app.route('/about')
 @app.route('/about/')
 def about():
     return render_template('about.html')
-
 @app.route('/profile', methods=['GET', 'POST'])
 def users():
     user_id = int(current_user.id)
@@ -68,7 +54,6 @@ def users():
     form = UserForm()
     user_id = request.form.get('user_id', '')
     command = request.form.get('submit', '')
-
     if command == 'Edit':
         user_id = int(current_user.id)
         user = models.User.get(models.User.id == user_id)
@@ -84,6 +69,8 @@ def users():
 @app.route('/reviews')
 @app.route('/reviews/')
 @app.route('/reviews/<review_id>')
+
+
 def reviews(review_id = None):
     if review_id == None:
         reviews = models.Review.select().limit(10)
@@ -92,14 +79,13 @@ def reviews(review_id = None):
         review_id = int(review_id)
         review = models.Reviews.get(models.Reviews.id == review_id)
         return render_template("reviews.html", reviews=reviews)
-
-
 @app.route('/recipes')
 @app.route('/recipes/', methods=['GET', 'POST'])
 @app.route('/recipes/<recipe_id>', methods=['GET', 'POST'])
 def recipes(recipe_id = None):
     if recipe_id == None:
         recipes = models.Recipe.select().limit(10)
+        #recipes = models.Recipe.select().limit(10).where(models.Recipe.user_id == current_user.id)
         form = RecipeForm()
         
         recipeid = request.form.get('recipeid', '')
@@ -147,13 +133,11 @@ def recipes(recipe_id = None):
         print(recipe_id)
         recipe = models.Recipe.get(models.Recipe.id == recipe_id)
         print(recipe_id)
-
         print(models.Review.recipe_id)
         reviews_template = models.Review.select().where(models.Review.recipe_id == recipe_id)
         
         form = ReviewForm()
         reviews = models.Review.select().limit(10)
-
         reviewsid = request.form.get('reviewsid', '')
         command = request.form.get('submit', '')
         if command == 'Delete':
@@ -166,9 +150,7 @@ def recipes(recipe_id = None):
             form.id.data = review.id
             form.rating.data = review.rating
             form.comment.data = review.comment
-
             return render_template("review_form.html", recipe=recipe, form=form, reviews_template=reviews_template)
-
         if form.validate_on_submit():
             if form.id.data == '': 
                 models.Review.create(
@@ -186,8 +168,6 @@ def recipes(recipe_id = None):
             return redirect('/recipes/{}'.format(recipe_id))
         else:
             return render_template("review_form.html", recipe=recipe, form=form, reviews_template=reviews_template)
-
-
 @app.route("/signup", methods=['GET', 'POST'])
 def signup():
     form = RegistrationForm()
@@ -203,8 +183,6 @@ def signup():
             )
         return redirect(url_for('login'))
     return render_template('signup.html', title='Signup', form=form)
-
-
 @app.route('/login', methods=('GET', 'POST'))
 def login():
     form = LoginForm()
@@ -224,19 +202,15 @@ def login():
             else:
                 flash("your email or password doesn't match", "error")
     return render_template('login.html', form=form)
-
-
 @app.route('/logout')
 @login_required
 def logout():
     logout_user()
     flash("You've been logged out", "success")
     return redirect(url_for('index'))
-
 # if 'ON_HEROKU' in os.environ:
 #     print('hitting ')
 #     models.initialize()
-
 if __name__ == '__main__':
     models.initialize()
     try:
@@ -250,6 +224,4 @@ if __name__ == '__main__':
             )
     except ValueError:
         pass
-
     app.run(debug=DEBUG, port=PORT)
-    

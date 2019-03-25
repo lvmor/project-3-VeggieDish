@@ -45,8 +45,8 @@
                                     {% if current_user.id == recipe.user_id.id %}
                                     <form action="" method="POST">
                                         <input name="recipeid" type="hidden" value="{{recipe.id}}">
-                                        {{form.submit(value="Edit")}}
-                                        {{form.submit(value="Delete")}}
+                                        {{form.submit(value="Edit", class_="button is-outlined is-primary")}}
+                                        {{form.submit(value="Delete", class_="button  is-outlined is-danger")}}
                                     </form>
                                     {% endif%}
                                 </div>
