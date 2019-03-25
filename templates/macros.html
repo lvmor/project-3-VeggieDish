@@ -1,15 +1,13 @@
 
 {% macro render_field(field) %}
-<<<<<<< HEAD
-    <div class="field invalid-feedback">
-=======
+
     <div class="field form-group">
->>>>>>> 0ce3b1014aba297dee7a54470059872ca7598e84
         {% if field.errors %}
             {% for error in field.errors %}
                 <div class="notification error invalid-feedback">{{ error }}</div>
             {% endfor %}
         {% endif %}
         {{ field(placeholder=field.label.text) }}
+    </div>
     </div>
 {% endmacro %}
