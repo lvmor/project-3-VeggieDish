@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <!-- saved from url=(0022)http://localhost:8000/ -->
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title></title>
     <link rel="stylesheet" href="./localhost_files/bulma.css">
     <link rel="stylesheet" href="./localhost_files/bootstrap.min.css">
@@ -12,9 +15,10 @@
 
 <body>
     <nav class="navbar" role="navigation" aria-label="main navigation" style="background:transparent;">
-        <div> 
+        <div>
             <a class="navbar-item" href="http://localhost:8000/"></a>
-            <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+            <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
+                data-target="navbarBasicExample">
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
@@ -23,19 +27,23 @@
         <div id="navbarBasicExample" class="navbar-menu">
             <div class="navbar-start">
                 <a class="navbar-item">
-                </a> 
+                </a>
             </div>
 
             <div class="navbar-end">
                 <div class="navbar-item">
-                    
+
                     <div class="buttons">
-                          
-                                  <a class="button is-light" href="http://localhost:8000/about/" title="about"><strong>About</strong></a>
-                                  <a class="button is-light" href="http://localhost:8000/logout" title="logout"><strong>Logout</strong></a>
-                                  <a class="button is-light" href="http://localhost:8000/profile" title="profile"><strong>Profile</strong></a>
-                                  <a class="button is-light" href="http://localhost:8000/recipes/" title="recipes"><strong>Recipes</strong></a>
-                                  
+
+                        <a class="button is-light" href="http://localhost:8000/about/"
+                            title="about"><strong>About</strong></a>
+                        <a class="button is-light" href="http://localhost:8000/logout"
+                            title="logout"><strong>Logout</strong></a>
+                        <a class="button is-light" href="http://localhost:8000/profile"
+                            title="profile"><strong>Profile</strong></a>
+                        <a class="button is-light" href="http://localhost:8000/recipes/"
+                            title="recipes"><strong>Recipes</strong></a>
+
                     </div>
                 </div>
             </div>
@@ -44,92 +52,92 @@
     <br>
     <div class="columns" style="padding: 0 20px">
         <div class="column">
-            
-            
-            
-            
-<video autoplay="" muted="" loop="" id="myVideo">
-    <source src="static/media/veggie-cooking.mp4" type="video/mp4">
-</video>
 
 
-<div class="content">
-    <img id="logo" src="./localhost_files/veggiedish_logo.png" alt="">
-    <div id="veggiedish-hero">
-        <h1> All the vegan and vegetarian recipes you need…</h1>
-        <h3> In one place.</h3>
-    </div>
-</div>
 
-<div class="home-recipes">
-    <h2>Recipes</h2>
-    
-    <a href="http://localhost:8000/recipes/"><button>Create a New Recipe</button></a>
-    
-    <br>
-    <br>
-    <input type="text" class="search" id="myInput" onkeyup="searchFunction()" placeholder="Search by keyword">
-    <br>
-    <div class="all-recipes home-recipes-div">
-        
 
-        <article class="message tile is-4 is-vertical is-parent is-primary">
-            <div class="message-body tile is-child box">
-                <a href="http://localhost:8000/recipes/1">Orangy orange</a>
-                <img src="./localhost_files/ORANGE" alt="">
-                <div>Rating: 0</div>
-                <h4>Description</h4>
-                <div>ORANGE</div>
+            <video autoplay="" muted="" loop="" id="myVideo">
+                <source src="static/media/veggie-cooking.mp4" type="video/mp4">
+            </video>
+
+
+            <div class="content">
+                <img id="logo" src="./localhost_files/veggiedish_logo.png" alt="">
+                <div id="veggiedish-hero">
+                    <h1> All the vegan and vegetarian recipes you need…</h1>
+                    <h3> In one place.</h3>
+                </div>
             </div>
-        </article>
-        
 
-        <article class="message tile is-4 is-vertical is-parent is-primary">
-            <div class="message-body tile is-child box">
-                <a href="http://localhost:8000/recipes/2">asdf</a>
-                <img src="./localhost_files/asdf" alt="">
-                <div>Rating: 0</div>
-                <h4>Description</h4>
-                <div>asdf</div>
-            </div>
-        </article>
-        
+            <div class="home-recipes">
+                <h2>Recipes</h2>
 
-        <article class="message tile is-4 is-vertical is-parent is-primary">
-            <div class="message-body tile is-child box">
-                <a href="http://localhost:8000/recipes/3">Banana bread</a>
-                <img src="./localhost_files/IMG_9960.jpg" alt="">
-                <div>Rating: 0</div>
-                <h4>Description</h4>
-                <div>What else can you do with too-ripe-to-eat bananas?</div>
-            </div>
-        </article>
-        
+                <a href="http://localhost:8000/recipes/"><button>Create a New Recipe</button></a>
 
-        <article class="message tile is-4 is-vertical is-parent is-primary">
-            <div class="message-body tile is-child box">
-                <a href="http://localhost:8000/recipes/4">dfgdfg</a>
-                <img src="./localhost_files/sadf" alt="">
-                <div>Rating: 0</div>
-                <h4>Description</h4>
-                <div>adfg</div>
-            </div>
-        </article>
-        
+                <br>
+                <br>
+                <input type="text" class="search" id="myInput" onkeyup="searchFunction()" placeholder="Search recipes">
+                <br>
+                <div class="all-recipes home-recipes-div">
 
-        <article class="message tile is-4 is-vertical is-parent is-primary">
-            <div class="message-body tile is-child box">
-                <a href="http://localhost:8000/recipes/5">sdfsdfsd</a>
-                <img src="./localhost_files/alt=__">
-                <div>Rating: 0</div>
-                <h4>Description</h4>
-                <div>sdf</div>
+
+                    <article class="message tile is-4 is-vertical is-parent is-primary">
+                        <div class="message-body tile is-child box">
+                            <a href="http://localhost:8000/recipes/1">Orangy orange</a>
+                            <img src="./localhost_files/ORANGE" alt="">
+                            <div>Rating: 0</div>
+                            <h4>Description</h4>
+                            <div>ORANGE</div>
+                        </div>
+                    </article>
+
+
+                    <article class="message tile is-4 is-vertical is-parent is-primary">
+                        <div class="message-body tile is-child box">
+                            <a href="http://localhost:8000/recipes/2">asdf</a>
+                            <img src="./localhost_files/asdf" alt="">
+                            <div>Rating: 0</div>
+                            <h4>Description</h4>
+                            <div>asdf</div>
+                        </div>
+                    </article>
+
+
+                    <article class="message tile is-4 is-vertical is-parent is-primary">
+                        <div class="message-body tile is-child box">
+                            <a href="http://localhost:8000/recipes/3">Banana bread</a>
+                            <img src="./localhost_files/IMG_9960.jpg" alt="">
+                            <div>Rating: 0</div>
+                            <h4>Description</h4>
+                            <div>What else can you do with too-ripe-to-eat bananas?</div>
+                        </div>
+                    </article>
+
+
+                    <article class="message tile is-4 is-vertical is-parent is-primary">
+                        <div class="message-body tile is-child box">
+                            <a href="http://localhost:8000/recipes/4">dfgdfg</a>
+                            <img src="./localhost_files/sadf" alt="">
+                            <div>Rating: 0</div>
+                            <h4>Description</h4>
+                            <div>adfg</div>
+                        </div>
+                    </article>
+
+
+                    <article class="message tile is-4 is-vertical is-parent is-primary">
+                        <div class="message-body tile is-child box">
+                            <a href="http://localhost:8000/recipes/5">sdfsdfsd</a>
+                            <img src="./localhost_files/alt=__">
+                            <div>Rating: 0</div>
+                            <h4>Description</h4>
+                            <div>sdf</div>
+                        </div>
+                    </article>
+
+                </div>
+                <br>
             </div>
-        </article>
-        
-    </div>
-    <br>
-</div>
 
 
 
@@ -140,4 +148,6 @@
     <script src="./localhost_files/index.js"></script>
 
 
-</body></html>
+</body>
+
+</html>
