@@ -6,7 +6,7 @@
     <div class="user-profile-box media column is-half">
         <article class="message secondary">
             <div class="profile-pic">
-                <img class="rounded-circle account-img" src="{{ user.avatar }}">
+                <img class="rounded-circle account-img" src="{{ user.avatar }}" style="height: 500px; width: auto;">
             </div>
             <div class="media-body message-body">
                 <h2 class="account-heading">Name: <span>{{user.full_name}}</span></h2>
@@ -27,12 +27,6 @@
 <style>
     .profile-wrapper {
         padding-top: 2em;
-    }
-
-    .profile-pic {
-        height: 200px;
-        width: auto;
-
     }
 
     .user-profile-box,
