@@ -56,7 +56,6 @@ Changes we would make to our project if we continued to work on it:
 ##### Screenshot
 
 
-
 ---
 
 #### Biggest Wins and Challenges
@@ -74,3 +73,16 @@ Challenges
 - Heroku.
 
 ---
+
+
+#### Code snippet embedding reviews onto reciepes and creating functionality for them on recipes route
+
+![Screenshot](../master/assets/code-snippet-veggiedish.png)
+
+#### Code snippet for reviews JS functionality
+
+![Screenshot](../master/assets/code-snippet-js.png)
+
+#### Code snippet for auth
+
+![Screenshot ](../master/assets/Project-3-auth.png)

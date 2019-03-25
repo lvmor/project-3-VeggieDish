@@ -1,17 +1,17 @@
 
 // Search Function
 function searchFunction() {
-    var input = document.getElementById('myInput');
+    let input = document.getElementById('myInput');
     console.log(input.value)
-    var filter = input.value.toUpperCase();
-    var list = document.getElementsByClassName("all-recipes")[0];
+    let filter = input.value.toUpperCase();
+    let list = document.getElementsByClassName("all-recipes")[0];
     console.log(list)
-    var div = list.getElementsByClassName("message");
+    let div = list.getElementsByClassName("message");
     console.log(div)
-    for (var i = 0; i < div.length; i++) {
-        var desc = div[i];
+    for (let i = 0; i < div.length; i++) {
+        let desc = div[i];
         console.log(desc)
-        var txtValue = desc.textContent || desc.outerText;
+        let txtValue = desc.textContent || desc.outerText;
         if (txtValue.toUpperCase().indexOf(filter) > -1) {
             div[i].style.display = "block";
         }
@@ -21,56 +21,32 @@ function searchFunction() {
     }
 }
 
-
-var reviewsList = document.getElementById('all-reviews');
-console.log(reviewsList)
-var reviews = reviewsList.getElementsByClassName("message-body");
-console.log(reviews)
-//function allReviews() {
+let reviewsList = document.getElementById('all-reviews');
+let reviews = reviewsList.getElementsByClassName("message-body");
 let sum = 0
-let amount = 0
-for (var i = 0; i < reviews.length; i++) {
-    var rating = reviews[i].innerText.charAt(0)
-    var ratingInt = parseInt(rating)
+
+for (let i = 0; i < reviews.length; i++) {
+    let rating = reviews[i].innerText.charAt(0)
+    let ratingInt = parseInt(rating)
     sum = sum + ratingInt;
-    amount++;
 }
-let average = 0.0;
-if (sum != 0) {
-    let avg = (sum / amount)
+
+let roundedAverage = 0.0;
+
+if (reviews.length != 0) {
+    let average = (sum / reviews.length)
     //tofixed rounds the rating to the first decimal place
-    average = avg.toFixed(1);
+    roundedAverage = average.toFixed(1);
 }
 let averageDiv = document.getElementById("averageDiv");
-if (average == 0) {
+
+if (roundedAverage == 0) {
     averageDiv.innerText = `Be the first to rate this recipe!`;
 }
 else {
-    averageDiv.innerText = `Average Rating: ${average}`;
+    averageDiv.innerText = `Average Rating: ${roundedAverage}`;
 }
 
 let numberOfRatings = document.getElementById("numberOfRatings");
-numberOfRatings.innerText = `Number of ratings: ${amount}`;
-
-
-
-
-// function openRecipeForm() {
-//     var recipeForm = document.getElementsByClassName("recipe-form")[0];
-//     var createRecipeButton = document.getElementsByClassName("create-recipe")[0];
-//     if (recipeForm.style.display != 'none') {
-//     recipeForm.style.display = 'none';
-//     createRecipeButton.innerText = 'Create New Recipe';
-//     }
-//     else if (recipeForm.style.display == 'none') {
-//         recipeForm.style.display = 'block';
-//         createRecipeButton.innerText = 'Close form';
-//     }
-// }
-
-//grab the recipe form div
-//change display to none 
-
-
-
+numberOfRatings.innerText = `Number of ratings: ${reviews.length}`;
 document.getElementById("myVideo").playbackRate = 0.7;

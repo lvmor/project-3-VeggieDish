@@ -11,6 +11,14 @@
     margin-left: -.5em; */
 }
 
+.veggiedish-nav {
+    text-decoration: none;
+}
+
+.veggiedish-nav:hover {
+    text-decoration: none;
+}
+
 #logo {
     height: 500px;
     width: auto;
@@ -187,7 +195,6 @@ h3 {
 .group-photo {
     text-align: center;
 }
-
 
 .group-photo img {
     width: 600px;
