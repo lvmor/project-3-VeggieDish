@@ -126,14 +126,13 @@ def recipes(recipe_id = None):
             return redirect('/recipes')
         return render_template("recipes.html", recipes_template=recipes, form=form)
     else: 
-        print("HELLO FROM line 159")
-        
         recipe_id = int(recipe_id)
-        print("HELLO FROM line 162")
-        print(recipe_id)
         recipe = models.Recipe.get(models.Recipe.id == recipe_id)
+<<<<<<< HEAD
         print(recipe_id)
         print(models.Review.recipe_id)
+=======
+>>>>>>> 6424b009ae647692ffac6d296ef1685fafff5d61
         reviews_template = models.Review.select().where(models.Review.recipe_id == recipe_id)
         
         form = ReviewForm()
