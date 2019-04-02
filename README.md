@@ -75,7 +75,7 @@ Challenges
 ---
 
 
-#### Code snippet embedding reviews onto reciepes and creating functionality for them on recipes route
+#### Code snippet embedding reviews onto recipes and creating functionality for them on recipes route
 
 ![Screenshot](../master/assets/code-snippet-veggiedish.png)
 
